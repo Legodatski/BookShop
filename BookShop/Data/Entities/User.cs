@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookShop.Data.Entities
 {
@@ -23,9 +24,13 @@ namespace BookShop.Data.Entities
         [Required]
         public virtual ICollection<Book> Books { get; init; }
 
-        public School School { get; init; }
+        public School School { get; init; } = null!;
 
         [Required]
-        public Town Town { get; set; }
+        public Town Town { get; init; } = null!;
+
+
+        [ForeignKey(nameof(Town))]
+        public int? TownId { get; init; }
     }
 }

@@ -10,14 +10,14 @@ namespace BookShop.Data.Entities
         }
 
         [Key]
-        public int Id { get; set; }
+        public int Id { get; init; }
 
         [Required]
         [MaxLength(GlobalConstants.PublisherNameMaxLenght)]
         [MinLength(GlobalConstants.PublisherNameMinLenght)]
-        public string Name { get; set; }
+        public string Name { get; init; } = null!;
 
         [Required]
-        public ICollection<Author> Authors { get; set; } = null!;
+        public ICollection<Author> Authors { get; init; } = null!;
     }
 }

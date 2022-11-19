@@ -24,5 +24,21 @@
         //Book
         public const int BookTitleMaxLenght = 20;
         public const int BookTitleMinLenght = 3;
+
+        public const int BookYearMax = 2023;
+        public const int BookYearMin = 1999;
+
+        public const int BookGradeMax = 13;
+        public const int BookGradeMin = 1;
+
+        public const double BookPriceMax = double.MaxValue;
+        public const double BookPriceMin = 0.1;
+
+        //Author
+        public const int AuthorFirstNameMax = 20;
+        public const int AuthorFirstNameMin = 2;
+
+        public const int AuthorLastNameMax = 20;
+        public const int AuthorLastNameMin = 2;
     }
 }
