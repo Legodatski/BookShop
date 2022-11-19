@@ -34,5 +34,10 @@ namespace BookShop.Data.Entities
 
         [Range(GlobalConstants.BookPriceMin, GlobalConstants.BookPriceMax)]
         public decimal Price { get; init; }
+
+        public Publisher Publisher { get; set; }
+
+        [ForeignKey(nameof(Publisher))]
+        public int PublisherId { get; set; }
     }
 }
