@@ -1,0 +1,68 @@
+studentBook
+	id {int}
+	title {string}
+	images URLs {string}
+	publisher {Publisher}
+	year {date.year}
+	grade {int 1;12}
+	owner {User}
+	subject {Subject}
+	price {decimal (6,2)}
+
+publisher
+	Name
+	Authors
+
+PublisherAuthor
+	PublisherId
+	AuthorId
+
+Author
+	Publishers
+	FirstName
+	LastName
+
+user
+	FirstName
+	LastName
+	StudentBooks
+	School
+	Town/City
+
+Town
+	Name
+	Location
+
+school
+	Name
+	Town
+	Type
+		Highschool
+		Middleschool
+		Primaryschool
+
+subject
+	Математика
+	Български език
+	Литература
+	Английски език
+	Изобразително изкуство
+	Музика
+	Други
+	История и цивилизации
+	Философия
+	География и икономика
+	Физика и астрономия
+	Химия и опазване на околната среда
+	Биология и здравно образувание
+	Руски език
+	Немски език
+	
+
+-----------------------
+controllers
+	UserController
+	HomeController
+	BooksController
+	OnlineBooksController
+	AdminController
