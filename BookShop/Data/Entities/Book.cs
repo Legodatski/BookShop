@@ -39,5 +39,10 @@ namespace BookShop.Data.Entities
 
         [ForeignKey(nameof(Publisher))]
         public int PublisherId { get; set; }
+
+        public DateTime datePublished { get; set; }
+
+        [Required]
+        public bool IsDeleted { get; set; }
     }
 }

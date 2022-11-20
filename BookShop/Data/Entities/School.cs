@@ -29,5 +29,7 @@ namespace BookShop.Data.Entities
         public SchoolTypes SchoolType { get; init; }
 
         public ICollection<User> Students { get; init; }
+
+        public bool IsDeleted { get; set; }
     }
 }

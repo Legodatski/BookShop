@@ -20,5 +20,7 @@ namespace BookShop.Data.Entities
         public string Location { get; init; } = null!;
 
         public ICollection<User> Citizents { get; set; }
+
+        public bool IsDeleted { get; set; }
     }
 }

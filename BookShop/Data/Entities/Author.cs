@@ -25,5 +25,7 @@ namespace BookShop.Data.Entities
         public string LastName { get; init; } = null!;
 
         public ICollection<Publisher> Publishers { get; set; }
+
+        public bool IsDeleted { get; set; }
     }
 }

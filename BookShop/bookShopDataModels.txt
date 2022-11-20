@@ -66,3 +66,11 @@ controllers
 	BooksController
 	GeolocationController
 	AdminController
+
+----------------------
+views
+	HomeController
+		Home
+			Last 'n' products published
+	BookController
+	

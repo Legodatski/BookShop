@@ -19,5 +19,7 @@ namespace BookShop.Data.Entities
 
         [Required]
         public ICollection<Author> Authors { get; init; } = null!;
+
+        public bool IsDeleted { get; set; }
     }
 }

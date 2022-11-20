@@ -32,5 +32,7 @@ namespace BookShop.Data.Entities
 
         [ForeignKey(nameof(Town))]
         public int? TownId { get; init; }
+
+        public bool IsDeleted { get; set; }
     }
 }
