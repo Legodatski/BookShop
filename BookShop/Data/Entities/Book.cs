@@ -29,16 +29,20 @@ namespace BookShop.Data.Entities
         [ForeignKey(nameof(Owner))]
         public string OwnerId { get; init; } = null!;
 
-        [Required]
-        public SubjectTypes Subject { get; init; }
-
         [Range(GlobalConstants.BookPriceMin, GlobalConstants.BookPriceMax)]
         public decimal Price { get; init; }
 
-        public Publisher Publisher { get; set; }
+        [Required]
+        public Publisher Publisher { get; set; } = null!;
 
         [ForeignKey(nameof(Publisher))]
         public int PublisherId { get; set; }
+
+        [Required]
+        public SubjectType SubjectType { get; set; } = null!;
+
+        [ForeignKey(nameof(SubjectType))]
+        public int BookTypeId { get; set; }
 
         public DateTime datePublished { get; set; }
 

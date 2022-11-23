@@ -1,4 +1,4 @@
-studentBook
+StudentBooks
 	id {int}
 	title {string}
 	images URLs {string}
@@ -8,40 +8,45 @@ studentBook
 	owner {User}
 	subject {Subject}
 	price {decimal (6,2)}
+	isDeleted {bool}
 
-publisher
+Publishers
 	Name
 	Authors
+	isDeleted {bool}
 
-PublisherAuthor
+PublishersAuthors
 	PublisherId
 	AuthorId
 
-Author
+Authors
 	Publishers
 	FirstName
 	LastName
+	isDeleted {bool}
 
-user
+Users
 	FirstName
 	LastName
 	StudentBooks
 	School
 	Town/City
 
-Town
+Towns
 	Name
 	Location
+	isDeleted {bool}
 
-school
+Schools
 	Name
 	Town
-	Type
+	Type {enum}
 		Highschool
 		Middleschool
 		Primaryschool
+	isDeleted {bool}
 
-subject
+Subject {enum}
 	Математика
 	Български език
 	Литература
