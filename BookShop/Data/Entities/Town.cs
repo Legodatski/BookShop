@@ -17,10 +17,11 @@ namespace BookShop.Data.Entities
         [MinLength(GlobalConstants.TownNameMinLenght)]
         public string Name { get; init; } = null!;
 
-        public string Location { get; init; } = null!;
+        public string Location { get; init; }
 
         public ICollection<User> Citizents { get; set; }
 
+        [Required]
         public bool IsDeleted { get; set; }
     }
 }

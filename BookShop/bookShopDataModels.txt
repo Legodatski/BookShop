@@ -31,6 +31,7 @@ Users
 	StudentBooks
 	School
 	Town/City
+	Balance
 
 Towns
 	Name
@@ -67,15 +68,27 @@ Subject {enum}
 -----------------------
 controllers
 	UserController
-	HomeController
-	BooksController
-	GeolocationController
-	AdminController
+		Login
+		Register
+		ViewProfile
+			Edit Balance
 
-----------------------
-views
 	HomeController
-		Home
+		Index
 			Last 'n' products published
-	BookController
-	
+
+	BookController [Authorize]
+		All products published [AllowAnonymous]
+			Can be sorted via date, name, type, grade
+		Add [HttpPost]
+		Buy [HttpPost]
+		Edit [HttpPost]
+		Delete [HttpPost]
+		Details [HttpPost]
+
+	GeolocationController
+		Load particial view with location of town/user
+
+	AdminController
+		Add SubjectType
+		View statistics
