@@ -34,7 +34,7 @@ namespace BookShop.Data.Migrations
 
                     b.HasIndex("PublishersId");
 
-                    b.ToTable("AuthorPublisher");
+                    b.ToTable("AuthorPublisher", (string)null);
                 });
 
             modelBuilder.Entity("BookShop.Data.Entities.Author", b =>
@@ -60,7 +60,7 @@ namespace BookShop.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Authors");
+                    b.ToTable("Authors", (string)null);
                 });
 
             modelBuilder.Entity("BookShop.Data.Entities.Book", b =>
@@ -109,7 +109,7 @@ namespace BookShop.Data.Migrations
 
                     b.HasIndex("PublisherId");
 
-                    b.ToTable("Books");
+                    b.ToTable("Books", (string)null);
                 });
 
             modelBuilder.Entity("BookShop.Data.Entities.Publisher", b =>
@@ -130,7 +130,7 @@ namespace BookShop.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Publishers");
+                    b.ToTable("Publishers", (string)null);
                 });
 
             modelBuilder.Entity("BookShop.Data.Entities.School", b =>
@@ -159,7 +159,7 @@ namespace BookShop.Data.Migrations
 
                     b.HasIndex("TownId");
 
-                    b.ToTable("Schools");
+                    b.ToTable("Schools", (string)null);
 
                     b.HasData(
                         new
@@ -210,7 +210,7 @@ namespace BookShop.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SubjectTypes");
+                    b.ToTable("SubjectTypes", (string)null);
 
                     b.HasData(
                         new
@@ -262,7 +262,7 @@ namespace BookShop.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Towns");
+                    b.ToTable("Towns", (string)null);
 
                     b.HasData(
                         new
