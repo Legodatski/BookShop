@@ -9,6 +9,9 @@
         public const int LastNameMaxLenght = 15;
         public const int LastNameMinLenght = 2;
 
+        public const int PasswordMaxLenght = 10;
+        public const int PasswordMinLenght = 5;
+
         //Town
         public const int TownNameMaxLenght = 50;
         public const int TownNameMinLenght = 3;

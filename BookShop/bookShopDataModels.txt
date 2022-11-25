@@ -1,13 +1,14 @@
 StudentBooks
 	id {int}
 	title {string}
-	images URLs {string}
+	images URL {string}
 	publisher {Publisher}
 	year {date.year}
 	grade {int 1;12}
 	owner {User}
 	subject {Subject}
 	price {decimal (6,2)}
+	DateCreated
 	isDeleted {bool}
 
 Publishers

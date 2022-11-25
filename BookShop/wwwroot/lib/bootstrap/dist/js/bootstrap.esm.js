@@ -1049,7 +1049,7 @@ const SelectorEngine = {
   },
 
   focusableChildren(element) {
-    const focusables = ['a', 'button', 'input', 'textarea', 'select', 'details', '[tabindex]', '[contenteditable="true"]'].map(selector => `${selector}:not([tabindex^="-"])`).join(', ');
+    const focusables = ['a', 'button', 'Model', 'textarea', 'select', 'details', '[tabindex]', '[contenteditable="true"]'].map(selector => `${selector}:not([tabindex^="-"])`).join(', ');
     return this.find(focusables, element).filter(el => !isDisabled(el) && isVisible(el));
   }
 
@@ -1337,7 +1337,7 @@ class Carousel extends BaseComponent {
   }
 
   _keydown(event) {
-    if (/input|textarea/i.test(event.target.tagName)) {
+    if (/Model|textarea/i.test(event.target.tagName)) {
       return;
     }
 
@@ -2287,10 +2287,10 @@ class Dropdown extends BaseComponent {
 
         if (composedPath.includes(context._element) || context._config.autoClose === 'inside' && !isMenuTarget || context._config.autoClose === 'outside' && isMenuTarget) {
           continue;
-        } // Tab navigation through the dropdown menu or events from contained inputs shouldn't close the menu
+        } // Tab navigation through the dropdown menu or events from contained Models shouldn't close the menu
 
 
-        if (context._menu.contains(event.target) && (event.type === 'keyup' && event.key === TAB_KEY$1 || /input|select|option|textarea|form/i.test(event.target.tagName))) {
+        if (context._menu.contains(event.target) && (event.type === 'keyup' && event.key === TAB_KEY$1 || /Model|select|option|textarea|form/i.test(event.target.tagName))) {
           continue;
         }
 
@@ -2308,14 +2308,14 @@ class Dropdown extends BaseComponent {
   }
 
   static dataApiKeydownHandler(event) {
-    // If not input/textarea:
+    // If not Model/textarea:
     //  - And not a key in REGEXP_KEYDOWN => not a dropdown command
-    // If input/textarea:
+    // If Model/textarea:
     //  - If space key => not a dropdown command
     //  - If key is other than escape
     //    - If key is not up or down => not a dropdown command
     //    - If trigger inside the menu => not a dropdown command
-    if (/input|textarea/i.test(event.target.tagName) ? event.key === SPACE_KEY || event.key !== ESCAPE_KEY$2 && (event.key !== ARROW_DOWN_KEY && event.key !== ARROW_UP_KEY || event.target.closest(SELECTOR_MENU)) : !REGEXP_KEYDOWN.test(event.key)) {
+    if (/Model|textarea/i.test(event.target.tagName) ? event.key === SPACE_KEY || event.key !== ESCAPE_KEY$2 && (event.key !== ARROW_DOWN_KEY && event.key !== ARROW_UP_KEY || event.target.closest(SELECTOR_MENU)) : !REGEXP_KEYDOWN.test(event.key)) {
       return;
     }
 

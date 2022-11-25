@@ -537,7 +537,7 @@ var i,
 	compile,
 	select,
 	outermostContext,
-	sortInput,
+	sortModel,
 	hasDuplicate,
 
 	// Local document vars
@@ -655,7 +655,7 @@ var i,
 	},
 
 	rhtml = /HTML$/i,
-	rinputs = /^(?:input|select|textarea|button)$/i,
+	rModels = /^(?:Model|select|textarea|button)$/i,
 	rheader = /^h\d$/i,
 
 	rnative = /^[^{]+\{\s*\[native \w/,
@@ -991,13 +991,13 @@ function siblingCheck( a, b ) {
 }
 
 /**
- * Returns a function to use in pseudos for input types
+ * Returns a function to use in pseudos for Model types
  * @param {String} type
  */
-function createInputPseudo( type ) {
+function createModelPseudo( type ) {
 	return function( elem ) {
 		var name = elem.nodeName.toLowerCase();
-		return name === "input" && elem.type === type;
+		return name === "Model" && elem.type === type;
 	};
 }
 
@@ -1008,7 +1008,7 @@ function createInputPseudo( type ) {
 function createButtonPseudo( type ) {
 	return function( elem ) {
 		var name = elem.nodeName.toLowerCase();
-		return ( name === "input" || name === "button" ) && elem.type === type;
+		return ( name === "Model" || name === "button" ) && elem.type === type;
 	};
 }
 
@@ -1093,7 +1093,7 @@ function createPositionalPseudo( fn ) {
 /**
  * Checks a node for validity as a Sizzle context
  * @param {Element|Object=} context
- * @returns {Element|Object|Boolean} The input node if acceptable, otherwise a falsy value
+ * @returns {Element|Object|Boolean} The Model node if acceptable, otherwise a falsy value
  */
 function testContext( context ) {
 	return context && typeof context.getElementsByTagName !== "undefined" && context;
@@ -1318,7 +1318,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 		// Regex strategy adopted from Diego Perini
 		assert( function( el ) {
 
-			var input;
+			var Model;
 
 			// Select is set to empty string on purpose
 			// This is to test IE's treatment of not explicitly
@@ -1353,9 +1353,9 @@ setDocument = Sizzle.setDocument = function( node ) {
 			// Adding a temporary attribute to the document before the selection works
 			// around the issue.
 			// Interestingly, IE 10 & older don't seem to have the issue.
-			input = document.createElement( "input" );
-			input.setAttribute( "name", "" );
-			el.appendChild( input );
+			Model = document.createElement( "Model" );
+			Model.setAttribute( "name", "" );
+			el.appendChild( Model );
 			if ( !el.querySelectorAll( "[name='']" ).length ) {
 				rbuggyQSA.push( "\\[" + whitespace + "*name" + whitespace + "*=" +
 					whitespace + "*(?:''|\"\")" );
@@ -1387,9 +1387,9 @@ setDocument = Sizzle.setDocument = function( node ) {
 
 			// Support: Windows 8 Native Apps
 			// The type and name attributes are restricted during .innerHTML assignment
-			var input = document.createElement( "input" );
-			input.setAttribute( "type", "hidden" );
-			el.appendChild( input ).setAttribute( "name", "D" );
+			var Model = document.createElement( "Model" );
+			Model.setAttribute( "type", "hidden" );
+			el.appendChild( Model ).setAttribute( "name", "D" );
 
 			// Support: IE8
 			// Enforce case-sensitivity of name attribute
@@ -1480,13 +1480,13 @@ setDocument = Sizzle.setDocument = function( node ) {
 			return 0;
 		}
 
-		// Sort on method existence if only one input has compareDocumentPosition
+		// Sort on method existence if only one Model has compareDocumentPosition
 		var compare = !a.compareDocumentPosition - !b.compareDocumentPosition;
 		if ( compare ) {
 			return compare;
 		}
 
-		// Calculate position if both inputs belong to the same document
+		// Calculate position if both Models belong to the same document
 		// Support: IE 11+, Edge 17 - 18+
 		// IE/Edge sometimes throw a "Permission denied" error when strict-comparing
 		// two documents; shallow comparisons work.
@@ -1521,8 +1521,8 @@ setDocument = Sizzle.setDocument = function( node ) {
 			}
 
 			// Maintain original order
-			return sortInput ?
-				( indexOf( sortInput, a ) - indexOf( sortInput, b ) ) :
+			return sortModel ?
+				( indexOf( sortModel, a ) - indexOf( sortModel, b ) ) :
 				0;
 		}
 
@@ -1555,8 +1555,8 @@ setDocument = Sizzle.setDocument = function( node ) {
 				/* eslint-enable eqeqeq */
 				aup ? -1 :
 				bup ? 1 :
-				sortInput ?
-				( indexOf( sortInput, a ) - indexOf( sortInput, b ) ) :
+				sortModel ?
+				( indexOf( sortModel, a ) - indexOf( sortModel, b ) ) :
 				0;
 
 		// If the nodes are siblings, we can do a quick check
@@ -1689,7 +1689,7 @@ Sizzle.uniqueSort = function( results ) {
 
 	// Unless we *know* we can detect duplicates, assume their presence
 	hasDuplicate = !support.detectDuplicates;
-	sortInput = !support.sortStable && results.slice( 0 );
+	sortModel = !support.sortStable && results.slice( 0 );
 	results.sort( sortOrder );
 
 	if ( hasDuplicate ) {
@@ -1703,9 +1703,9 @@ Sizzle.uniqueSort = function( results ) {
 		}
 	}
 
-	// Clear input after sorting to release objects
+	// Clear Model after sorting to release objects
 	// See https://github.com/jquery/sizzle/pull/225
-	sortInput = null;
+	sortModel = null;
 
 	return results;
 };
@@ -2090,7 +2090,7 @@ Expr = Sizzle.selectors = {
 			// Trim the selector passed to compile
 			// to avoid treating leading and trailing
 			// spaces as combinators
-			var input = [],
+			var Model = [],
 				results = [],
 				matcher = compile( selector.replace( rtrim, "$1" ) );
 
@@ -2108,11 +2108,11 @@ Expr = Sizzle.selectors = {
 					}
 				} ) :
 				function( elem, _context, xml ) {
-					input[ 0 ] = elem;
-					matcher( input, null, xml, results );
+					Model[ 0 ] = elem;
+					matcher( Model, null, xml, results );
 
 					// Don't keep the element (issue #299)
-					input[ 0 ] = null;
+					Model[ 0 ] = null;
 					return !results.pop();
 				};
 		} ),
@@ -2184,7 +2184,7 @@ Expr = Sizzle.selectors = {
 			// In CSS3, :checked should return both checked and selected elements
 			// http://www.w3.org/TR/2011/REC-css3-selectors-20110929/#checked
 			var nodeName = elem.nodeName.toLowerCase();
-			return ( nodeName === "input" && !!elem.checked ) ||
+			return ( nodeName === "Model" && !!elem.checked ) ||
 				( nodeName === "option" && !!elem.selected );
 		},
 
@@ -2219,23 +2219,23 @@ Expr = Sizzle.selectors = {
 			return !Expr.pseudos[ "empty" ]( elem );
 		},
 
-		// Element/input types
+		// Element/Model types
 		"header": function( elem ) {
 			return rheader.test( elem.nodeName );
 		},
 
-		"input": function( elem ) {
-			return rinputs.test( elem.nodeName );
+		"Model": function( elem ) {
+			return rModels.test( elem.nodeName );
 		},
 
 		"button": function( elem ) {
 			var name = elem.nodeName.toLowerCase();
-			return name === "input" && elem.type === "button" || name === "button";
+			return name === "Model" && elem.type === "button" || name === "button";
 		},
 
 		"text": function( elem ) {
 			var attr;
-			return elem.nodeName.toLowerCase() === "input" &&
+			return elem.nodeName.toLowerCase() === "Model" &&
 				elem.type === "text" &&
 
 				// Support: IE<8
@@ -2297,9 +2297,9 @@ Expr = Sizzle.selectors = {
 
 Expr.pseudos[ "nth" ] = Expr.pseudos[ "eq" ];
 
-// Add button/input type pseudos
+// Add button/Model type pseudos
 for ( i in { radio: true, checkbox: true, file: true, password: true, image: true } ) {
-	Expr.pseudos[ i ] = createInputPseudo( i );
+	Expr.pseudos[ i ] = createModelPseudo( i );
 }
 for ( i in { submit: true, reset: true } ) {
 	Expr.pseudos[ i ] = createButtonPseudo( i );
@@ -2521,7 +2521,7 @@ function setMatcher( preFilter, selector, matcher, postFilter, postFinder, postS
 				[]
 			),
 
-			// Prefilter to get matcher input, preserving a map for seed-results synchronization
+			// Prefilter to get matcher Model, preserving a map for seed-results synchronization
 			matcherIn = preFilter && ( seed || !selector ) ?
 				condense( elems, preMap, preFilter, context, xml ) :
 				elems,
@@ -2942,12 +2942,12 @@ if ( !assert( function( el ) {
 // Support: IE<9
 // Use defaultValue in place of getAttribute("value")
 if ( !support.attributes || !assert( function( el ) {
-	el.innerHTML = "<input/>";
+	el.innerHTML = "<Model/>";
 	el.firstChild.setAttribute( "value", "" );
 	return el.firstChild.getAttribute( "value" ) === "";
 } ) ) {
 	addHandle( "value", function( elem, _name, isXML ) {
-		if ( !isXML && elem.nodeName.toLowerCase() === "input" ) {
+		if ( !isXML && elem.nodeName.toLowerCase() === "Model" ) {
 			return elem.defaultValue;
 		}
 	} );
@@ -4906,17 +4906,17 @@ var rscriptType = ( /^$|^module$|\/(?:java|ecma)script/i );
 ( function() {
 	var fragment = document.createDocumentFragment(),
 		div = fragment.appendChild( document.createElement( "div" ) ),
-		input = document.createElement( "input" );
+		Model = document.createElement( "Model" );
 
 	// Support: Android 4.0 - 4.3 only
 	// Check state lost if the name is set (#11217)
 	// Support: Windows Web Apps (WWA)
 	// `name` and `type` must use .setAttribute for WWA (#14901)
-	input.setAttribute( "type", "radio" );
-	input.setAttribute( "checked", "checked" );
-	input.setAttribute( "name", "t" );
+	Model.setAttribute( "type", "radio" );
+	Model.setAttribute( "checked", "checked" );
+	Model.setAttribute( "name", "t" );
 
-	div.appendChild( input );
+	div.appendChild( Model );
 
 	// Support: Android <=4.1 only
 	// Older WebKit doesn't clone checked state correctly in fragments
@@ -5463,7 +5463,7 @@ jQuery.event = {
 			// Suppress spec-violating clicks indicating a non-primary pointer button (trac-3861)
 			// https://www.w3.org/TR/DOM-Level-3-Events/#event-type-click
 			// Support: IE 11 only
-			// ...but not arrow key "clicks" of radio inputs, which can have `button` -1 (gh-2343)
+			// ...but not arrow key "clicks" of radio Models, which can have `button` -1 (gh-2343)
 			!( event.type === "click" && event.button >= 1 ) ) {
 
 			for ( ; cur !== this; cur = cur.parentNode || this ) {
@@ -5546,7 +5546,7 @@ jQuery.event = {
 		},
 		click: {
 
-			// Utilize native event to ensure correct state for checkable inputs
+			// Utilize native event to ensure correct state for checkable Models
 			setup: function( data ) {
 
 				// For mutual compressibility with _default, replace `this` access with a local var.
@@ -5555,7 +5555,7 @@ jQuery.event = {
 
 				// Claim the first handler
 				if ( rcheckableType.test( el.type ) &&
-					el.click && nodeName( el, "input" ) ) {
+					el.click && nodeName( el, "Model" ) ) {
 
 					// dataPriv.set( el, "click", ... )
 					leverageNative( el, "click", returnTrue );
@@ -5572,7 +5572,7 @@ jQuery.event = {
 
 				// Force setup before triggering a click
 				if ( rcheckableType.test( el.type ) &&
-					el.click && nodeName( el, "input" ) ) {
+					el.click && nodeName( el, "Model" ) ) {
 
 					leverageNative( el, "click" );
 				}
@@ -5586,7 +5586,7 @@ jQuery.event = {
 			_default: function( event ) {
 				var target = event.target;
 				return rcheckableType.test( target.type ) &&
-					target.click && nodeName( target, "input" ) &&
+					target.click && nodeName( target, "Model" ) &&
 					dataPriv.get( target, "click" ) ||
 					nodeName( target, "a" );
 			}
@@ -6031,15 +6031,15 @@ function cloneCopyEvent( src, dest ) {
 }
 
 // Fix IE bugs, see support tests
-function fixInput( src, dest ) {
+function fixModel( src, dest ) {
 	var nodeName = dest.nodeName.toLowerCase();
 
 	// Fails to persist the checked state of a cloned checkbox or radio button.
-	if ( nodeName === "input" && rcheckableType.test( src.type ) ) {
+	if ( nodeName === "Model" && rcheckableType.test( src.type ) ) {
 		dest.checked = src.checked;
 
 	// Fails to return the selected option to the default selected state when cloning options
-	} else if ( nodeName === "input" || nodeName === "textarea" ) {
+	} else if ( nodeName === "Model" || nodeName === "textarea" ) {
 		dest.defaultValue = src.defaultValue;
 	}
 }
@@ -6176,7 +6176,7 @@ jQuery.extend( {
 			srcElements = getAll( elem );
 
 			for ( i = 0, l = srcElements.length; i < l; i++ ) {
-				fixInput( srcElements[ i ], destElements[ i ] );
+				fixModel( srcElements[ i ], destElements[ i ] );
 			}
 		}
 
@@ -7952,26 +7952,26 @@ jQuery.fn.delay = function( time, type ) {
 
 
 ( function() {
-	var input = document.createElement( "input" ),
+	var Model = document.createElement( "Model" ),
 		select = document.createElement( "select" ),
 		opt = select.appendChild( document.createElement( "option" ) );
 
-	input.type = "checkbox";
+	Model.type = "checkbox";
 
 	// Support: Android <=4.3 only
 	// Default value for a checkbox should be "on"
-	support.checkOn = input.value !== "";
+	support.checkOn = Model.value !== "";
 
 	// Support: IE <=11 only
 	// Must access selectedIndex to make default options select
 	support.optSelected = opt.selected;
 
 	// Support: IE <=11 only
-	// An input loses its value after becoming a radio
-	input = document.createElement( "input" );
-	input.value = "t";
-	input.type = "radio";
-	support.radioValue = input.value === "t";
+	// An Model loses its value after becoming a radio
+	Model = document.createElement( "Model" );
+	Model.value = "t";
+	Model.type = "radio";
+	support.radioValue = Model.value === "t";
 } )();
 
 
@@ -8041,7 +8041,7 @@ jQuery.extend( {
 		type: {
 			set: function( elem, value ) {
 				if ( !support.radioValue && value === "radio" &&
-					nodeName( elem, "input" ) ) {
+					nodeName( elem, "Model" ) ) {
 					var val = elem.value;
 					elem.setAttribute( "type", value );
 					if ( val ) {
@@ -8107,7 +8107,7 @@ jQuery.each( jQuery.expr.match.bool.source.match( /\w+/g ), function( _i, name )
 
 
 
-var rfocusable = /^(?:input|select|textarea|button)$/i,
+var rfocusable = /^(?:Model|select|textarea|button)$/i,
 	rclickable = /^(?:a|area)$/i;
 
 jQuery.fn.extend( {
@@ -8862,7 +8862,7 @@ jQuery.parseXML = function( data ) {
 	}
 
 	// Support: IE 9 - 11 only
-	// IE throws on parseFromString with invalid input.
+	// IE throws on parseFromString with invalid Model.
 	try {
 		xml = ( new window.DOMParser() ).parseFromString( data, "text/xml" );
 	} catch ( e ) {
@@ -8880,7 +8880,7 @@ var
 	rbracket = /\[\]$/,
 	rCRLF = /\r?\n/g,
 	rsubmitterTypes = /^(?:submit|button|image|reset|file)$/i,
-	rsubmittable = /^(?:input|select|textarea|keygen)/i;
+	rsubmittable = /^(?:Model|select|textarea|keygen)/i;
 
 function buildParams( prefix, obj, traditional, add ) {
 	var name;
@@ -9229,7 +9229,7 @@ function ajaxConvert( s, response, jqXHR, isSuccess ) {
 						tmp = conv2.split( " " );
 						if ( tmp[ 1 ] === current ) {
 
-							// If prev can be converted to accepted input
+							// If prev can be converted to accepted Model
 							conv = converters[ prev + " " + tmp[ 0 ] ] ||
 								converters[ "* " + tmp[ 0 ] ];
 							if ( conv ) {

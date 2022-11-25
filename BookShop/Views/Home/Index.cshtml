@@ -1,3 +1,14 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+
+@if (User?.Identity?.IsAuthenticated ?? false)
+{
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="">Add Book</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="">My Books</a>
+    </li>
+
+}

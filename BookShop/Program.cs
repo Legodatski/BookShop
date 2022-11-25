@@ -1,6 +1,8 @@
 using BookShop.Data;
 using BookShop.Data.Entities;
+using BookShop.Services.Books;
 using BookShop.Services.Towns;
+using BookShop.Services.User;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -31,12 +33,16 @@ builder.Services.AddAuthentication()
         facebookoptions.AppSecret = "d56eb59749ad8f697f18cbf8c21187c4";
     });
 
+builder.Services.AddAutoMapper(typeof(Program));
+
 builder.Services.AddControllersWithViews(options =>
 {
     options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
 });
 
 builder.Services.AddTransient<ITownsService, TownsService>();
+builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<IBooksService, BooksService>();
 
 var app = builder.Build();
 

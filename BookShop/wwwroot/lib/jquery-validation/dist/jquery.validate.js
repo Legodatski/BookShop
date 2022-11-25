@@ -70,13 +70,13 @@ $.extend( $.fn, {
 				function handle() {
 					var hidden, result;
 
-					// Insert a hidden input as a replacement for the missing submit button
-					// The hidden input is inserted in two cases:
+					// Insert a hidden Model as a replacement for the missing submit button
+					// The hidden Model is inserted in two cases:
 					//   - A user defined a `submitHandler`
 					//   - There was a pending request due to `remote` method and `stopRequest()`
 					//     was called to submit the form in case it's valid
 					if ( validator.submitButton && ( validator.settings.submitHandler || validator.formSubmitted ) ) {
-						hidden = $( "<input type='hidden'/>" )
+						hidden = $( "<Model type='hidden'/>" )
 							.attr( "name", validator.submitButton.name )
 							.val( $( validator.submitButton ).val() )
 							.appendTo( validator.currentForm );
@@ -632,9 +632,9 @@ $.extend( $.validator, {
 			var validator = this,
 				rulesCache = {};
 
-			// Select all valid inputs inside the form (no submit or reset buttons)
+			// Select all valid Models inside the form (no submit or reset buttons)
 			return $( this.currentForm )
-			.find( "input, select, textarea, [contenteditable]" )
+			.find( "Model, select, textarea, [contenteditable]" )
 			.not( ":submit, :reset, :image, :disabled" )
 			.not( this.settings.ignore )
 			.filter( function() {
@@ -699,7 +699,7 @@ $.extend( $.validator, {
 			if ( type === "radio" || type === "checkbox" ) {
 				return this.findByName( element.name ).filter( ":checked" ).val();
 			} else if ( type === "number" && typeof element.validity !== "undefined" ) {
-				return element.validity.badInput ? "NaN" : $element.val();
+				return element.validity.badModel ? "NaN" : $element.val();
 			}
 
 			if ( element.hasAttribute( "contenteditable" ) ) {
@@ -1059,7 +1059,7 @@ $.extend( $.validator, {
 			switch ( element.nodeName.toLowerCase() ) {
 			case "select":
 				return $( "option:selected", element ).length;
-			case "input":
+			case "Model":
 				if ( this.checkable( element ) ) {
 					return this.findByName( element.name ).filter( ":checked" ).length;
 				}
@@ -1108,12 +1108,12 @@ $.extend( $.validator, {
 			if ( valid && this.pendingRequest === 0 && this.formSubmitted && this.form() ) {
 				$( this.currentForm ).submit();
 
-				// Remove the hidden input that was used as a replacement for the
-				// missing submit button. The hidden input is added by `handle()`
+				// Remove the hidden Model that was used as a replacement for the
+				// missing submit button. The hidden Model is added by `handle()`
 				// to ensure that the value of the used submit button is passed on
 				// for scripted submits triggered by this method
 				if ( this.submitButton ) {
-					$( "input:hidden[name='" + this.submitButton.name + "']", this.currentForm ).remove();
+					$( "Model:hidden[name='" + this.submitButton.name + "']", this.currentForm ).remove();
 				}
 
 				this.formSubmitted = false;
@@ -1182,7 +1182,7 @@ $.extend( $.validator, {
 
 	normalizeAttributeRule: function( rules, type, method, value ) {
 
-		// Convert the value to a number for number inputs, and for text for backwards compability
+		// Convert the value to a number for number Models, and for text for backwards compability
 		// allows type="date" and others to be compared as strings
 		if ( /min|max|step/.test( method ) && ( type === null || /number|range|text/.test( type ) ) ) {
 			value = Number( value );
@@ -1211,7 +1211,7 @@ $.extend( $.validator, {
 
 		for ( method in $.validator.methods ) {
 
-			// Support for <input required> in both html5 and older browsers
+			// Support for <Model required> in both html5 and older browsers
 			if ( method === "required" ) {
 				value = element.getAttribute( method );
 
@@ -1230,7 +1230,7 @@ $.extend( $.validator, {
 			this.normalizeAttributeRule( rules, type, method, value );
 		}
 
-		// 'maxlength' may be returned as -1, 2147483647 ( IE ) and 524288 ( safari ) for text inputs
+		// 'maxlength' may be returned as -1, 2147483647 ( IE ) and 524288 ( safari ) for text Models
 		if ( rules.maxlength && /-1|2147483647|524288/.test( rules.maxlength ) ) {
 			delete rules.maxlength;
 		}
@@ -1450,7 +1450,7 @@ $.extend( $.validator, {
 		// https://jqueryvalidation.org/step-method/
 		step: function( value, element, param ) {
 			var type = $( element ).attr( "type" ),
-				errorMessage = "Step attribute on input type " + type + " is not supported.",
+				errorMessage = "Step attribute on Model type " + type + " is not supported.",
 				supportedTypes = [ "text", "number", "range" ],
 				re = new RegExp( "\\b" + type + "\\b" ),
 				notSupported = type && !re.test( supportedTypes.join() ),
@@ -1469,8 +1469,8 @@ $.extend( $.validator, {
 				valid = true,
 				decimals;
 
-			// Works only for text, number and range input types
-			// TODO find a way to support input types date, datetime, datetime-local, month, time and week
+			// Works only for text, number and range Model types
+			// TODO find a way to support Model types date, datetime, datetime-local, month, time and week
 			if ( notSupported ) {
 				throw new Error( errorMessage );
 			}

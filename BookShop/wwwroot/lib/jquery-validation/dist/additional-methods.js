@@ -43,7 +43,7 @@
 
 }() );
 
-// Accept a value from a file input based on a required mimetype
+// Accept a value from a file Model based on a required mimetype
 $.validator.addMethod( "accept", function( value, element, param ) {
 
 	// Split mime on commas in case we have multiple types we can accept
@@ -127,7 +127,7 @@ $.validator.addMethod( "bankorgiroaccountNL", function( value, element ) {
  *
  * BIC pattern: BBBBCCLLbbb (8 or 11 characters long; bbb is optional)
  *
- * Validation is case-insensitive. Please make sure to normalize input yourself.
+ * Validation is case-insensitive. Please make sure to normalize Model yourself.
  *
  * BIC definition in detail:
  * - First 4 characters - bank code (only letters)
@@ -437,22 +437,22 @@ $.validator.addMethod( "creditcardtypes", function( value, element, param ) {
  *  currency: ["$", false]
  *  currency: ["RM", false] - also works with text based symbols such as "RM" - Malaysia Ringgit etc
  *
- *  <input class="currencyInput" name="currencyInput">
+ *  <Model class="currencyModel" name="currencyModel">
  *
  * Soft symbol checking
- *  currencyInput: {
+ *  currencyModel: {
  *     currency: ["$", false]
  *  }
  *
  * Strict symbol checking (default)
- *  currencyInput: {
+ *  currencyModel: {
  *     currency: "$"
  *     //OR
  *     currency: ["$", true]
  *  }
  *
  * Multiple Symbols
- *  currencyInput: {
+ *  currencyModel: {
  *     currency: "$,£,¢"
  *  }
  */
@@ -486,8 +486,8 @@ $.validator.addMethod( "dateFA", function( value, element ) {
  * @example $.validator.methods.date("01.01.1900")
  * @result false
  *
- * @example <input name="pippo" class="{dateITA:true}" />
- * @desc Declares an optional input element whose value must be a valid date.
+ * @example <Model name="pippo" class="{dateITA:true}" />
+ * @desc Declares an optional Model element whose value must be a valid date.
  *
  * @name $.validator.methods.dateITA
  * @type Boolean
@@ -535,7 +535,7 @@ $.validator.addMethod( "giroaccountNL", function( value, element ) {
  * IBAN is the international bank account number.
  * It has a country - specific format, that is checked here too
  *
- * Validation is case-insensitive. Please make sure to normalize input yourself.
+ * Validation is case-insensitive. Please make sure to normalize Model yourself.
  */
 $.validator.addMethod( "iban", function( value, element ) {
 
@@ -693,7 +693,7 @@ $.validator.addMethod( "mobileNL", function( value, element ) {
 }, "Please specify a valid mobile number" );
 
 /* For UK phone functions, do the following server side processing:
- * Compare original input with this RegEx pattern:
+ * Compare original Model with this RegEx pattern:
  * ^\(?(?:(?:00\)?[\s\-]?\(?|\+)(44)\)?[\s\-]?\(?(?:0\)?[\s\-]?\(?)?|0)([1-9]\d{1,4}\)?[\s\d\-]+)$
  * Extract $1 and set $prefix to '+44<space>' if $1 is '44', otherwise set $prefix to '0'
  * Extract $2 and remove hyphens, spaces and parentheses. Phone number is combined $prefix and $2.
@@ -843,7 +843,7 @@ $.validator.addMethod( "phoneNL", function( value, element ) {
 }, "Please specify a valid phone number." );
 
 /* For UK phone functions, do the following server side processing:
- * Compare original input with this RegEx pattern:
+ * Compare original Model with this RegEx pattern:
  * ^\(?(?:(?:00\)?[\s\-]?\(?|\+)(44)\)?[\s\-]?\(?(?:0\)?[\s\-]?\(?)?|0)([1-9]\d{1,4}\)?[\s\d\-]+)$
  * Extract $1 and set $prefix to '+44<space>' if $1 is '44', otherwise set $prefix to '0'
  * Extract $2 and remove hyphens, spaces and parentheses. Phone number is combined $prefix and $2.
@@ -859,7 +859,7 @@ $.validator.addMethod( "phonesUK", function( phone_number, element ) {
 }, "Please specify a valid uk phone number" );
 
 /* For UK phone functions, do the following server side processing:
- * Compare original input with this RegEx pattern:
+ * Compare original Model with this RegEx pattern:
  * ^\(?(?:(?:00\)?[\s\-]?\(?|\+)(44)\)?[\s\-]?\(?(?:0\)?[\s\-]?\(?)?|0)([1-9]\d{1,4}\)?[\s\d\-]+)$
  * Extract $1 and set $prefix to '+44<space>' if $1 is '44', otherwise set $prefix to '0'
  * Extract $2 and remove hyphens, spaces and parentheses. Phone number is combined $prefix and $2.
@@ -938,12 +938,12 @@ $.validator.addMethod( "postcodeUK", function( value, element ) {
 }, "Please specify a valid UK postcode" );
 
 /*
- * Lets you say "at least X inputs that match selector Y must be filled."
+ * Lets you say "at least X Models that match selector Y must be filled."
  *
- * The end result is that neither of these inputs:
+ * The end result is that neither of these Models:
  *
- *	<input class="productinfo" name="partnumber">
- *	<input class="productinfo" name="description">
+ *	<Model class="productinfo" name="partnumber">
+ *	<Model class="productinfo" name="description">
  *
  *	...will validate unless at least one of them is filled.
  *
@@ -976,14 +976,14 @@ $.validator.addMethod( "require_from_group", function( value, element, options )
 }, $.validator.format( "Please fill at least {0} of these fields." ) );
 
 /*
- * Lets you say "either at least X inputs that match selector Y must be filled,
+ * Lets you say "either at least X Models that match selector Y must be filled,
  * OR they must all be skipped (left blank)."
  *
- * The end result, is that none of these inputs:
+ * The end result, is that none of these Models:
  *
- *	<input class="productinfo" name="partnumber">
- *	<input class="productinfo" name="description">
- *	<input class="productinfo" name="color">
+ *	<Model class="productinfo" name="partnumber">
+ *	<Model class="productinfo" name="description">
+ *	<Model class="productinfo" name="color">
  *
  *	...will validate unless either at least two of them are filled,
  *	OR none of them are.
@@ -1029,24 +1029,24 @@ $.validator.addMethod( "skip_or_fill_minimum", function( value, element, options
  * Usage examples:
  *
  *  This is the default - case insensitive, no territories, no military zones
- *  stateInput: {
+ *  stateModel: {
  *     caseSensitive: false,
  *     includeTerritories: false,
  *     includeMilitary: false
  *  }
  *
  *  Only allow capital letters, no territories, no military zones
- *  stateInput: {
+ *  stateModel: {
  *     caseSensitive: false
  *  }
  *
  *  Case insensitive, include territories but not military zones
- *  stateInput: {
+ *  stateModel: {
  *     includeTerritories: true
  *  }
  *
  *  Only allow capital letters, include territories and military zones
- *  stateInput: {
+ *  stateModel: {
  *     caseSensitive: true,
  *     includeTerritories: true,
  *     includeMilitary: true
@@ -1095,10 +1095,10 @@ $.validator.addMethod( "url2", function( value, element ) {
 /**
  * Return true, if the value is a valid vehicle identification number (VIN).
  *
- * Works with all kind of text inputs.
+ * Works with all kind of text Models.
  *
- * @example <input type="text" size="20" name="VehicleID" class="{required:true,vinUS:true}" />
- * @desc Declares a required input element whose value must be a valid vehicle identification number.
+ * @example <Model type="text" size="20" name="VehicleID" class="{required:true,vinUS:true}" />
+ * @desc Declares a required Model element whose value must be a valid vehicle identification number.
  *
  * @name $.validator.methods.vinUS
  * @type Boolean

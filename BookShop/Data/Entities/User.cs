@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -20,11 +21,18 @@ namespace BookShop.Data.Entities
         [MaxLength(GlobalConstants.LastNameMaxLenght)]
         [MinLength(GlobalConstants.LastNameMinLenght)]
         public string LastName { get; init; } = null!;
-         
+
+        [Required]
+        [DefaultValue(0)]
+        public decimal Balance { get; set; }
+
         [Required]
         public virtual ICollection<Book> Books { get; init; }
 
-        public School School { get; init; } = null!;
+        public School School { get; init; }
+
+        [ForeignKey(nameof(School))]
+        public int? SchoolId { get; set; }
 
         [Required]
         public Town Town { get; init; } = null!;

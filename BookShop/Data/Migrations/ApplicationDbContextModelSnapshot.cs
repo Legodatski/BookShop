@@ -17,7 +17,7 @@ namespace BookShop.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.9")
+                .HasAnnotation("ProductVersion", "6.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -34,7 +34,7 @@ namespace BookShop.Data.Migrations
 
                     b.HasIndex("PublishersId");
 
-                    b.ToTable("AuthorPublisher", (string)null);
+                    b.ToTable("AuthorPublisher");
                 });
 
             modelBuilder.Entity("BookShop.Data.Entities.Author", b =>
@@ -60,7 +60,7 @@ namespace BookShop.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Authors", (string)null);
+                    b.ToTable("Authors");
                 });
 
             modelBuilder.Entity("BookShop.Data.Entities.Book", b =>
@@ -73,6 +73,9 @@ namespace BookShop.Data.Migrations
 
                     b.Property<int>("BookTypeId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Grade")
                         .HasColumnType("int");
@@ -109,7 +112,7 @@ namespace BookShop.Data.Migrations
 
                     b.HasIndex("PublisherId");
 
-                    b.ToTable("Books", (string)null);
+                    b.ToTable("Books");
                 });
 
             modelBuilder.Entity("BookShop.Data.Entities.Publisher", b =>
@@ -130,7 +133,7 @@ namespace BookShop.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Publishers", (string)null);
+                    b.ToTable("Publishers");
                 });
 
             modelBuilder.Entity("BookShop.Data.Entities.School", b =>
@@ -159,7 +162,7 @@ namespace BookShop.Data.Migrations
 
                     b.HasIndex("TownId");
 
-                    b.ToTable("Schools", (string)null);
+                    b.ToTable("Schools");
 
                     b.HasData(
                         new
@@ -210,7 +213,7 @@ namespace BookShop.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SubjectTypes", (string)null);
+                    b.ToTable("SubjectTypes");
 
                     b.HasData(
                         new
@@ -262,7 +265,7 @@ namespace BookShop.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Towns", (string)null);
+                    b.ToTable("Towns");
 
                     b.HasData(
                         new
@@ -295,6 +298,9 @@ namespace BookShop.Data.Migrations
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
+
+                    b.Property<decimal>("Balance")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -343,7 +349,7 @@ namespace BookShop.Data.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int>("SchoolId")
+                    b.Property<int?>("SchoolId")
                         .HasColumnType("int");
 
                     b.Property<string>("SecurityStamp")
@@ -571,9 +577,7 @@ namespace BookShop.Data.Migrations
                 {
                     b.HasOne("BookShop.Data.Entities.School", "School")
                         .WithMany("Students")
-                        .HasForeignKey("SchoolId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SchoolId");
 
                     b.HasOne("BookShop.Data.Entities.Town", "Town")
                         .WithMany("Citizents")

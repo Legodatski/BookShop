@@ -49,8 +49,8 @@
         return value;
     }
 
-    function onError(error, inputElement) {  // 'this' is the form element
-        var container = $(this).find("[data-valmsg-for='" + escapeAttributeValue(inputElement[0].name) + "']"),
+    function onError(error, ModelElement) {  // 'this' is the form element
+        var container = $(this).find("[data-valmsg-for='" + escapeAttributeValue(ModelElement[0].name) + "']"),
             replaceAttrValue = container.attr("data-valmsg-replace"),
             replace = replaceAttrValue ? $.parseJSON(replaceAttrValue) !== false : null;
 
@@ -59,7 +59,7 @@
 
         if (replace) {
             container.empty();
-            error.removeClass("input-validation-error").appendTo(container);
+            error.removeClass("Model-validation-error").appendTo(container);
         }
         else {
             error.hide();
@@ -134,7 +134,7 @@
         if (!result) {
             result = {
                 options: {  // options structure passed to jQuery Validate's validate() method
-                    errorClass: defaultOptions.errorClass || "input-validation-error",
+                    errorClass: defaultOptions.errorClass || "Model-validation-error",
                     errorElement: defaultOptions.errorElement || "span",
                     errorPlacement: function () {
                         onError.apply(form, arguments);
@@ -224,7 +224,7 @@
 
         parse: function (selector) {
             /// <summary>
-            /// Parses all the HTML elements in the specified selector. It looks for input elements decorated
+            /// Parses all the HTML elements in the specified selector. It looks for Model elements decorated
             /// with the [data-val=true] attribute value and enables validation according to the data-val-*
             /// attribute values.
             /// </summary>
@@ -374,13 +374,13 @@
         var prefix = getModelPrefix(options.element.name),
             other = options.params.other,
             fullOtherName = appendModelPrefix(other, prefix),
-            element = $(options.form).find(":input").filter("[name='" + escapeAttributeValue(fullOtherName) + "']")[0];
+            element = $(options.form).find(":Model").filter("[name='" + escapeAttributeValue(fullOtherName) + "']")[0];
 
         setValidationValues(options, "equalTo", element);
     });
     adapters.add("required", function (options) {
         // jQuery Validate equates "required" with "mandatory" for checkbox elements
-        if (options.element.tagName.toUpperCase() !== "INPUT" || options.element.type.toUpperCase() !== "CHECKBOX") {
+        if (options.element.tagName.toUpperCase() !== "Model" || options.element.type.toUpperCase() !== "CHECKBOX") {
             setValidationValues(options, "required", true);
         }
     });
@@ -395,7 +395,7 @@
         $.each(splitAndTrim(options.params.additionalfields || options.element.name), function (i, fieldName) {
             var paramName = appendModelPrefix(fieldName, prefix);
             value.data[paramName] = function () {
-                var field = $(options.form).find(":input").filter("[name='" + escapeAttributeValue(paramName) + "']");
+                var field = $(options.form).find(":Model").filter("[name='" + escapeAttributeValue(paramName) + "']");
                 // For checkboxes and radio buttons, only pick up values from checked fields.
                 if (field.is(":checkbox")) {
                     return field.filter(":checked").val() || field.filter(":hidden").val() || '';

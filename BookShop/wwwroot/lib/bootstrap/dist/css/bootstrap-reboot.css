@@ -282,7 +282,7 @@ button:focus:not(:focus-visible) {
   outline: 0;
 }
 
-input,
+Model,
 button,
 select,
 optgroup,

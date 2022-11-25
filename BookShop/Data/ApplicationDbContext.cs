@@ -23,6 +23,18 @@ namespace BookShop.Data
                 .WithMany(f => f.Citizents)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            builder.Entity<Town>()
+                .Property(t => t.Location)
+                .IsRequired(false);
+
+            builder.Entity<Publisher>()
+                .Property(p => p.Authors)
+                .IsRequired(false);
+
+            builder.Entity<User>()
+                .Property(f => f.SchoolId)
+                .IsRequired(false);
+
             foreach (var subject in SeedSubjectTypes())
             {
                 builder.Entity<SubjectType>()
@@ -40,6 +52,7 @@ namespace BookShop.Data
                 builder.Entity<School>()
                     .HasData(school);
             }
+
         }
 
         public DbSet<Author> Authors { get; set; }
@@ -92,6 +105,13 @@ namespace BookShop.Data
                 Location = "43.204666, 27.910543",
                 IsDeleted = false
             });
+            towns.Add(new Town
+            {
+                Id = 3,
+                Name = "Other",
+                Location = null,
+                IsDeleted = false
+            });
 
             return towns;
         }
@@ -137,6 +157,32 @@ namespace BookShop.Data
             });
 
             return schools;
+        }
+
+        private List<Publisher> SeedPublishers()
+        {
+            List<Publisher> publishers = new List<Publisher>();
+
+            publishers.Add(new Publisher
+            {
+                Id = 1,
+                Name = "Hermes",
+                IsDeleted = false
+            });
+            publishers.Add(new Publisher
+            {
+                Id = 1,
+                Name = "Arhimed",
+                IsDeleted = false
+            });
+            publishers.Add(new Publisher
+            {
+                Id = 1,
+                Name = "Prosveta",
+                IsDeleted = false
+            });
+
+            return publishers;
         }
     }
 }
