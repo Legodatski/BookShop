@@ -49,5 +49,8 @@ namespace BookShop.Data.Entities
 
         [Required]
         public bool IsDeleted { get; set; }
+
+        [Required]
+        public string ImageUrl { get; set; }
     }
 }

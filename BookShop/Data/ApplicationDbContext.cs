@@ -23,21 +23,13 @@ namespace BookShop.Data
                 .WithMany(f => f.Citizents)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder.Entity<Town>()
-                .Property(t => t.Location)
-                .IsRequired(false);
+            builder.Entity<Book>()
+                .Property(b => b.ImageUrl)
+                .HasDefaultValue("https://www.google.com/url?sa=i&url=https%3A%2F%2F" +
+                "www.freeiconspng.com%2Fimages%2Fno-image-icon&psig=AOvVaw2SB0Epft" +
+                "M3utCWoOiGqnSI&ust=1669587243289000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCJj6s6bvzPsCFQAAAAAdAAAAABAJ");
 
-            builder.Entity<Publisher>()
-                .Property(p => p.Authors)
-                .IsRequired(false);
-
-            builder.Entity<User>()
-                .Property(f => f.SchoolId)
-                .IsRequired(false);
-
-            builder.Entity<Author>()
-                .HasMany(a => a.Publishers)
-                .WithMany(a => a.Authors);
+            ConfigureIsRequired(builder);
 
             foreach (var subject in SeedSubjectTypes())
             {
@@ -57,14 +49,12 @@ namespace BookShop.Data
                     .HasData(school);
             }
 
-            /*foreach (var publisher in SeedPublishers())
+            foreach (var publisher in SeedPublishers())
             {
                 builder.Entity<Publisher>()
                   .HasData(publisher);
-            }*/
+            }
         }
-
-        public DbSet<Author> Authors { get; set; }
 
         public DbSet<Book> Books { get; set; }
 
@@ -85,6 +75,7 @@ namespace BookShop.Data
             subjectTypes.Add(new SubjectType() { Id = 3, Name = "Geography" });
             subjectTypes.Add(new SubjectType() { Id = 4, Name = "Literature" });
             subjectTypes.Add(new SubjectType() { Id = 5, Name = "Programming" });
+            subjectTypes.Add(new SubjectType() { Id = 6, Name = "Other" });
 
             return subjectTypes;
         }
@@ -116,7 +107,7 @@ namespace BookShop.Data
             });
             towns.Add(new Town
             {
-                Id = 3,
+                Id = 4,
                 Name = "Other",
                 Location = null,
                 IsDeleted = false
@@ -137,7 +128,6 @@ namespace BookShop.Data
                 SchoolType = SchoolTypes.HighSchool,
                 IsDeleted = false
             });
-
             schools.Add(new School
             {
                 Id = 2,
@@ -146,7 +136,6 @@ namespace BookShop.Data
                 SchoolType = SchoolTypes.HighSchool,
                 IsDeleted = false
             });
-
             schools.Add(new School
             {
                 Id = 3,
@@ -155,11 +144,18 @@ namespace BookShop.Data
                 SchoolType = SchoolTypes.PrimarySchool,
                 IsDeleted = false
             });
-
             schools.Add(new School
             {
                 Id = 4,
                 Name = "SU Emiliyan Stanev",
+                TownId = 1,
+                SchoolType = SchoolTypes.MiddleSchool,
+                IsDeleted = false
+            });
+            schools.Add(new School
+            {
+                Id = 5,
+                Name = "Other",
                 TownId = 1,
                 SchoolType = SchoolTypes.PrimarySchool,
                 IsDeleted = false
@@ -176,22 +172,36 @@ namespace BookShop.Data
             {
                 Id = 1,
                 Name = "Hermes",
+                Authors = "Hermes Trismegistus",
                 IsDeleted = false
             });
             publishers.Add(new Publisher
             {
-                Id = 1,
+                Id = 2,
                 Name = "Arhimed",
+                Authors = "John Atanasov",
                 IsDeleted = false
             });
             publishers.Add(new Publisher
             {
-                Id = 1,
+                Id = 3,
                 Name = "Prosveta",
+                Authors= "Нели Дамянова, Радина Попова",
                 IsDeleted = false
             });
 
             return publishers;
+        }
+
+        private void ConfigureIsRequired(ModelBuilder builder)
+        {
+            builder.Entity<Town>()
+                .Property(t => t.Location)
+                .IsRequired(false);
+
+            builder.Entity<User>()
+                .Property(f => f.SchoolId)
+                .IsRequired(false);
         }
     }
 }

@@ -1,55 +1,60 @@
 ﻿@model AddBookViewModel
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Add";
 }
 
 
 
 <h1 class="text-center">@ViewData["Title"]</h1>
 
-@*<div class="row">
+<div class="row">
     <div class="col-md-4 offset-md-4">
         <form id="registerForm" method="post">
-            <h2>Create a new account.</h2>
+            <h2>Publish new student book.</h2>
             <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="form-floating">
-                <input asp-for="FirstName" class="form-control" autocomplete="username" aria-required="true" />
-                <label asp-for="FirstName"></label>
-                <span asp-validation-for="FirstName" class="text-danger"></span>
+                <input asp-for="Title" class="form-control" aria-required="true" />
+                <label asp-for="Title"></label>
+                <span asp-validation-for="Title" class="text-danger"></span>
             </div>
             <div class="form-floating">
-                <input asp-for="LastName" class="form-control" autocomplete="username" aria-required="true" />
-                <label asp-for="LastName"></label>
-                <span asp-validation-for="LastName" class="text-danger"></span>
+                <input asp-for="Description" class="form-control" aria-required="true" />
+                <label asp-for="Description"></label>
+                <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-floating">
-                <input asp-for="Email" class="form-control" autocomplete="username" aria-required="true" />
-                <label asp-for="Email"></label>
-                <span asp-validation-for="Email" class="text-danger"></span>
+                <input asp-for="Price" class="form-control" aria-required="true" />
+                <label asp-for="Price">Price (BGN)</label>
             </div>
             <div class="form-floating">
-                <input asp-for="Password" class="form-control" autocomplete="new-password" aria-required="true" />
-                <label asp-for="Password"></label>
-                <span asp-validation-for="Password" class="text-danger"></span>
+                <input asp-for="ImageUrl" class="form-control" aria-required="true" />
+                <label asp-for="ImageUrl"></label>
             </div>
             <div class="form-floating">
-                <input asp-for="ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" />
-                <label asp-for="ConfirmPassword"></label>
-                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                <input asp-for="Grade" class="form-control" aria-required="true" />
+                <label asp-for="Grade"></label>
+                <span asp-validation-for="Grade" class="text-danger"></span>
             </div>
-            <label asp-for="TownId"></label>
-            <select asp-for="TownId" class="form-control">
-                @foreach (var town in Model.Towns)
+            <label asp-for="SubjectId"></label>
+            <select asp-for="SubjectId" class="form-control">
+                @foreach (var subject in Model.AllSubjects)
                 {
-                    <option value="@town.Id">@town.Name</option>
+                    <option value="@subject.Id">@subject.Name</option>
                 }
             </select>
-            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+            <label asp-for="PublisherId"></label>
+            <select asp-for="PublisherId" class="form-control">
+                @foreach (var publisher in Model.AllPublishers)
+                {
+                    <option value="@publisher.Id">@publisher.Name</option>
+                }
+            </select>
+            <button type="submit" class="w-100 btn btn-lg btn-primary">Publish</button>
         </form>
     </div>
 
     @section Scripts {
         <partial name="_ValidationScriptsPartial" />
-    }*@
+    }

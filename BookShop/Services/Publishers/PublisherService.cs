@@ -14,5 +14,8 @@ namespace BookShop.Services.Publishers
 
         public IEnumerable<Publisher> GetAllPublishers()
             => context.Publishers.Distinct();
+
+        public Publisher GetPublisher(int id)
+            => context.Publishers.FirstOrDefault(p => p.Id == id);
     }
 }

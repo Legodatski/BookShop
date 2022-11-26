@@ -1,6 +1,7 @@
 using BookShop.Data;
 using BookShop.Data.Entities;
 using BookShop.Services.Books;
+using BookShop.Services.Publishers;
 using BookShop.Services.Towns;
 using BookShop.Services.User;
 using Microsoft.AspNetCore.Identity;
@@ -43,6 +44,7 @@ builder.Services.AddControllersWithViews(options =>
 builder.Services.AddTransient<ITownsService, TownsService>();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IBooksService, BooksService>();
+builder.Services.AddTransient<IPublisherService, PublisherService>();
 
 var app = builder.Build();
 
@@ -68,10 +70,6 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
-app.MapControllerRoute(
-    name: "areas",
-    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
 app.MapRazorPages();
 

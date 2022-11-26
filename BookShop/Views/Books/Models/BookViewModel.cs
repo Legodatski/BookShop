@@ -12,5 +12,8 @@
         public string Author { get; set; }
 
         public int Grade { get; set; }
+
+        public string ImageUrl { get; set; }
+        public string Subject { get; set; }
     }
 }

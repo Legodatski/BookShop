@@ -19,19 +19,9 @@ namespace BookShop.Views.Books.Models
         public string ImageUrl { get; set; } = null!;
 
         [Required]
-        [MaxLength(GlobalConstants.AuthorFirstNameMax)]
-        [MinLength(GlobalConstants.AuthorFirstNameMin)]
-        public string AuthorFirstName { get; set; } = null!;
-
-        [Required]
-        [MaxLength(GlobalConstants.AuthorLastNameMax)]
-        [MinLength(GlobalConstants.AuthorLastNameMin)]
-        public string AuthorLastName { get; set; } = null!;
-
-        [Required]
         public int PublisherId { get; set; }
 
-        public IEnumerable<Publisher> Publishers { get; set; } = null;
+        public IEnumerable<Publisher> AllPublishers { get; set; } = null!;
 
         [Required]
         public decimal Price  { get; set; }
@@ -44,6 +34,6 @@ namespace BookShop.Views.Books.Models
         public int SubjectId { get; set; }
 
         [Required]
-        public IEnumerable<string> AllSubjects { get; set; }
+        public IEnumerable<SubjectType> AllSubjects { get; set; }
     }
 }
