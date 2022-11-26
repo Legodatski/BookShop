@@ -35,6 +35,10 @@ namespace BookShop.Data
                 .Property(f => f.SchoolId)
                 .IsRequired(false);
 
+            builder.Entity<Author>()
+                .HasMany(a => a.Publishers)
+                .WithMany(a => a.Authors);
+
             foreach (var subject in SeedSubjectTypes())
             {
                 builder.Entity<SubjectType>()
@@ -53,6 +57,11 @@ namespace BookShop.Data
                     .HasData(school);
             }
 
+            /*foreach (var publisher in SeedPublishers())
+            {
+                builder.Entity<Publisher>()
+                  .HasData(publisher);
+            }*/
         }
 
         public DbSet<Author> Authors { get; set; }
