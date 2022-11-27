@@ -12,5 +12,9 @@ namespace BookShop.Services.Books
         public IEnumerable<Book> CurrentUserBooks(string userId);
 
         public Task Add(AddBookViewModel model, string userId);
+
+        public Task<SubjectType> GetSubjectType(int Id);
+
+        public Task Delete(int id);
     }
 }

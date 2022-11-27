@@ -1,11 +1,11 @@
 ﻿using BookShop.Data.Entities;
 using BookShop.Services.Books;
 using BookShop.Services.Publishers;
+using BookShop.Services.Users;
 using BookShop.Views.Books.Models;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Security.Claims;
 namespace BookShop.Controllers
 {
@@ -14,13 +14,16 @@ namespace BookShop.Controllers
     {
         private readonly IBooksService booksService;
         private readonly IPublisherService publisherService;
+        private readonly IUserService userService;
 
         public BooksController(
             IBooksService booksService,
-            IPublisherService publisherService)
+            IPublisherService publisherService,
+            IUserService userService)
         {
             this.booksService = booksService;
             this.publisherService = publisherService;
+            this.userService = userService;
         }
 
         [AllowAnonymous]
@@ -77,9 +80,11 @@ namespace BookShop.Controllers
             return RedirectToAction("All");
         }
 
-        public IActionResult MyBooks()
+        public async Task<IActionResult> MyBooks()
         {
             string userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value ?? "";
+
+            User user = await userService.FindById(userId);
 
             var books = booksService.CurrentUserBooks(userId);
 
@@ -87,18 +92,27 @@ namespace BookShop.Controllers
 
             foreach (var book in books)
             {
+                var subject = await booksService.GetSubjectType(book.BookTypeId);
+
                 model.Add(new BookViewModel()
                 {
+                    Id = book.Id,
                     Title = book.Title,
                     Price = book.Price,
                     Description = book.Description,
                     Publisher = publisherService.GetPublisher(book.PublisherId).Name,
                     ImageUrl = book.ImageUrl,
+                    Owner = user,
+                    Created = book.datePublished,
+                    Subject = subject.Name.ToString(),
                     Grade = book.Grade
                 });
             }
 
             return View(model);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
     }
 }

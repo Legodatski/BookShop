@@ -1,6 +1,7 @@
 ﻿using BookShop.Data;
 using BookShop.Data.Entities;
 using BookShop.Views.Books.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookShop.Services.Books
 {
@@ -15,6 +16,8 @@ namespace BookShop.Services.Books
 
         public async Task Add(AddBookViewModel model, string userId)
         {
+            User owner = context.Users.Find(userId);
+
             Book book = new Book()
             {
                 Title = model.Title,
@@ -25,6 +28,7 @@ namespace BookShop.Services.Books
                 Grade = model.Grade,
                 datePublished = DateTime.Today,
                 OwnerId = userId,
+                Owner = owner,
                 IsDeleted = false
             };
 
@@ -33,14 +37,32 @@ namespace BookShop.Services.Books
         }
 
         public IEnumerable<Book> CurrentUserBooks(string userId)
-            => context.Books.Where(x => x.OwnerId == userId && x.IsDeleted == false);
+            => context
+            .Books
+            .Where(x => x.OwnerId == userId && x.IsDeleted == false);
+
+        public async Task Delete(int id)
+        {
+            Book book = await context.Books.FindAsync(id);
+
+            book.IsDeleted = true;
+
+            await context.SaveChangesAsync();
+        }
 
         public IEnumerable<Book> GetAllNotOwned(string userId)
-            => context.Books
+            => context
+            .Books
             .Where(b => b.OwnerId != userId && b.IsDeleted == false);
 
         public IEnumerable<SubjectType> GetAllSubjectTypes()
-            => context.SubjectTypes.Distinct();
+            => context
+            .SubjectTypes
+            .Distinct();
 
+        public async Task<SubjectType> GetSubjectType(int Id)
+            => await context
+            .SubjectTypes
+            .FindAsync(Id);
     }
 }

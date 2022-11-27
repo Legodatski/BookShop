@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using BookShop.Data.Entities;
 using BookShop.Services.Towns;
-using BookShop.Services.User;
+using BookShop.Services.Users;
 using BookShop.Views.Account.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;

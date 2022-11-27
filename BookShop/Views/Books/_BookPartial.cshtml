@@ -1,7 +1,8 @@
-﻿@model BookViewModel
+﻿@using System.Security.Claims
+@model BookViewModel
 
 @{
-    ViewBag.Title = "Book Details";
+    ViewBag.Title = "My Books";
 }
 
 <h2 class="text-center">@ViewBag.Title</h2>
@@ -11,49 +12,39 @@
     <div class="row">
         <div class="col-4">
             <img class="card-img-top" style="width: 20rem;"
-                 src="@Model.ImageUrl" alt="House Image">
+                 src="@Model.ImageUrl" alt="No Image Available">
         </div>
         <div class="card col-8 border-0">
             <p style="font-size:25px;"><u>@Model.Title</u></p>
-            <p><b>@Model.Title</b></p>
             <p>
                 Price:
                 <b>@String.Format("{0:f2}", Model.Price) BGN</b>
             </p>
             <p>@Model.Description</p>
-            <p>Subject: <b>@Model.</b></p>
-            <p><i>(@(Model.IsRented ? "Rented" : "Not Rented"))</i></p>
+            <p>Subject: <b>@Model.Subject</b></p>
             <div class="form-inline">
-                @if (this.User.Identity.IsAuthenticated)
+                @if (this.User.Identity.IsAuthenticated &&
+                User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value == Model.Owner.Id)
                 {
                     <a class="btn btn-warning" asp-controller="Houses" asp-action="Edit"
                    asp-route-id="@Model.Id">Edit</a>
                     <a class="ml-2 btn btn-danger" asp-controller="Houses" asp-action="Delete"
                    asp-route-id="@Model.Id">Delete</a>
-                    @if (!Model.IsRented)
-                    {
-                        <form class="ml-2" asp-controller="Houses"
-                      asp-action="Rent" asp-route-id="@Model.Id" method="post">
-                            <input class="btn btn-primary" type="submit" value="Rent" />
-                        </form>
-                    }
-                    else
-                    {
-                        <form class="ml-2" asp-controller="Houses" asp-action="Leave"
-                      asp-route-id="@Model.Id" method="post">
-                            <input class="btn btn-primary" type="submit" value="Leave" />
-                        </form>
-                    }
                 }
             </div>
             <p></p>
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Agent Info</h5>
-                    <p class="card-text">Email:  @Model.Agent.Email</p>
-                    <p class="card-text">Phone Number: @Model.Agent.PhoneNumber</p>
+
+            @if (User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value != Model.Owner.Id)
+            {
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Owner information:</h5>
+                        <p class="card-text">Email:  @Model.Owner.Email</p>
+                        <p class="card-text">Name: @Model.Owner.FirstName @Model.Owner.LastName</p>
+                    </div>
                 </div>
-            </div>
+            }
+
         </div>
     </div>
 </div>

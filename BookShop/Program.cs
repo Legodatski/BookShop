@@ -3,7 +3,7 @@ using BookShop.Data.Entities;
 using BookShop.Services.Books;
 using BookShop.Services.Publishers;
 using BookShop.Services.Towns;
-using BookShop.Services.User;
+using BookShop.Services.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
