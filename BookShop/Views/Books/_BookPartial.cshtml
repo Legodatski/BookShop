@@ -20,7 +20,7 @@
             <p>Subject: <b>@Model.Subject</b></p>
             <div class="form-inline">
                 @if (this.User.Identity.IsAuthenticated &&
-                User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value == Model.Owner.Id)
+                User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value == Model.OwnerId)
                 {
                     <a class="btn btn-warning" asp-controller="Books" asp-action="Edit"
                    asp-route-id="@Model.Id">Edit</a>
@@ -32,7 +32,7 @@
 
             @if (User.Identity.IsAuthenticated)
             {
-                if (User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value != Model.Owner.Id)
+                if (User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value != Model.OwnerId)
                 {
                     <div class="card" style="width: 18rem;">
                         <div class="card-body">

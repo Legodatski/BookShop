@@ -8,6 +8,8 @@ namespace BookShop.Views.Books.Models
 {
     public class AddBookViewModel
     {
+        public int? Id { get; set; }
+
         [Required]
         [MaxLength(GlobalConstants.BookTitleMaxLenght)]
         [MinLength(GlobalConstants.BookTitleMinLenght)]

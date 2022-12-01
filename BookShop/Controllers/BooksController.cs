@@ -62,6 +62,7 @@ namespace BookShop.Controllers
                     Description = book.Description,
                     Publisher = book.Publisher.Name,
                     Grade = book.Grade,
+                    OwnerId = owner.Id,
                     Created = book.datePublished,
                     ImageUrl = book.ImageUrl,
                     Owner = owner,
@@ -123,6 +124,7 @@ namespace BookShop.Controllers
                     Publisher = publisher.Name,
                     ImageUrl = book.ImageUrl,
                     Owner = owner,
+                    OwnerId = owner.Id,
                     Created = book.datePublished,
                     Subject = subject.Name.ToString(),
                     Grade = book.Grade
@@ -141,25 +143,23 @@ namespace BookShop.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-            Book book = await booksService.GetBook(id);
-            var publisher = await publisherService.GetPublisher(book.PublisherId);
-            var subject = await booksService.GetSubjectType(book.BookTypeId);
+            var model = new AddBookViewModel();
 
-            BookViewModel model = new BookViewModel()
-            {
-                Id = book.Id,
-                Title = book.Title,
-                ImageUrl = book.ImageUrl,
-                Price = book.Price,
-                Created = book.datePublished,
-                Grade = book.Grade,
-                Owner = book.Owner,
-                Description = book.Description,
-                Publisher = publisher.Name,
-                Subject = subject.Name
-            };
+            model.Id = id;
 
-            return View(model);
+            model.AllPublishers = publisherService.GetAllPublishers();
+
+            model.AllSubjects = booksService.GetAllSubjectTypes();
+
+            return View("Edit", model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(AddBookViewModel model, int id)
+        {
+            await booksService.Edit(model, id);
+
+            return RedirectToAction("MyBooks");
         }
     }
 }

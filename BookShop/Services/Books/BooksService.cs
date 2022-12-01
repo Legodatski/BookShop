@@ -50,7 +50,7 @@ namespace BookShop.Services.Books
             await context.SaveChangesAsync();
         }
 
-        public async Task Edit(BookViewModel model, int id)
+        public async Task Edit(AddBookViewModel model, int id)
         {
             Book book = context.Books.Find(id);
 
@@ -58,8 +58,8 @@ namespace BookShop.Services.Books
             book.Description = model.Description;
             book.Price = model.Price;
             book.Grade = model.Grade;
-            book.SubjectType = await context.SubjectTypes.FirstOrDefaultAsync(x => x.Name == model.Subject);
-            book.Publisher = await context.Publishers.FirstOrDefaultAsync(x => x.Name == model.Publisher);
+            book.SubjectType = await context.SubjectTypes.FirstOrDefaultAsync(x => x.Id == model.SubjectId);
+            book.Publisher = await context.Publishers.FirstOrDefaultAsync(x => x.Id == model.PublisherId);
 
             await context.SaveChangesAsync();
         }
