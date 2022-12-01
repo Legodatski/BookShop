@@ -12,7 +12,7 @@ namespace BookShop.Data.Entities
         [Required]
         [MaxLength(GlobalConstants.BookTitleMaxLenght)]
         [MinLength(GlobalConstants.BookTitleMinLenght)]
-        public string Title { get; init; } = null!;
+        public string Title { get; set; } = null!;
 
         public string? Description { get; set; }
 
@@ -23,15 +23,15 @@ namespace BookShop.Data.Entities
 
         [Required]
         [Range(GlobalConstants.BookGradeMin, GlobalConstants.BookGradeMax)]
-        public int Grade { get; init; }
+        public int Grade { get; set; }
 
-        public virtual User Owner { get; init; } = null!;
+        public virtual User Owner { get; set; } = null!;
 
         [ForeignKey(nameof(Owner))]
-        public string OwnerId { get; init; } = null!;
+        public string OwnerId { get; set; } = null!;
 
         [Range(GlobalConstants.BookPriceMin, GlobalConstants.BookPriceMax)]
-        public decimal Price { get; init; }
+        public decimal Price { get; set; }
 
         [Required]
         public Publisher Publisher { get; set; } = null!;

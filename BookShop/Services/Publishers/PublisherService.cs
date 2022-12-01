@@ -1,5 +1,6 @@
 ﻿using BookShop.Data;
 using BookShop.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookShop.Services.Publishers
 {
@@ -15,7 +16,7 @@ namespace BookShop.Services.Publishers
         public IEnumerable<Publisher> GetAllPublishers()
             => context.Publishers.Distinct();
 
-        public Publisher GetPublisher(int id)
-            => context.Publishers.FirstOrDefault(p => p.Id == id);
+        public async Task<Publisher> GetPublisher(int id)
+            => await context.Publishers.FirstOrDefaultAsync(p => p.Id == id);
     }
 }

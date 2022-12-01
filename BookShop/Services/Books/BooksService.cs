@@ -50,6 +50,25 @@ namespace BookShop.Services.Books
             await context.SaveChangesAsync();
         }
 
+        public async Task Edit(BookViewModel model, int id)
+        {
+            Book book = context.Books.Find(id);
+
+            book.Title = model.Title;
+            book.Description = model.Description;
+            book.Price = model.Price;
+            book.Grade = model.Grade;
+            book.SubjectType = await context.SubjectTypes.FirstOrDefaultAsync(x => x.Name == model.Subject);
+            book.Publisher = await context.Publishers.FirstOrDefaultAsync(x => x.Name == model.Publisher);
+
+            await context.SaveChangesAsync();
+        }
+
+        public IEnumerable<Book> GetAllBooks()
+            => context
+            .Books
+            .Where(x => x.IsDeleted == false);
+
         public IEnumerable<Book> GetAllNotOwned(string userId)
             => context
             .Books
@@ -60,6 +79,8 @@ namespace BookShop.Services.Books
             .SubjectTypes
             .Distinct();
 
+        public async Task<Book> GetBook(int id)
+            => await context.Books.FindAsync(id);
         public async Task<SubjectType> GetSubjectType(int Id)
             => await context
             .SubjectTypes

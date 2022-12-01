@@ -1,10 +1,6 @@
 ﻿@using System.Security.Claims
 @model BookViewModel
 
-@{
-    ViewBag.Title = "My Books";
-}
-
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 
@@ -26,23 +22,30 @@
                 @if (this.User.Identity.IsAuthenticated &&
                 User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value == Model.Owner.Id)
                 {
-                    <a class="btn btn-warning" asp-controller="Houses" asp-action="Edit"
+                    <a class="btn btn-warning" asp-controller="Books" asp-action="Edit"
                    asp-route-id="@Model.Id">Edit</a>
-                    <a class="ml-2 btn btn-danger" asp-controller="Houses" asp-action="Delete"
+                    <a class="ml-2 btn btn-danger" asp-controller="Books" asp-action="Delete"
                    asp-route-id="@Model.Id">Delete</a>
                 }
             </div>
             <p></p>
 
-            @if (User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value != Model.Owner.Id)
+            @if (User.Identity.IsAuthenticated)
             {
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">Owner information:</h5>
-                        <p class="card-text">Email:  @Model.Owner.Email</p>
-                        <p class="card-text">Name: @Model.Owner.FirstName @Model.Owner.LastName</p>
+                if (User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value != Model.Owner.Id)
+                {
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">Owner information:</h5>
+                            <p class="card-text">Email:  @Model.Owner.Email</p>
+                            <p class="card-text">Name: @Model.Owner.FirstName @Model.Owner.LastName</p>
+                        </div>
                     </div>
-                </div>
+                }
+            }
+            else
+            {
+                <p>Login to view owner's information.</p>
             }
 
         </div>

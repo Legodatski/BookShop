@@ -6,6 +6,6 @@ namespace BookShop.Services.Publishers
     {
         IEnumerable<Publisher> GetAllPublishers();
 
-        Publisher GetPublisher(int id);
+        Task<Publisher> GetPublisher(int id);
     }
 }

@@ -3,7 +3,6 @@ using BookShop.Services.Books;
 using BookShop.Services.Publishers;
 using BookShop.Services.Users;
 using BookShop.Views.Books.Models;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -31,23 +30,42 @@ namespace BookShop.Controllers
             => RedirectToAction("All");
 
         [AllowAnonymous]
-        public IActionResult All()
+        public async Task<IActionResult> All()
         {
-            string userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value ?? "";
+            IEnumerable<Book> books;
 
-            var books = booksService.GetAllNotOwned(userId);
+            if (User.Identity?.IsAuthenticated ?? false)
+            {
+                string userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value ?? "";
+
+                books = booksService.GetAllNotOwned(userId);
+            }
+            else
+            {
+                books = booksService.GetAllBooks();
+            }
+
 
             List<BookViewModel> model = new List<BookViewModel>();
 
             foreach (var book in books)
             {
+                var owner = await userService.FindById(book.OwnerId);
+                var publisher = await publisherService.GetPublisher(book.PublisherId);
+                var subject = await booksService.GetSubjectType(book.BookTypeId);
+
                 model.Add(new BookViewModel()
                 {
+                    Id = book.Id,
                     Title = book.Title,
                     Price = book.Price,
                     Description = book.Description,
                     Publisher = book.Publisher.Name,
-                    Grade = book.Grade
+                    Grade = book.Grade,
+                    Created = book.datePublished,
+                    ImageUrl = book.ImageUrl,
+                    Owner = owner,
+                    Subject = subject.Name
                 });
             }
 
@@ -92,6 +110,8 @@ namespace BookShop.Controllers
 
             foreach (var book in books)
             {
+                var owner = await userService.FindById(book.OwnerId);
+                var publisher = await publisherService.GetPublisher(book.PublisherId);
                 var subject = await booksService.GetSubjectType(book.BookTypeId);
 
                 model.Add(new BookViewModel()
@@ -100,9 +120,9 @@ namespace BookShop.Controllers
                     Title = book.Title,
                     Price = book.Price,
                     Description = book.Description,
-                    Publisher = publisherService.GetPublisher(book.PublisherId).Name,
+                    Publisher = publisher.Name,
                     ImageUrl = book.ImageUrl,
-                    Owner = user,
+                    Owner = owner,
                     Created = book.datePublished,
                     Subject = subject.Name.ToString(),
                     Grade = book.Grade
@@ -112,7 +132,34 @@ namespace BookShop.Controllers
             return View(model);
         }
 
-        [HttpPost]
         public async Task<IActionResult> Delete(int id)
+        {
+            await booksService.Delete(id);
+
+            return RedirectToAction("MyBooks");
+        }
+
+        public async Task<IActionResult> Edit(int id)
+        {
+            Book book = await booksService.GetBook(id);
+            var publisher = await publisherService.GetPublisher(book.PublisherId);
+            var subject = await booksService.GetSubjectType(book.BookTypeId);
+
+            BookViewModel model = new BookViewModel()
+            {
+                Id = book.Id,
+                Title = book.Title,
+                ImageUrl = book.ImageUrl,
+                Price = book.Price,
+                Created = book.datePublished,
+                Grade = book.Grade,
+                Owner = book.Owner,
+                Description = book.Description,
+                Publisher = publisher.Name,
+                Subject = subject.Name
+            };
+
+            return View(model);
+        }
     }
 }
