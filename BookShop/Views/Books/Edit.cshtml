@@ -1,10 +1,12 @@
 ﻿@model AddBookViewModel
 
-<partial name="_BookPartialForm" model="@Model" />
+@{
+    ViewBag.Title = "Edit a Book";
+}
 
-<form>
-    <></>
-</form>
+<h2 class="text-center">@ViewBag.Title</h2>
+
+<partial name="_BookPartialForm" model="@Model" />
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

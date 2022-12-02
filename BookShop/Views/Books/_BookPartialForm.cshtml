@@ -1,16 +1,8 @@
 ﻿@model AddBookViewModel
-@{
-    ViewData["Title"] = "Add";
-}
-
-
-
-<h1 class="text-center">@ViewData["Title"]</h1>
 
 <div class="row">
     <div class="col-md-4 offset-md-4">
         <form id="registerForm" method="post">
-            <h2>Publish new student book.</h2>
             <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
@@ -51,5 +43,8 @@
                     <option value="@publisher.Id">@publisher.Name</option>
                 }
             </select>
+            <div class="text-center">
+                <input class="btn btn-primary mt-3" type="submit" value="Save" />
+            </div>
         </form>
     </div>

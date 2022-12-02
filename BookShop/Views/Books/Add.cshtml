@@ -1,2 +1,9 @@
-﻿
-<button type="submit" class="w-100 btn btn-lg btn-primary">Publish</button>
+﻿@model AddBookViewModel
+
+@{
+    ViewBag.Title = "Publish new book";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+
+<partial name="_BookPartialForm" model="@Model" />
