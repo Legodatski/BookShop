@@ -155,9 +155,9 @@ namespace BookShop.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(AddBookViewModel model, int id)
+        public async Task<IActionResult> Edit(AddBookViewModel model)
         {
-            await booksService.Edit(model, id);
+            await booksService.Edit(model);
 
             return RedirectToAction("MyBooks");
         }

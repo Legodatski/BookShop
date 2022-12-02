@@ -50,14 +50,15 @@ namespace BookShop.Services.Books
             await context.SaveChangesAsync();
         }
 
-        public async Task Edit(AddBookViewModel model, int id)
+        public async Task Edit(AddBookViewModel model)
         {
-            Book book = context.Books.Find(id);
+            Book book = context.Books.Find(model.Id);
 
             book.Title = model.Title;
             book.Description = model.Description;
             book.Price = model.Price;
             book.Grade = model.Grade;
+            book.ImageUrl = model.ImageUrl;
             book.SubjectType = await context.SubjectTypes.FirstOrDefaultAsync(x => x.Id == model.SubjectId);
             book.Publisher = await context.Publishers.FirstOrDefaultAsync(x => x.Id == model.PublisherId);
 

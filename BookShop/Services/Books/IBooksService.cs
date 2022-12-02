@@ -21,6 +21,6 @@ namespace BookShop.Services.Books
 
         public Task Delete(int id);
 
-        public Task Edit(AddBookViewModel model, int id);
+        public Task Edit(AddBookViewModel model);
     }
 }
