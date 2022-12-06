@@ -4,6 +4,7 @@ using BookShop.Services.Books;
 using BookShop.Services.Publishers;
 using BookShop.Services.Towns;
 using BookShop.Services.Users;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +24,7 @@ builder.Services.AddDefaultIdentity<User>(options =>
         options.Password.RequireNonAlphanumeric = false;
         options.Password.RequireLowercase = false;
         options.Password.RequireUppercase = false;
+        options.Password.RequiredLength = GlobalConstants.PasswordMinLenght;
     })
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
@@ -39,6 +41,14 @@ builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddControllersWithViews(options =>
 {
     options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+});
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.Cookie.Name = "auth_cookie";
+    options.AccessDeniedPath = "/Account/Login";
+    options.LoginPath = "/Account/Login";
+    options.LogoutPath = "/Account/LogOff";
 });
 
 builder.Services.AddTransient<ITownsService, TownsService>();

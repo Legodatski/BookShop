@@ -161,5 +161,31 @@ namespace BookShop.Controllers
 
             return RedirectToAction("MyBooks");
         }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            var book = await booksService.GetBook(id);
+
+            var owner = await userService.FindById(book.OwnerId);
+            var publisher = await publisherService.GetPublisher(book.PublisherId);
+            var subject = await booksService.GetSubjectType(book.BookTypeId);
+
+            var model = new BookViewModel()
+            {
+                Id = book.Id,
+                Title = book.Title,
+                Price = book.Price,
+                Description = book.Description,
+                Publisher = publisher.Name,
+                Grade = book.Grade,
+                OwnerId = owner.Id,
+                Created = book.datePublished,
+                ImageUrl = book.ImageUrl,
+                Owner = owner,
+                Subject = subject.Name
+            };
+
+            return View(model);
+        }
     }
 }

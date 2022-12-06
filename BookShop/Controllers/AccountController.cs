@@ -40,7 +40,7 @@ namespace BookShop.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return RedirectToAction(nameof(Register));
             }
 
             User user = new User()
@@ -56,7 +56,7 @@ namespace BookShop.Controllers
 
             if (result.Succeeded)
             {
-                return RedirectToAction("Login", "User");
+                return RedirectToAction("Login", "Account");
             }
 
             foreach (var item in result.Errors)
@@ -64,7 +64,7 @@ namespace BookShop.Controllers
                 ModelState.AddModelError("", item.Description);
             }
 
-            return View(model);
+            return RedirectToAction(nameof(Register));
         }
 
         public IActionResult Login()

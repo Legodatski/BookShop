@@ -1,0 +1,13 @@
+﻿@model BookViewModel
+
+@{
+    ViewBag.Title = "Get more information about a book";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+
+<partial name="_BookPartialForm" model="@Model" />
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    }

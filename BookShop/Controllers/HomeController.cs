@@ -1,4 +1,7 @@
-﻿using BookShop.Models;
+﻿using BookShop.Data.Entities;
+using BookShop.Models;
+using BookShop.Services.Books;
+using BookShop.Views.Books.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -6,21 +9,32 @@ namespace BookShop.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private IBooksService booksService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IBooksService booksService)
         {
-            _logger = logger;
+            this.booksService = booksService;
         }
 
         public IActionResult Index()
         {
-            return View();
-        }
+            List<Book> books = new List<Book>();
 
-        public IActionResult Privacy()
-        {
-            return View();
+            books.AddRange(booksService.GetLast(3).ToList());
+
+            List<BookViewModel> model = new List<BookViewModel>();
+
+            foreach (var book in books)
+            {
+                model.Add(new BookViewModel
+                {
+                    Id = book.Id,
+                    Title = book.Title,
+                    ImageUrl = book.ImageUrl
+                });
+            }
+
+            return View(model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

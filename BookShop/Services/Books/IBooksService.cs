@@ -22,5 +22,7 @@ namespace BookShop.Services.Books
         public Task Delete(int id);
 
         public Task Edit(AddBookViewModel model);
+
+        public IEnumerable<Book> GetLast(int n);
     }
 }

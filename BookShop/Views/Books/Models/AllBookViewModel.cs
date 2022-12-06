@@ -7,8 +7,6 @@
             Books = new HashSet<BookViewModel>();
         }
 
-
-
         public IEnumerable<BookViewModel> Books { get; set; }
     }
 }

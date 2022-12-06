@@ -82,6 +82,13 @@ namespace BookShop.Services.Books
 
         public async Task<Book> GetBook(int id)
             => await context.Books.FindAsync(id);
+
+        public IEnumerable<Book> GetLast(int n)
+            => context
+            .Books
+            .OrderBy(x => x.datePublished)
+            .Take(n);
+
         public async Task<SubjectType> GetSubjectType(int Id)
             => await context
             .SubjectTypes
