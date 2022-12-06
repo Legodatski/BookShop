@@ -9,9 +9,9 @@
                 <label asp-for="Subject"></label>
                 <select asp-for="Subject" class="form-control">
                     <option value="">All</option>
-                    @foreach (var category in Model.AllSubjects)
+                    @foreach (var subject in Model.AllSubjects)
                     {
-                        <option value="@category">@category</option>
+                        <option value="@subject">@subject.Name</option>
                     }
                 </select>
             </div>

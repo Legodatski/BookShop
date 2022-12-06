@@ -92,6 +92,7 @@ namespace BookShop.Services.Books
 
             return query;
         }
+
         public async Task<BookViewModel> BookToViewModel(Book book)
         {
             var owner = await context.Users.FirstOrDefaultAsync(o => o.Id == book.OwnerId);

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Reflection.Emit;
+using BookShop.Views.Account.Models;
 
 namespace BookShop.Data
 {
@@ -200,5 +201,7 @@ namespace BookShop.Data
                 .Property(f => f.SchoolId)
                 .IsRequired(false);
         }
+
+        public DbSet<BookShop.Views.Account.Models.DetailsUserModel> DetailsUserModel { get; set; }
     }
 }

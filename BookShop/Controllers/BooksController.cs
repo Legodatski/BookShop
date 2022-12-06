@@ -35,7 +35,7 @@ namespace BookShop.Controllers
         public async Task<IActionResult> All([FromQuery] AllBookQueryModel query)
         {
             var queryResult = await booksService.All(
-                query.Subject?.Name,
+                query.Subject,
                 query.SearchTerm,
                 query.Sorting,
                 query.CurrentPage,

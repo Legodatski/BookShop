@@ -23,10 +23,6 @@ namespace BookShop.Data.Entities
         public string LastName { get; init; } = null!;
 
         [Required]
-        [DefaultValue(0)]
-        public decimal Balance { get; set; }
-
-        [Required]
         public virtual ICollection<Book> Books { get; init; }
 
         public School School { get; init; }

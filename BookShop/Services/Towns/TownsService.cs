@@ -18,5 +18,7 @@ namespace BookShop.Services.Towns
             .Distinct()
             .ToList();
 
+        public async Task<Town> GetTownById(int? id)
+            => await context.Towns.FindAsync(id);
     }
 }

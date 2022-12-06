@@ -7,5 +7,7 @@ namespace BookShop.Services.Users
         bool ExistsById(string userId);
 
         Task<User> FindById(string userId);
+
+        Task<School> FindSchoolById(int? id);
     }
 }

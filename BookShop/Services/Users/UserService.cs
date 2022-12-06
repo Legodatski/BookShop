@@ -17,5 +17,8 @@ namespace BookShop.Services.Users
 
         public async Task<User> FindById(string userId)
             => await context.Users.FindAsync(userId);
+
+        public async Task<School> FindSchoolById(int? id)
+            => await context.Schools.FindAsync(id);
     }
 }

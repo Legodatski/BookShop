@@ -1,0 +1,27 @@
+﻿@model DetailsUserModel
+
+@{
+    ViewData["Title"] = "Account information";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p></p>
+<hr />
+<div>
+    <p>First Name: <b>@Model.FirstName</b></p>
+    <p>Last Name: <b>@Model.LastName</b></p>
+    <p>Email: <b>@Model.Email</b></p>
+    <p>School: <b>@Model.School</b></p>
+</div>
+
+<div>
+    @if (Model.Books.Count == 0)
+    {
+        <p>The user doesn't have any books for sale</p>
+    }
+    else
+    {
+        <p>Number of books: <b>@Model.Books.Count()</b></p>
+    }
+</div>

@@ -23,7 +23,7 @@ namespace BookShop.Views.Books.Models
 
         public BooksSorting Sorting { get; set; } = 0;
 
-        public SubjectType? Subject { get; set; }
+        public string Subject { get; set; }
 
         public IEnumerable<BookViewModel> Books { get; set; }
 
