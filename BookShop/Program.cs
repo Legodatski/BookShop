@@ -53,7 +53,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 builder.Services.AddTransient<ITownsService, TownsService>();
 builder.Services.AddTransient<IUserService, UserService>();
-builder.Services.AddTransient<IBooksService, BooksService>();
+builder.Services.AddScoped<IBooksService, BooksService>();
 builder.Services.AddTransient<IPublisherService, PublisherService>();
 
 var app = builder.Build();

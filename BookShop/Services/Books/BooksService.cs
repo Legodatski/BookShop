@@ -1,5 +1,9 @@
 ﻿using BookShop.Data;
 using BookShop.Data.Entities;
+using BookShop.Data.Enums;
+using BookShop.Services.Books.Models;
+using BookShop.Services.Publishers;
+using BookShop.Services.Users;
 using BookShop.Views.Books.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,14 +13,15 @@ namespace BookShop.Services.Books
     {
         private readonly ApplicationDbContext context;
 
-        public BooksService(ApplicationDbContext applicationDbContext)
+        public BooksService(
+            ApplicationDbContext context)
         {
-            this.context = applicationDbContext;
+            this.context = context;
         }
 
         public async Task Add(AddBookViewModel model, string userId)
         {
-            User owner = context.Users.Find(userId);
+            User? owner = context.Users.Find(userId);
 
             Book book = new Book()
             {
@@ -36,6 +41,81 @@ namespace BookShop.Services.Books
             await context.SaveChangesAsync();
         }
 
+        public async Task<BooksQueryServiceModel> All(
+            string? subject = null,
+            string? searchTerm = null, 
+            BooksSorting sorting = BooksSorting.Newest, 
+            int currentPage = 1, 
+            int booksPerPage = 5)
+        {
+            var bookQuery = context.Books.AsQueryable();
+
+            if (subject != null)
+            {
+                bookQuery = context.Books.Where(x => x.SubjectType.Name == subject);
+            }
+
+            if (searchTerm != null)
+            {
+                bookQuery = context.Books.Where(h =>
+                h.Title.ToLower().Contains(searchTerm.ToLower()) ||
+                h.Owner.UserName.ToLower().Contains(searchTerm.ToLower()) ||
+                h.Description.ToLower().Contains(searchTerm.ToLower()));
+            }
+
+            bookQuery = sorting switch
+            {
+                BooksSorting.Newest => bookQuery.OrderByDescending(x => x.datePublished),
+                BooksSorting.Grade => bookQuery.OrderBy(x => x.Grade),
+                BooksSorting.Name => bookQuery.OrderBy(x => x.Title),
+                BooksSorting.Price => bookQuery.OrderBy(x => x.Price),
+                BooksSorting.PublisherName => bookQuery.OrderBy(x => x.Publisher.Name),
+                BooksSorting.Location => bookQuery.OrderBy(x => x.Owner.Town.Name)
+            };
+
+            var books = bookQuery
+                .Skip((currentPage - 1) * booksPerPage)
+                .Take(booksPerPage);
+
+            List<BookViewModel> booksModel = new List<BookViewModel>();
+
+            foreach (var book in books)
+            {
+                booksModel.Add(await BookToViewModel(book));
+            }
+
+            BooksQueryServiceModel query = new BooksQueryServiceModel
+            {
+                TotalBooksCount = booksModel.Count(),
+                Books = booksModel
+            };
+
+            return query;
+        }
+        public async Task<BookViewModel> BookToViewModel(Book book)
+        {
+            var owner = await context.Users.FirstOrDefaultAsync(o => o.Id == book.OwnerId);
+            var publisher = await context.Publishers.FindAsync(book.PublisherId);
+            var subject = await context.SubjectTypes.FindAsync(book.BookTypeId);
+
+            var modelBook = new BookViewModel()
+            {
+                Id = book.Id,
+                Title = book.Title,
+                Price = book.Price,
+                Description = book.Description,
+                Publisher = publisher?.Name,
+                Grade = book.Grade,
+                OwnerId = owner?.Id,
+                Created = book.datePublished,
+                ImageUrl = book.ImageUrl,
+                Owner = owner,
+                Subject = subject?.Name
+            };
+
+            return modelBook;
+        }
+
         public IEnumerable<Book> CurrentUserBooks(string userId)
             => context
             .Books
@@ -43,7 +123,7 @@ namespace BookShop.Services.Books
 
         public async Task Delete(int id)
         {
-            Book book = await context.Books.FindAsync(id);
+            Book? book = await context.Books.FindAsync(id);
 
             book.IsDeleted = true;
 
@@ -52,14 +132,14 @@ namespace BookShop.Services.Books
 
         public async Task Edit(AddBookViewModel model)
         {
-            Book book = context.Books.Find(model.Id);
+            Book? book = context.Books.Find(model.Id);
 
             book.Title = model.Title;
             book.Description = model.Description;
             book.Price = model.Price;
             book.Grade = model.Grade;
             book.ImageUrl = model.ImageUrl;
-            book.SubjectType = await context.SubjectTypes.FirstOrDefaultAsync(x => x.Id == model.SubjectId);
+            book.SubjectType = await context?.SubjectTypes?.FirstOrDefaultAsync(x => x.Id == model.SubjectId);
             book.Publisher = await context.Publishers.FirstOrDefaultAsync(x => x.Id == model.PublisherId);
 
             await context.SaveChangesAsync();

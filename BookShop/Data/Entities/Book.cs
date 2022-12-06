@@ -14,7 +14,7 @@ namespace BookShop.Data.Entities
         [MinLength(GlobalConstants.BookTitleMinLenght)]
         public string Title { get; set; } = null!;
 
-        public string? Description { get; set; }
+        public string Description { get; set; } = null!;
 
         [Required]
         [Range(GlobalConstants.BookYearMin, GlobalConstants.BookYearMax)]
@@ -51,6 +51,6 @@ namespace BookShop.Data.Entities
         public bool IsDeleted { get; set; }
 
         [Required]
-        public string ImageUrl { get; set; }
+        public string? ImageUrl { get; set; }
     }
 }

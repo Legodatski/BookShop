@@ -35,13 +35,6 @@
         public const int BookGradeMin = 1;
 
         public const double BookPriceMax = double.MaxValue;
-        public const double BookPriceMin = 0.1;
-
-        //Author
-        public const int AuthorFirstNameMax = 20;
-        public const int AuthorFirstNameMin = 2;
-
-        public const int AuthorLastNameMax = 20;
-        public const int AuthorLastNameMin = 2;
+        public const double BookPriceMin = 0;
     }
 }

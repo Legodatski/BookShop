@@ -16,7 +16,7 @@ namespace BookShop.Controllers
             this.booksService = booksService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             List<Book> books = new List<Book>();
 
@@ -26,12 +26,7 @@ namespace BookShop.Controllers
 
             foreach (var book in books)
             {
-                model.Add(new BookViewModel
-                {
-                    Id = book.Id,
-                    Title = book.Title,
-                    ImageUrl = book.ImageUrl
-                });
+                model.Add(await booksService.BookToViewModel(book));
             }
 
             return View(model);

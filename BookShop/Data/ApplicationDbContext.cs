@@ -172,21 +172,18 @@ namespace BookShop.Data
             {
                 Id = 1,
                 Name = "Hermes",
-                Authors = "Hermes Trismegistus",
                 IsDeleted = false
             });
             publishers.Add(new Publisher
             {
                 Id = 2,
                 Name = "Arhimed",
-                Authors = "John Atanasov",
                 IsDeleted = false
             });
             publishers.Add(new Publisher
             {
                 Id = 3,
                 Name = "Prosveta",
-                Authors= "Нели Дамянова, Радина Попова",
                 IsDeleted = false
             });
 

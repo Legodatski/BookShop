@@ -6,6 +6,8 @@ using BookShop.Views.Books.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+
 namespace BookShop.Controllers
 {
     [Authorize]
@@ -30,47 +32,22 @@ namespace BookShop.Controllers
             => RedirectToAction("All");
 
         [AllowAnonymous]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All([FromQuery] AllBookQueryModel query)
         {
-            IEnumerable<Book> books;
+            var queryResult = await booksService.All(
+                query.Subject?.Name,
+                query.SearchTerm,
+                query.Sorting,
+                query.CurrentPage,
+                AllBookQueryModel.BooksPerPage
+            );
 
-            if (User.Identity?.IsAuthenticated ?? false)
-            {
-                string userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value ?? "";
+            query.TotalBooksCount = queryResult.TotalBooksCount;
+            query.Books = queryResult.Books;
 
-                books = booksService.GetAllNotOwned(userId);
-            }
-            else
-            {
-                books = booksService.GetAllBooks();
-            }
+            query.AllSubjects = booksService.GetAllSubjectTypes();
 
-
-            List<BookViewModel> model = new List<BookViewModel>();
-
-            foreach (var book in books)
-            {
-                var owner = await userService.FindById(book.OwnerId);
-                var publisher = await publisherService.GetPublisher(book.PublisherId);
-                var subject = await booksService.GetSubjectType(book.BookTypeId);
-
-                model.Add(new BookViewModel()
-                {
-                    Id = book.Id,
-                    Title = book.Title,
-                    Price = book.Price,
-                    Description = book.Description,
-                    Publisher = book.Publisher.Name,
-                    Grade = book.Grade,
-                    OwnerId = owner.Id,
-                    Created = book.datePublished,
-                    ImageUrl = book.ImageUrl,
-                    Owner = owner,
-                    Subject = subject.Name
-                });
-            }
-
-            return View(model);
+            return View(query);
         }
 
         public IActionResult Add()
@@ -101,7 +78,7 @@ namespace BookShop.Controllers
 
         public async Task<IActionResult> MyBooks()
         {
-            string userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value ?? "";
+            string? userId = User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value ?? "";
 
             User user = await userService.FindById(userId);
 
@@ -111,24 +88,7 @@ namespace BookShop.Controllers
 
             foreach (var book in books)
             {
-                var owner = await userService.FindById(book.OwnerId);
-                var publisher = await publisherService.GetPublisher(book.PublisherId);
-                var subject = await booksService.GetSubjectType(book.BookTypeId);
-
-                model.Add(new BookViewModel()
-                {
-                    Id = book.Id,
-                    Title = book.Title,
-                    Price = book.Price,
-                    Description = book.Description,
-                    Publisher = publisher.Name,
-                    ImageUrl = book.ImageUrl,
-                    Owner = owner,
-                    OwnerId = owner.Id,
-                    Created = book.datePublished,
-                    Subject = subject.Name.ToString(),
-                    Grade = book.Grade
-                });
+                model.Add(await booksService.BookToViewModel(book));
             }
 
             return View(model);
@@ -170,20 +130,7 @@ namespace BookShop.Controllers
             var publisher = await publisherService.GetPublisher(book.PublisherId);
             var subject = await booksService.GetSubjectType(book.BookTypeId);
 
-            var model = new BookViewModel()
-            {
-                Id = book.Id,
-                Title = book.Title,
-                Price = book.Price,
-                Description = book.Description,
-                Publisher = publisher.Name,
-                Grade = book.Grade,
-                OwnerId = owner.Id,
-                Created = book.datePublished,
-                ImageUrl = book.ImageUrl,
-                Owner = owner,
-                Subject = subject.Name
-            };
+            var model = await booksService.BookToViewModel(book);
 
             return View(model);
         }

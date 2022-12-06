@@ -8,6 +8,11 @@ namespace BookShop.Views.Books.Models
 {
     public class AddBookViewModel
     {
+        public AddBookViewModel()
+        {
+            AllSubjects = new HashSet<SubjectType>();
+        }
+
         public int? Id { get; set; }
 
         [Required]

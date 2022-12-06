@@ -1,4 +1,6 @@
 ﻿using BookShop.Data.Entities;
+using BookShop.Data.Enums;
+using BookShop.Services.Books.Models;
 using BookShop.Views.Books.Models;
 
 namespace BookShop.Services.Books
@@ -23,6 +25,15 @@ namespace BookShop.Services.Books
 
         public Task Edit(AddBookViewModel model);
 
+        public Task<BooksQueryServiceModel> All(
+            string? subject = null,
+            string? searchTerm = null,
+            BooksSorting sorting = BooksSorting.Newest,
+            int currentPage = 1,
+            int booksPerPage = 5);
+
         public IEnumerable<Book> GetLast(int n);
+
+        public Task<BookViewModel> BookToViewModel(Book book);
     }
 }

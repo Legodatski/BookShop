@@ -12,9 +12,6 @@ namespace BookShop.Data.Entities
         [MinLength(GlobalConstants.PublisherNameMinLenght)]
         public string Name { get; init; } = null!;
 
-        [Required]
-        public string Authors { get; init; }
-
         public bool IsDeleted { get; set; }
     }
 }

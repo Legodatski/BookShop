@@ -11,10 +11,20 @@
             <p style="font-size:25px;"><u>@Model.Title</u></p>
             <p>
                 Price:
-                <b>@String.Format("{0:f2}", Model.Price) BGN</b>
+                @if (Model.Price == 0)
+                {
+                    <b>free</b>
+                }
+                else
+                {
+                    <b>@String.Format("{0:f2}", Model.Price) BGN</b>
+                }
+                
             </p>
             <p>@Model.Description</p>
             <p>Subject: <b>@Model.Subject</b></p>
+            <p>Grade: <b>@Model.Grade</b></p>
+            <p>Publisher: <b>@Model.Publisher</b></p>
             <div class="form-inline">
                 @if (this.User.Identity.IsAuthenticated &&
                 User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value == Model.OwnerId)
