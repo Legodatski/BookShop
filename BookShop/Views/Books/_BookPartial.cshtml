@@ -1,0 +1,52 @@
+﻿@using System.Security.Claims
+@model BookViewModel
+
+<div class="container" style="display:inline">
+    <div class="row">
+        <div class="col-4">
+            <img class="card-img-top" style="width: 20rem;"
+                 src="@Model.ImageUrl" alt="No Image Available">
+        </div>
+        <div class="card col-8 border-0">
+            <p style="font-size:25px;"><u>@Model.Title</u></p>
+            <p>
+                Price:
+                <b>@String.Format("{0:f2}", Model.Price) BGN</b>
+            </p>
+            <p>@Model.Description</p>
+            <p>Subject: <b>@Model.Subject</b></p>
+            <div class="form-inline">
+                @if (this.User.Identity.IsAuthenticated &&
+                User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value == Model.OwnerId)
+                {
+                    <a class="btn btn-warning" asp-controller="Books" asp-action="Edit"
+                   asp-route-id="@Model.Id">Edit</a>
+                    <a class="ml-2 btn btn-danger" asp-controller="Books" asp-action="Delete"
+                   asp-route-id="@Model.Id">Delete</a>
+                }
+            </div>
+            <p></p>
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                if (User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value != Model.OwnerId)
+                {
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">Owner information:</h5>
+                            <p class="card-text">Email:  @Model.Owner.Email</p>
+                            <p class="card-text">Name: @Model.Owner.FirstName @Model.Owner.LastName</p>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <p>Login to view owner's information.</p>
+            }
+
+        </div>
+    </div>
+</div>
+<p></p>
+<hr />

@@ -1,0 +1,97 @@
+﻿using BookShop.Data;
+using BookShop.Data.Entities;
+using BookShop.Views.Books.Models;
+using Microsoft.EntityFrameworkCore;
+
+namespace BookShop.Services.Books
+{
+    public class BooksService : IBooksService
+    {
+        private readonly ApplicationDbContext context;
+
+        public BooksService(ApplicationDbContext applicationDbContext)
+        {
+            this.context = applicationDbContext;
+        }
+
+        public async Task Add(AddBookViewModel model, string userId)
+        {
+            User owner = context.Users.Find(userId);
+
+            Book book = new Book()
+            {
+                Title = model.Title,
+                Description = model.Description,
+                Price = model.Price,
+                BookTypeId = model.SubjectId,
+                PublisherId = model.SubjectId,
+                Grade = model.Grade,
+                datePublished = DateTime.Today,
+                OwnerId = userId,
+                Owner = owner,
+                IsDeleted = false
+            };
+
+            await context.Books.AddAsync(book);
+            await context.SaveChangesAsync();
+        }
+
+        public IEnumerable<Book> CurrentUserBooks(string userId)
+            => context
+            .Books
+            .Where(x => x.OwnerId == userId && x.IsDeleted == false);
+
+        public async Task Delete(int id)
+        {
+            Book book = await context.Books.FindAsync(id);
+
+            book.IsDeleted = true;
+
+            await context.SaveChangesAsync();
+        }
+
+        public async Task Edit(AddBookViewModel model)
+        {
+            Book book = context.Books.Find(model.Id);
+
+            book.Title = model.Title;
+            book.Description = model.Description;
+            book.Price = model.Price;
+            book.Grade = model.Grade;
+            book.ImageUrl = model.ImageUrl;
+            book.SubjectType = await context.SubjectTypes.FirstOrDefaultAsync(x => x.Id == model.SubjectId);
+            book.Publisher = await context.Publishers.FirstOrDefaultAsync(x => x.Id == model.PublisherId);
+
+            await context.SaveChangesAsync();
+        }
+
+        public IEnumerable<Book> GetAllBooks()
+            => context
+            .Books
+            .Where(x => x.IsDeleted == false);
+
+        public IEnumerable<Book> GetAllNotOwned(string userId)
+            => context
+            .Books
+            .Where(b => b.OwnerId != userId && b.IsDeleted == false);
+
+        public IEnumerable<SubjectType> GetAllSubjectTypes()
+            => context
+            .SubjectTypes
+            .Distinct();
+
+        public async Task<Book> GetBook(int id)
+            => await context.Books.FindAsync(id);
+
+        public IEnumerable<Book> GetLast(int n)
+            => context
+            .Books
+            .OrderBy(x => x.datePublished)
+            .Take(n);
+
+        public async Task<SubjectType> GetSubjectType(int Id)
+            => await context
+            .SubjectTypes
+            .FindAsync(Id);
+    }
+}

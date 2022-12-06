@@ -1,0 +1,95 @@
+StudentBooks
+	id {int}
+	title {string}
+	images URL {string}
+	publisher {Publisher}
+	year {date.year}
+	grade {int 1;12}
+	owner {User}
+	subject {Subject}
+	price {decimal (6,2)}
+	DateCreated
+	isDeleted {bool}
+
+Publishers
+	Name
+	Authors
+	isDeleted {bool}
+
+PublishersAuthors
+	PublisherId
+	AuthorId
+
+Authors
+	Publishers
+	FirstName
+	LastName
+	isDeleted {bool}
+
+Users
+	FirstName
+	LastName
+	StudentBooks
+	School
+	Town/City
+	Balance
+
+Towns
+	Name
+	Location
+	isDeleted {bool}
+
+Schools
+	Name
+	Town
+	Type {enum}
+		Highschool
+		Middleschool
+		Primaryschool
+	isDeleted {bool}
+
+Subject {enum}
+	Математика
+	Български език
+	Литература
+	Английски език
+	Изобразително изкуство
+	Музика
+	Други
+	История и цивилизации
+	Философия
+	География и икономика
+	Физика и астрономия
+	Химия и опазване на околната среда
+	Биология и здравно образувание
+	Руски език
+	Немски език
+	
+
+-----------------------
+controllers
+	UserController
+		Login
+		Register
+		ViewProfile
+			Edit Balance
+
+	HomeController
+		Index
+			Last 'n' products published
+
+	BookController [Authorize]
+		All products published [AllowAnonymous]
+			Can be sorted via date, name, type, grade
+		Add [HttpPost]
+		Buy [HttpPost]
+		Edit [HttpPost]
+		Delete [HttpPost]
+		Details [HttpPost]
+
+	GeolocationController
+		Load particial view with location of town/user
+
+	AdminController
+		Add SubjectType
+		View statistics
