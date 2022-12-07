@@ -8,5 +8,7 @@ namespace BookShop.Services.Towns
         IEnumerable<Town> GetAll();
 
         Task<Town> GetTownById(int? id);
+
+        IEnumerable<School> GetAllSchools();
     }
 }

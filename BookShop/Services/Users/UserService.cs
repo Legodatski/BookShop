@@ -1,5 +1,6 @@
 ﻿using BookShop.Data;
 using BookShop.Data.Entities;
+using BookShop.Views.Account.Models;
 
 namespace BookShop.Services.Users
 {
@@ -10,6 +11,20 @@ namespace BookShop.Services.Users
         public UserService(ApplicationDbContext context)
         {
             this.context = context;
+        }
+
+        public async Task EditUser(EditUserModel model, string id)
+        {
+            var user = await context.Users.FindAsync(id);
+
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+            user.Email = model.Email;
+            user.PhoneNumber = model.PhoneNumber;
+            user.SchoolId = model.SchoolId;
+            user.UserName = model.FirstName + " " + model.LastName;
+
+            await context.SaveChangesAsync();
         }
 
         public bool ExistsById(string userId)

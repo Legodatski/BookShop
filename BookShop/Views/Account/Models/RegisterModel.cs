@@ -46,6 +46,12 @@ namespace BookShop.Views.Account.Models
         [Display(Name = "Town")]
         public int TownId { get; set; }
 
+        public int SchoolId { get; set; }
+
+        public IEnumerable<School> Schools { get; set; }
+
         public IEnumerable<Town> Towns { get; set; }
+
+        public string PhoneNumber { get; set; }
     }
 }

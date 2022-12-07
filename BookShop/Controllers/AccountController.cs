@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Security.Claims;
 
 namespace BookShop.Controllers
 {
@@ -39,7 +40,9 @@ namespace BookShop.Controllers
         {
             var model = new RegisterModel();
 
-            model.Towns = townsService.GetAll(); 
+            model.Towns = townsService.GetAll();
+            model.Schools = townsService.GetAllSchools();
+
 
             return View(model);
         }
@@ -54,10 +57,12 @@ namespace BookShop.Controllers
 
             User user = new User()
             {
-                UserName = model.FirstName + model.LastName,
+                UserName = model.FirstName + " " + model.LastName,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 Email = model.Email,
+                PhoneNumber = model.PhoneNumber,
+                SchoolId = model.SchoolId,
                 TownId = model.TownId
             };
 
@@ -124,6 +129,28 @@ namespace BookShop.Controllers
             };
 
             return View(model);
+        }
+
+        public IActionResult Edit(string id)
+        {
+            EditUserModel model = new EditUserModel()
+            {
+                Id = id,
+                Schools = townsService.GetAllSchools(),
+                Towns = townsService.GetAll()
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditUserModel model)
+        {
+            string? userId = User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value ?? "";
+
+            await userService.EditUser(model, userId);
+
+            return RedirectToAction("MyBooks", "Books");            
         }
     }
 }

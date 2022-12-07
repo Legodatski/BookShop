@@ -15,12 +15,12 @@ namespace BookShop.Data.Entities
         [Required]
         [MaxLength(GlobalConstants.FirstNameMaxLenght)]
         [MinLength(GlobalConstants.FirstNameMinLenght)]
-        public string FirstName { get; init; } = null!;
+        public string FirstName { get; set; } = null!;
 
         [Required]
         [MaxLength(GlobalConstants.LastNameMaxLenght)]
         [MinLength(GlobalConstants.LastNameMinLenght)]
-        public string LastName { get; init; } = null!;
+        public string LastName { get; set; } = null!;
 
         [Required]
         public virtual ICollection<Book> Books { get; init; }
@@ -35,7 +35,7 @@ namespace BookShop.Data.Entities
 
 
         [ForeignKey(nameof(Town))]
-        public int? TownId { get; init; }
+        public int? TownId { get; set; }
 
         public bool IsDeleted { get; set; }
     }
