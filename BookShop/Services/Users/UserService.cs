@@ -1,6 +1,7 @@
 ﻿using BookShop.Data;
 using BookShop.Data.Entities;
 using BookShop.Views.Account.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace BookShop.Services.Users
 {
@@ -11,6 +12,21 @@ namespace BookShop.Services.Users
         public UserService(ApplicationDbContext context)
         {
             this.context = context;
+        }
+
+        public void CongifureRoles()
+        {
+            var AdminRole = new IdentityRole() 
+            { 
+                Name = "Admin" 
+            };
+
+            if (!context.Roles.Contains(AdminRole))
+            {
+                context.Roles.Add(AdminRole);
+            }
+
+
         }
 
         public async Task EditUser(EditUserModel model, string id)

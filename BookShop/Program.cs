@@ -1,5 +1,6 @@
 using BookShop.Data;
 using BookShop.Data.Entities;
+using BookShop.Extensions;
 using BookShop.Services.Books;
 using BookShop.Services.Publishers;
 using BookShop.Services.Towns;
@@ -14,7 +15,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseSqlServer(connectionString));    
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<User>(options => 
@@ -26,6 +28,7 @@ builder.Services.AddDefaultIdentity<User>(options =>
         options.Password.RequireUppercase = false;
         options.Password.RequiredLength = GlobalConstants.PasswordMinLenght;
     })
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
@@ -77,10 +80,18 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.SeedAdmin();
 
-app.MapRazorPages();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}"
+    );
+
+    endpoints.MapDefaultControllerRoute();
+
+    endpoints.MapRazorPages();
+});
 
 app.Run();

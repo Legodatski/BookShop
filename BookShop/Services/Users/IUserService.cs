@@ -12,5 +12,7 @@ namespace BookShop.Services.Users
         Task<School> FindSchoolById(int? id);
 
         Task EditUser(EditUserModel model, string id);
+
+        void CongifureRoles();
     }
 }
