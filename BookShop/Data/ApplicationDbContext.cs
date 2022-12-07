@@ -24,12 +24,6 @@ namespace BookShop.Data
                 .WithMany(f => f.Citizents)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder.Entity<Book>()
-                .Property(b => b.ImageUrl)
-                .HasDefaultValue("https://www.google.com/url?sa=i&url=https%3A%2F%2F" +
-                "www.freeiconspng.com%2Fimages%2Fno-image-icon&psig=AOvVaw2SB0Epft" +
-                "M3utCWoOiGqnSI&ust=1669587243289000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCJj6s6bvzPsCFQAAAAAdAAAAABAJ");
-
             ConfigureIsRequired(builder);
 
             foreach (var subject in SeedSubjectTypes())
@@ -89,28 +83,24 @@ namespace BookShop.Data
             {
                 Id = 1,
                 Name = "Veliko Tarnovo",
-                Location = "43.075672, 25.617151",
                 IsDeleted = false
             });
             towns.Add(new Town
             {
                 Id = 2,
                 Name = "Sofia",
-                Location = "42.698334, 23.319941",
                 IsDeleted = false
             });
             towns.Add(new Town
             {
                 Id = 3,
                 Name = "Varna",
-                Location = "43.204666, 27.910543",
                 IsDeleted = false
             });
             towns.Add(new Town
             {
                 Id = 4,
                 Name = "Other",
-                Location = null,
                 IsDeleted = false
             });
 
@@ -193,10 +183,6 @@ namespace BookShop.Data
 
         private void ConfigureIsRequired(ModelBuilder builder)
         {
-            builder.Entity<Town>()
-                .Property(t => t.Location)
-                .IsRequired(false);
-
             builder.Entity<User>()
                 .Property(f => f.SchoolId)
                 .IsRequired(false);

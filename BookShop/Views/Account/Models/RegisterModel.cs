@@ -9,6 +9,7 @@ namespace BookShop.Views.Account.Models
         public RegisterModel()
         {
             Towns = new HashSet<Town>();
+            Schools = new HashSet<School>();
         }
 
         [Required]
@@ -46,12 +47,14 @@ namespace BookShop.Views.Account.Models
         [Display(Name = "Town")]
         public int TownId { get; set; }
 
+        [Required]
+        [Display(Name = "School")]
         public int SchoolId { get; set; }
 
         public IEnumerable<School> Schools { get; set; }
 
         public IEnumerable<Town> Towns { get; set; }
 
-        public string PhoneNumber { get; set; }
+        public string? PhoneNumber { get; set; }
     }
 }

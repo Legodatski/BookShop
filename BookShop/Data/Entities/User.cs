@@ -25,8 +25,10 @@ namespace BookShop.Data.Entities
         [Required]
         public virtual ICollection<Book> Books { get; init; }
 
+        [Required]
         public School School { get; init; }
 
+        [Required]
         [ForeignKey(nameof(School))]
         public int? SchoolId { get; set; }
 
@@ -35,7 +37,8 @@ namespace BookShop.Data.Entities
 
 
         [ForeignKey(nameof(Town))]
-        public int? TownId { get; set; }
+        [Required]
+        public int TownId { get; set; }
 
         public bool IsDeleted { get; set; }
     }

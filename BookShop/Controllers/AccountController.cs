@@ -50,14 +50,19 @@ namespace BookShop.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterModel model)
         {
+            model.Schools = townsService.GetAllSchools();
+            model.Towns = townsService.GetAll();
+
             if (!ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Register));
+                var error = ModelState.Values.SelectMany(x => x.Errors).First().ErrorMessage;
+                return View(model);
             }
 
             User user = new User()
             {
-                UserName = model.FirstName + " " + model.LastName,
+                //ne moje username da ima " "{space} 
+                UserName = model.FirstName + model.LastName,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 Email = model.Email,
@@ -78,7 +83,7 @@ namespace BookShop.Controllers
                 ModelState.AddModelError("", item.Description);
             }
 
-            return RedirectToAction(nameof(Register));
+            return View(model);
         }
 
         public IActionResult Login()
