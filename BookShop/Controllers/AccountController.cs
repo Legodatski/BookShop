@@ -55,7 +55,6 @@ namespace BookShop.Controllers
 
             if (!ModelState.IsValid)
             {
-                var error = ModelState.Values.SelectMany(x => x.Errors).First().ErrorMessage;
                 return View(model);
             }
 

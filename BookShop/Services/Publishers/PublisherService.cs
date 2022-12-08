@@ -18,5 +18,20 @@ namespace BookShop.Services.Publishers
 
         public async Task<Publisher> GetPublisher(int id)
             => await context.Publishers.FirstOrDefaultAsync(p => p.Id == id);
+
+
+        public async Task AddPublisher(string name)
+        {
+            Publisher publisher = new Publisher()
+            {
+                Name = name
+            };
+
+            await context.Publishers.AddAsync(publisher);
+            await context.SaveChangesAsync();
+        }
+
+        public bool ExistsByName(string name)
+            => context.Publishers.Any(p => p.Name == name);
     }
 }

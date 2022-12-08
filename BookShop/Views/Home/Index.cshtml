@@ -27,7 +27,7 @@
                 <div class="d-flex justify-content-center">
                     <img class="d-block w-80" style="height:800px" src="@book.ImageUrl" alt="@book.Title">
                 </div>
-               
+
 
                 <div class="carousel-caption d-none d-md-block">
                     <h5>
@@ -44,22 +44,27 @@
         <span class="text-black">Previous</span>
     </button>
     <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span> 
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="text-black">Next</span>
     </button>
 </div>
 
 <div class="mb-5"></div>
 
-<div class="row">
-    <div class="col-12 text-center">
-        <button class="btn btn-primary" id="statistics-button">Show Statistics</button>
-    </div>
-</div>
 
-<div class="mt-4 p-5 bg-light d-none" id="statistics">
+@if (User.IsInRole("Admin"))
+{
     <div class="row">
-        <h2 class="col-md-6 text-centre" id="total-books"></h2>
-        <h2 class="col-md-6 text-centre" id="total-rents"></h2>
+        <div class="col-12 text-center">
+            <button class="btn btn-primary" id="statistics-button">Show Statistics</button>
+        </div>
     </div>
-</div>
+
+    <div class="mt-4 p-5 bg-light d-none" id="statistics">
+        <div class="row">
+            <h2 class="col-md-6 text-centre" id="total-books"></h2>
+            <h2 class="col-md-6 text-centre" id="total-rents"></h2>
+        </div>
+    </div>
+
+}

@@ -1,3 +1,5 @@
+using BookShop.Areas.Administration.Contracts;
+using BookShop.Areas.Administration.Services;
 using BookShop.Data;
 using BookShop.Data.Entities;
 using BookShop.Extensions;
@@ -58,6 +60,7 @@ builder.Services.AddTransient<ITownsService, TownsService>();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddScoped<IBooksService, BooksService>();
 builder.Services.AddTransient<IPublisherService, PublisherService>();
+builder.Services.AddTransient<IAdminService, AdminService>();
 
 var app = builder.Build();
 
