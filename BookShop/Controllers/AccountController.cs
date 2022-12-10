@@ -13,6 +13,7 @@ using System.Security.Claims;
 
 namespace BookShop.Controllers
 {
+    [Authorize]
     public class AccountController : Controller
     {
         private readonly ITownsService townsService;
@@ -36,6 +37,7 @@ namespace BookShop.Controllers
             this.signInManager = signInManager;
         }
 
+        [AllowAnonymous]
         public IActionResult Register()
         {
             var model = new RegisterModel();
@@ -48,6 +50,7 @@ namespace BookShop.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Register(RegisterModel model)
         {
             model.Schools = townsService.GetAllSchools();
@@ -85,10 +88,12 @@ namespace BookShop.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
         public IActionResult Login()
             => View(new LoginModel());
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(LoginModel model)
         {
             if (!ModelState.IsValid)
@@ -110,7 +115,7 @@ namespace BookShop.Controllers
         public async Task<IActionResult> Details(string id)
         {
             var user = await userService.FindById(id);
-            var school = await userService.FindSchoolById(user.SchoolId);
+            var school = await townsService.FindSchoolById(user.SchoolId);
             var town = await townsService.GetTownById(user.TownId);
             var books = booksService.CurrentUserBooks(id);
 
@@ -155,6 +160,12 @@ namespace BookShop.Controllers
             await userService.EditUser(model, userId);
 
             return RedirectToAction("MyBooks", "Books");            
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

@@ -4,6 +4,7 @@ using BookShop.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookShop.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221210102728_idk")]
+    partial class idk
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -76,7 +78,7 @@ namespace BookShop.Data.Migrations
 
                     b.HasIndex("PublisherId");
 
-                    b.ToTable("Books", (string)null);
+                    b.ToTable("Books");
                 });
 
             modelBuilder.Entity("BookShop.Data.Entities.Publisher", b =>
@@ -97,7 +99,7 @@ namespace BookShop.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Publishers", (string)null);
+                    b.ToTable("Publishers");
 
                     b.HasData(
                         new
@@ -146,7 +148,7 @@ namespace BookShop.Data.Migrations
 
                     b.HasIndex("TownId");
 
-                    b.ToTable("Schools", (string)null);
+                    b.ToTable("Schools");
 
                     b.HasData(
                         new
@@ -205,7 +207,7 @@ namespace BookShop.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SubjectTypes", (string)null);
+                    b.ToTable("SubjectTypes");
 
                     b.HasData(
                         new
@@ -258,7 +260,7 @@ namespace BookShop.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Towns", (string)null);
+                    b.ToTable("Towns");
 
                     b.HasData(
                         new
@@ -404,7 +406,7 @@ namespace BookShop.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DetailsUserModel", (string)null);
+                    b.ToTable("DetailsUserModel");
                 });
 
             modelBuilder.Entity("BookShop.Views.Books.Models.BookViewModel", b =>
@@ -451,7 +453,7 @@ namespace BookShop.Data.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("BookViewModel", (string)null);
+                    b.ToTable("BookViewModel");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

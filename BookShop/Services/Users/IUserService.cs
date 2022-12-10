@@ -9,7 +9,6 @@ namespace BookShop.Services.Users
 
         Task<User> FindById(string userId);
 
-        Task<School> FindSchoolById(int? id);
 
         Task EditUser(EditUserModel model, string id);
 

@@ -53,7 +53,7 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.Cookie.Name = "auth_cookie";
     options.AccessDeniedPath = "/Account/Login";
     options.LoginPath = "/Account/Login";
-    options.LogoutPath = "/Account/LogOff";
+   // options.LogoutPath = "/Account/LogOff";
 });
 
 builder.Services.AddTransient<ITownsService, TownsService>();
@@ -93,8 +93,6 @@ app.UseEndpoints(endpoints =>
     );
 
     endpoints.MapDefaultControllerRoute();
-
-    endpoints.MapRazorPages();
 });
 
 app.Run();

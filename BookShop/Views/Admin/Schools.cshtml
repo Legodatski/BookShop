@@ -1,0 +1,59 @@
+﻿@model SchoolsViewModel
+
+@{
+    ViewBag.Title = "Add a school";
+}
+
+<h1 class="text-center">@ViewData["Title"]</h1>
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <section>
+            <form id="account" method="post">
+                <hr />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="text-center mb-3">
+                    <label asp-for="@Model.Name" class="form-label"></label>
+                    <input asp-for="@Model.Name" class="form-control" aria-required="true" />
+                    <span asp-validation-for="@Model.Name" class="text-danger"></span>
+                </div>
+                <label asp-for="SchoolType"></label>
+                <select asp-for="SchoolType" class="form-control">
+                    @foreach (var schoolType in Model.AllSchoolTypes)
+                    {
+                        <option value="@schoolType">@schoolType</option>
+                    }
+                    <span asp-validation-for="SchoolType" class="text-danger"></span>
+                </select>
+                <label asp-for="TownId">Town</label>
+                <select asp-for="TownId" class="form-control">
+                    @foreach (var town in Model.AllTowns)
+                    {
+                        <option value="@town.Id">@town.Name</option>
+                    }
+                    <span asp-validation-for="TownId" class="text-danger"></span>
+                </select>
+                <p></p>
+                <div class="text-center">
+                    <button id="login-submit" type="submit" class="btn btn-primary">Add</button>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>
+
+<p></p>
+<h2 class="text-center">All schools</h2>
+<hr />
+
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        @foreach (var s in Model.Schools)
+        {
+            <p>@s.Name</p>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    }

@@ -11,8 +11,6 @@ namespace BookShop.Areas.Administration.Models
             Publishers = new HashSet<Publisher>();
         }
 
-        public int Key { get; set; }
-
         [Required]
         [MaxLength(GlobalConstants.PublisherNameMaxLenght)]
         [MinLength(GlobalConstants.PublisherNameMinLenght)]

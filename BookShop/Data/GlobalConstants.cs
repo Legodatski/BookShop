@@ -17,7 +17,7 @@
         public const int TownNameMinLenght = 3;
 
         //School
-        public const int SchoolNameMaxLenght = 30;
+        public const int SchoolNameMaxLenght = 50;
         public const int SchoolNameMinLenght = 5;
 
         //Publisher
