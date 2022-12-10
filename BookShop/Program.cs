@@ -56,11 +56,12 @@ builder.Services.ConfigureApplicationCookie(options =>
    // options.LogoutPath = "/Account/LogOff";
 });
 
-builder.Services.AddTransient<ITownsService, TownsService>();
-builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddScoped<ITownsService, TownsService>();
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IBooksService, BooksService>();
-builder.Services.AddTransient<IPublisherService, PublisherService>();
-builder.Services.AddTransient<IAdminService, AdminService>();
+builder.Services.AddScoped<IPublisherService, PublisherService>();
+builder.Services.AddScoped<IAdminService, AdminService>();
+builder.Services.AddScoped<IStatisticsService, StatisticsService>();
 
 var app = builder.Build();
 
