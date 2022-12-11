@@ -11,5 +11,6 @@ namespace BookShop.Contracts
         Task AddPublisher(string name);
 
         bool ExistsByName(string name);
+        bool ExistsById(int id);
     }
 }

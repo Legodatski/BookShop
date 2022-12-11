@@ -2,6 +2,7 @@
 using BookShop.Data;
 using BookShop.Data.Entities;
 using BookShop.Data.Enums;
+using System.Xml.Linq;
 
 namespace BookShop.Services.Towns
 {
@@ -34,7 +35,7 @@ namespace BookShop.Services.Towns
             .ToList();
 
         public IEnumerable<School> GetAllSchools()
-            => context.Schools.Distinct();
+            => context.Schools.Distinct().Where(x => x.IsDeleted == false);
 
         public async Task<Town> GetTownById(int? id)
             => await context.Towns.FindAsync(id);
@@ -53,5 +54,11 @@ namespace BookShop.Services.Towns
 
             await context.SaveChangesAsync();
         }
+
+        public bool ExistsSchoolById(int id)
+            => context.Schools.Any(school => school.Id == id);
+
+        public bool ExistsTownById(int id)
+            => context.Towns.Any(school => school.Id == id);
     }
 }

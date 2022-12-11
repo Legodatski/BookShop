@@ -32,7 +32,10 @@
     <div class="col-md-4 offset-md-4">
         @foreach (var t in Model.Towns)
         {
-            <p>@t.Name</p>
+            <p>
+                @t.Name <a class="ml-2 btn btn-danger" asp-area="Administration" asp-controller="Admin" asp-action="DeleteTown"
+                       asp-route-id="@t.Id">Delete</a>
+            </p>
         }
     </div>
 </div>

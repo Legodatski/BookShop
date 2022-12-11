@@ -40,5 +40,32 @@ namespace BookShop.Areas.Administration.Services
 
             await context.SaveChangesAsync();
         }
+
+        public async Task DeletePublisher(int id)
+        {
+            Publisher publisher = await context.Publishers.FindAsync(id);
+
+            publisher.IsDeleted = true;
+
+            await context.SaveChangesAsync();
+        }
+
+        public async Task DeleteSchool(int id)
+        {
+            School school = await context.Schools.FindAsync(id);
+
+            school.IsDeleted = true;
+
+            await context.SaveChangesAsync();
+        }
+
+        public async Task DeleteTown(int id)
+        {
+            Town town = await context.Towns.FindAsync(id);
+
+            town.IsDeleted = true;
+
+            await context.SaveChangesAsync();
+        }
     }
 }

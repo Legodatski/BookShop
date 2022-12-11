@@ -71,6 +71,17 @@ namespace BookShop.Areas.Administration.Controllers
         }
 
         [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeletePublisher(int id)
+        {
+            if (publisherService.ExistsById(id))
+            {
+                await adminService.DeletePublisher(id);
+            }
+
+            return RedirectToAction(nameof(Publishers));
+        }
+
+        [Authorize(Roles = "Admin")]
         public IActionResult Schools()
         {
             SchoolsViewModel model = new SchoolsViewModel()
@@ -119,6 +130,18 @@ namespace BookShop.Areas.Administration.Controllers
         }
 
         [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteSchool(int id)
+        {
+            if (townsService.ExistsSchoolById(id))
+            {
+                await adminService.DeleteSchool(id);
+            }
+
+            return RedirectToAction(nameof(Schools));
+        }
+
+
+        [Authorize(Roles = "Admin")]
         public IActionResult Towns()
         {
             TownsViewModel model = new TownsViewModel()
@@ -150,6 +173,19 @@ namespace BookShop.Areas.Administration.Controllers
 
             return RedirectToAction("Towns");
         }
+
+
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteTown(int id)
+        {
+            if (townsService.ExistsTownById(id))
+            {
+                await adminService.DeleteTown(id);
+            }
+
+            return RedirectToAction(nameof(Towns));
+        }
+
 
         [Authorize]
         public IActionResult BecomeAdmin()

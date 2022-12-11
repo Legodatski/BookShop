@@ -18,6 +18,8 @@ namespace BookShop.Contracts
         bool ExistsSchoolByName(string name);
 
         bool ExistsTownByName(string name);
+        bool ExistsSchoolById(int id);
+        bool ExistsTownById(int id);
 
         Task AddTown(string name);
     }

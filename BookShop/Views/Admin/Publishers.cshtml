@@ -1,4 +1,4 @@
-﻿@model PublishersViewModel 
+﻿@model PublishersViewModel
 
 @{
     ViewBag.Title = "Add a publisher";
@@ -32,7 +32,10 @@
     <div class="col-md-4 offset-md-4">
         @foreach (var p in Model.Publishers)
         {
-            <p>@p.Name</p>
+            <p>
+                @p.Name <a class="ml-2 btn btn-danger" asp-area="Administration" asp-controller="Admin" asp-action="DeletePublisher"
+                      asp-route-id="@p.Id">Delete</a>
+            </p>
         }
     </div>
 </div>

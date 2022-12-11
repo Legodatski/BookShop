@@ -2,6 +2,7 @@
 using BookShop.Data;
 using BookShop.Data.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Xml.Linq;
 
 namespace BookShop.Services.Publishers
 {
@@ -15,7 +16,7 @@ namespace BookShop.Services.Publishers
         }
 
         public IEnumerable<Publisher> GetAllPublishers()
-            => context.Publishers.Distinct();
+            => context.Publishers.Distinct().Where(x => x.IsDeleted == false);
 
         public async Task<Publisher> GetPublisher(int id)
             => await context.Publishers.FirstOrDefaultAsync(p => p.Id == id);
@@ -34,5 +35,8 @@ namespace BookShop.Services.Publishers
 
         public bool ExistsByName(string name)
             => context.Publishers.Any(p => p.Name == name);
+
+        public bool ExistsById(int id)
+            => context.Publishers.Any(p => p.Id == id);
     }
 }
