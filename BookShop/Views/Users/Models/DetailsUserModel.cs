@@ -1,9 +1,9 @@
 ﻿using BookShop.Data.Entities;
-using BookShop.Data;
 using BookShop.Views.Books.Models;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
+using BookShop.Constants;
 
 namespace BookShop.Views.Account.Models
 {

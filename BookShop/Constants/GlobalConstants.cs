@@ -1,4 +1,4 @@
-﻿namespace BookShop.Data
+﻿namespace BookShop.Constants
 {
     public class GlobalConstants
     {
@@ -11,6 +11,8 @@
 
         public const int PasswordMaxLenght = 10;
         public const int PasswordMinLenght = 5;
+
+        public const int PhoneLenght = 10;
 
         //Town
         public const int TownNameMaxLenght = 50;

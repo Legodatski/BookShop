@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
+using BookShop.Contracts;
 using BookShop.Data.Entities;
-using BookShop.Services.Books;
-using BookShop.Services.Towns;
-using BookShop.Services.Users;
 using BookShop.Views.Account.Models;
 using BookShop.Views.Books.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -14,7 +12,7 @@ using System.Security.Claims;
 namespace BookShop.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class UsersController : Controller
     {
         private readonly ITownsService townsService;
         private readonly IUserService userService;
@@ -23,7 +21,7 @@ namespace BookShop.Controllers
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
 
-        public AccountController(
+        public UsersController(
             ITownsService townsService, 
             UserManager<User> userManager, 
             SignInManager<User> signInManager,
@@ -77,6 +75,7 @@ namespace BookShop.Controllers
 
             if (result.Succeeded)
             {
+                await userManager.AddToRoleAsync(user, "User");
                 return RedirectToAction("Login", "Account");
             }
 
@@ -140,12 +139,23 @@ namespace BookShop.Controllers
             return View(model);
         }
 
-        public IActionResult Edit(string id)
+        public async Task<IActionResult> Edit()
         {
+            string? userId = User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value ?? "";
+
+            User user = await userService.FindById(userId);
+            Town town = await townsService.GetTownById(user.TownId);
+            School school = await townsService.FindSchoolById(user.SchoolId);
+
             EditUserModel model = new EditUserModel()
             {
-                Id = id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
                 Schools = townsService.GetAllSchools(),
+                TownName = town.Name,
+                SchoolName = school.Name,
                 Towns = townsService.GetAll()
             };
 
@@ -157,9 +167,14 @@ namespace BookShop.Controllers
         {
             string? userId = User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value ?? "";
 
+            if (userId == null || !ModelState.IsValid)
+            {
+                return RedirectToAction(nameof(Edit));
+            }
+
             await userService.EditUser(model, userId);
 
-            return RedirectToAction("MyBooks", "Books");            
+            return RedirectToAction(nameof(Edit));            
         }
 
         public async Task<IActionResult> Logout()

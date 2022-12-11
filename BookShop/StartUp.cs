@@ -1,5 +1,7 @@
 using BookShop.Areas.Administration.Contracts;
 using BookShop.Areas.Administration.Services;
+using BookShop.Constants;
+using BookShop.Contracts;
 using BookShop.Data;
 using BookShop.Data.Entities;
 using BookShop.Extensions;
@@ -7,7 +9,6 @@ using BookShop.Services.Books;
 using BookShop.Services.Publishers;
 using BookShop.Services.Towns;
 using BookShop.Services.Users;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -51,9 +52,8 @@ builder.Services.AddControllersWithViews(options =>
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.Cookie.Name = "auth_cookie";
-    options.AccessDeniedPath = "/Account/Login";
-    options.LoginPath = "/Account/Login";
-   // options.LogoutPath = "/Account/LogOff";
+    options.AccessDeniedPath = "/Users/Login";
+    options.LoginPath = "/Users/Login";
 });
 
 builder.Services.AddScoped<ITownsService, TownsService>();

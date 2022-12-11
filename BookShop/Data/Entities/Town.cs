@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using BookShop.Constants;
 
 namespace BookShop.Data.Entities
 {

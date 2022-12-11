@@ -1,4 +1,5 @@
-﻿using BookShop.Data;
+﻿using BookShop.Contracts;
+using BookShop.Data;
 using BookShop.Data.Entities;
 using BookShop.Views.Account.Models;
 using Microsoft.AspNetCore.Identity;
@@ -38,7 +39,9 @@ namespace BookShop.Services.Users
             user.Email = model.Email;
             user.PhoneNumber = model.PhoneNumber;
             user.SchoolId = model.SchoolId;
-            user.UserName = model.FirstName + " " + model.LastName;
+            user.TownId = model.TownId;
+            user.SchoolId = model.SchoolId;
+            user.UserName = model.FirstName + model.LastName;
 
             await context.SaveChangesAsync();
         }
@@ -48,6 +51,5 @@ namespace BookShop.Services.Users
 
         public async Task<User> FindById(string userId)
             => await context.Users.FindAsync(userId);
-
     }
 }

@@ -1,7 +1,5 @@
-﻿using BookShop.Data.Entities;
-using BookShop.Services.Books;
-using BookShop.Services.Publishers;
-using BookShop.Services.Users;
+﻿using BookShop.Contracts;
+using BookShop.Data.Entities;
 using BookShop.Views.Books.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

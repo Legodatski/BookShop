@@ -24,14 +24,14 @@
         <label asp-for="PhoneNumber"></label>
         <span asp-validation-for="PhoneNumber" class="text-danger"></span>
     </div>
-    <label asp-for="TownId">Town</label>
+    <label asp-for="TownId">Town <b>@Model.TownName</b></label>
     <select asp-for="TownId" class="form-control">
         @foreach (var town in Model.Towns)
         {
             <option value="@town.Id">@town.Name</option>
         }
     </select>
-    <label asp-for="SchoolId">School</label>
+    <label asp-for="SchoolId">School <b>@Model.SchoolName</b></label>
     <select asp-for="SchoolId" class="form-control">
         @foreach (var school in Model.Schools)
         {
@@ -40,3 +40,6 @@
     </select>
     <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
 </form>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    }

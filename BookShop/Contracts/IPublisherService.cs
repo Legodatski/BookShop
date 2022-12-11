@@ -1,6 +1,6 @@
 ﻿using BookShop.Data.Entities;
 
-namespace BookShop.Services.Publishers
+namespace BookShop.Contracts
 {
     public interface IPublisherService
     {

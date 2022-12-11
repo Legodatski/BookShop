@@ -1,11 +1,8 @@
 ﻿using BookShop.Areas.Administration.Contracts;
 using BookShop.Areas.Administration.Models;
+using BookShop.Contracts;
 using BookShop.Data.Entities;
 using BookShop.Data.Enums;
-using BookShop.Services.Books;
-using BookShop.Services.Publishers;
-using BookShop.Services.Towns;
-using BookShop.Services.Users;
 using BookShop.Views.Account.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -176,6 +173,13 @@ namespace BookShop.Areas.Administration.Controllers
                 ModelState.AddModelError("", "Invalid user!");
                 return View(model);
             }
+
+            if (booksService.CurrentUserBooks(userId).Any())
+            {
+                ModelState.AddModelError("", "You must have no books available for sale to become an admin!");
+                return View(model);
+            }
+
             user.PhoneNumber = model.PhoneNumber;
 
             await adminService.AddRoleToUser(userId);

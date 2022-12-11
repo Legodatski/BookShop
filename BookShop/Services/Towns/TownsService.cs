@@ -1,4 +1,5 @@
-﻿using BookShop.Data;
+﻿using BookShop.Contracts;
+using BookShop.Data;
 using BookShop.Data.Entities;
 using BookShop.Data.Enums;
 

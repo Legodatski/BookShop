@@ -19,8 +19,14 @@ namespace BookShop.Extensions
             {
                 if (!await roleManager.RoleExistsAsync("Admin"))
                 {
-                    IdentityRole role = new IdentityRole("Admin");
-                    await roleManager.CreateAsync(role);
+                    IdentityRole adminRole = new IdentityRole("Admin");
+                    await roleManager.CreateAsync(adminRole);
+                }
+
+                if (!await roleManager.RoleExistsAsync("User"))
+                {
+                    IdentityRole userRole = new IdentityRole("User");
+                    await roleManager.CreateAsync(userRole);
                 }
 
                 User admin = await userManager.FindByEmailAsync("admin@gmail.com");

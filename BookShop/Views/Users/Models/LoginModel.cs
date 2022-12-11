@@ -1,4 +1,4 @@
-﻿using BookShop.Data;
+﻿using BookShop.Constants;
 using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
 
@@ -13,8 +13,6 @@ namespace BookShop.Views.Account.Models
 
         [Required]
         [DataType(DataType.Password)]
-        [MinLength(GlobalConstants.PasswordMinLenght)]
-        [MaxLength(GlobalConstants.PasswordMaxLenght)]
         public string Password { get; set; }
     }
 }

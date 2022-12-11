@@ -2,7 +2,7 @@
 using BookShop.Data.Entities;
 using BookShop.Data.Enums;
 
-namespace BookShop.Services.Towns
+namespace BookShop.Contracts
 {
     public interface ITownsService
     {

@@ -3,7 +3,7 @@ using BookShop.Data.Enums;
 using BookShop.Services.Books.Models;
 using BookShop.Views.Books.Models;
 
-namespace BookShop.Services.Books
+namespace BookShop.Contracts
 {
     public interface IBooksService
     {

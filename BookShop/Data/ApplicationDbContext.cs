@@ -187,7 +187,5 @@ namespace BookShop.Data
                 .Property(f => f.SchoolId)
                 .IsRequired(false);
         }
-
-        public DbSet<BookShop.Views.Account.Models.DetailsUserModel> DetailsUserModel { get; set; }
     }
 }

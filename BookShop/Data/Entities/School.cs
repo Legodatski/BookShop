@@ -1,4 +1,5 @@
-﻿using BookShop.Data.Enums;
+﻿using BookShop.Constants;
+using BookShop.Data.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 

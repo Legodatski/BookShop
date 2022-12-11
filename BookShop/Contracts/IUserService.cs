@@ -1,7 +1,7 @@
 ﻿using BookShop.Data.Entities;
 using BookShop.Views.Account.Models;
 
-namespace BookShop.Services.Users
+namespace BookShop.Contracts
 {
     public interface IUserService
     {

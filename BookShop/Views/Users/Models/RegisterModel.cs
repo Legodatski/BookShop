@@ -1,6 +1,7 @@
 ﻿using BookShop.Data.Entities;
-using BookShop.Data;
 using System.ComponentModel.DataAnnotations;
+using BookShop.Constants;
+using BookShop.Extensions;
 
 namespace BookShop.Views.Account.Models
 {
@@ -39,8 +40,7 @@ namespace BookShop.Views.Account.Models
         [Required]
         [DataType(DataType.Password)]
         [Compare(nameof(Password))]
-        [MinLength(GlobalConstants.PasswordMinLenght)]
-        [MaxLength(GlobalConstants.PasswordMaxLenght)]
+        [Display(Name = "Confirm Password")]
         public string ConfirmPassword { get; set; }
 
         [Required]
@@ -55,6 +55,9 @@ namespace BookShop.Views.Account.Models
 
         public IEnumerable<Town> Towns { get; set; }
 
+        [StringLenghtExact(Lenght = GlobalConstants.PhoneLenght)]
+        [Display(Name ="Phone Number")]
         public string? PhoneNumber { get; set; }
+
     }
 }
