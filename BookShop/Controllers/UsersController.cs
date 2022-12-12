@@ -132,6 +132,7 @@ namespace BookShop.Controllers
                 LastName = user.LastName,
                 Email = user.Email,
                 Books = booksModels,
+                Phone = user.PhoneNumber,
                 School = school?.Name ?? "No information is given",
                 Town = town.Name
             };
@@ -147,6 +148,13 @@ namespace BookShop.Controllers
             Town town = await townsService.GetTownById(user.TownId);
             School school = await townsService.FindSchoolById(user.SchoolId);
 
+            string schoolName = "No given information";
+
+            if (school != null)
+            {
+                schoolName = school.Name;
+            }
+
             EditUserModel model = new EditUserModel()
             {
                 FirstName = user.FirstName,
@@ -155,7 +163,7 @@ namespace BookShop.Controllers
                 PhoneNumber = user.PhoneNumber,
                 Schools = townsService.GetAllSchools(),
                 TownName = town.Name,
-                SchoolName = school.Name,
+                SchoolName = schoolName,
                 Towns = townsService.GetAll()
             };
 

@@ -42,8 +42,6 @@ builder.Services.AddAuthentication()
         facebookoptions.AppSecret = "d56eb59749ad8f697f18cbf8c21187c4";
     });
 
-builder.Services.AddAutoMapper(typeof(Program));
-
 builder.Services.AddControllersWithViews(options =>
 {
     options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
@@ -92,6 +90,8 @@ app.UseEndpoints(endpoints =>
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}"
     );
+
+
 
     endpoints.MapDefaultControllerRoute();
 });

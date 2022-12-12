@@ -34,6 +34,7 @@ namespace BookShop.Views.Account.Models
         public string Email { get; set; }
 
         public string School { get; init; } = "Not given information";
+        public string Phone { get; init; } = "Not given information";
 
         [Required]
         public string Town { get; init; } = null!;
