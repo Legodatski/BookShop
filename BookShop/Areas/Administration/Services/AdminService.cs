@@ -1,7 +1,7 @@
 ﻿using BookShop.Areas.Administration.Contracts;
 using BookShop.Areas.Administration.Models;
-using BookShop.Data;
-using BookShop.Data.Entities;
+using BookShop.Infrastructure;
+using BookShop.Infrastructure.Entities;
 using Microsoft.AspNetCore.Identity;
 
 namespace BookShop.Areas.Administration.Services

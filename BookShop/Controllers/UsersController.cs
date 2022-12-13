@@ -1,8 +1,8 @@
-﻿using AutoMapper;
-using BookShop.Contracts;
-using BookShop.Data.Entities;
-using BookShop.Views.Account.Models;
-using BookShop.Views.Books.Models;
+﻿
+using BookShop.Core.Contracts;
+using BookShop.Core.Models.Books;
+using BookShop.Core.Models.Users;
+using BookShop.Infrastructure.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

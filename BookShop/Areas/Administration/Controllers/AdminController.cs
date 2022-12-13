@@ -1,13 +1,12 @@
 ﻿using BookShop.Areas.Administration.Contracts;
 using BookShop.Areas.Administration.Models;
-using BookShop.Contracts;
-using BookShop.Data.Entities;
-using BookShop.Data.Enums;
-using BookShop.Views.Account.Models;
+using BookShop.Core.Contracts;
+using BookShop.Core.Models.Users;
+using BookShop.Infrastructure.Entities;
+using BookShop.Infrastructure.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Runtime.CompilerServices;
 using System.Security.Claims;
 
 namespace BookShop.Areas.Administration.Controllers

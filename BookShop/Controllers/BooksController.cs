@@ -1,6 +1,6 @@
-﻿using BookShop.Contracts;
-using BookShop.Data.Entities;
-using BookShop.Views.Books.Models;
+﻿using BookShop.Core.Contracts;
+using BookShop.Core.Models.Books;
+using BookShop.Infrastructure.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;

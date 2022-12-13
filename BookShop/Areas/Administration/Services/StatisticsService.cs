@@ -1,5 +1,5 @@
 ﻿using BookShop.Areas.Administration.Contracts;
-using BookShop.Data;
+using BookShop.Infrastructure;
 
 namespace BookShop.Areas.Administration.Services
 {

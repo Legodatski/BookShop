@@ -1,6 +1,6 @@
 ﻿using BookShop.Constants;
-using BookShop.Data.Entities;
-using BookShop.Data.Enums;
+using BookShop.Infrastructure.Entities;
+using BookShop.Infrastructure.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace BookShop.Areas.Administration.Models

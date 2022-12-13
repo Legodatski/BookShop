@@ -1,5 +1,5 @@
 ﻿using BookShop.Constants;
-using BookShop.Data.Entities;
+using BookShop.Infrastructure.Entities;
 using System.ComponentModel.DataAnnotations;
 
 namespace BookShop.Areas.Administration.Models

@@ -1,7 +1,8 @@
-﻿using BookShop.Contracts;
-using BookShop.Data.Entities;
+﻿
+using BookShop.Core.Contracts;
+using BookShop.Core.Models.Books;
+using BookShop.Infrastructure.Entities;
 using BookShop.Models;
-using BookShop.Views.Books.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
