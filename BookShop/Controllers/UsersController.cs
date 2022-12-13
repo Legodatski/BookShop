@@ -76,7 +76,7 @@ namespace BookShop.Controllers
             if (result.Succeeded)
             {
                 await userManager.AddToRoleAsync(user, "User");
-                return RedirectToAction("Login", "Account");
+                return RedirectToAction("Login", "Users");
             }
 
             foreach (var item in result.Errors)
