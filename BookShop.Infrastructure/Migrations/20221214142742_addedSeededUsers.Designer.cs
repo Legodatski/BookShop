@@ -4,6 +4,7 @@ using BookShop.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookShop.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221214142742_addedSeededUsers")]
+    partial class addedSeededUsers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -77,38 +79,6 @@ namespace BookShop.Infrastructure.Migrations
                     b.HasIndex("PublisherId");
 
                     b.ToTable("Books");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 10,
-                            BookTypeId = 5,
-                            Description = "Learn programming while having fun!",
-                            Grade = 1,
-                            ImageUrl = "https://m.media-amazon.com/images/I/51WE1rxr-0L._AC_SY780_.jpg",
-                            IsDeleted = false,
-                            OwnerId = "b68f5083-eb62-49f5-b487-b35c0d5a625c",
-                            Price = 12.50m,
-                            PublisherId = 1,
-                            Title = "Coding adventures",
-                            Year = 2020,
-                            datePublished = new DateTime(2021, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = 11,
-                            BookTypeId = 3,
-                            Description = "Learn the geogrpahy of the whole world.",
-                            Grade = 7,
-                            ImageUrl = "https://m.media-amazon.com/images/I/51HiKFBSbFL._AC_SY780_.jpg",
-                            IsDeleted = false,
-                            OwnerId = "b68f5083-eb62-49f5-b487-b35c0d5a625c",
-                            Price = 10.80m,
-                            PublisherId = 2,
-                            Title = "Geography",
-                            Year = 2022,
-                            datePublished = new DateTime(2022, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        });
                 });
 
             modelBuilder.Entity("BookShop.Infrastructure.Entities.Publisher", b =>
@@ -411,41 +381,39 @@ namespace BookShop.Infrastructure.Migrations
                         {
                             Id = "b68f5083-eb62-49f5-b487-b35c0d5a625c",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5497c7c2-981c-4ffb-bd77-4cf42e81270f",
+                            ConcurrencyStamp = "f95d8e56-91ef-4e5b-b23a-c115406d7fbe",
                             Email = "guest@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Pesho",
                             IsDeleted = false,
                             LastName = "Peshov",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEF3dTZXOgxXWS6wD7eTAU6h3xRJ/jGcD/GiF04grzxql5w8kY+79858XjvMQTfPDsg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELcKq7MFBNmEPi3A27MZ2nYdwI/tYvcZ35mU3iwKS7WMhgbFi0qVrFkGnB5lreMGig==",
                             PhoneNumber = "0881234567",
                             PhoneNumberConfirmed = false,
                             SchoolId = 1,
-                            SecurityStamp = "8c90a3d5-e833-4156-b42a-741b3e545fba",
+                            SecurityStamp = "21210b5e-6bf2-4547-8453-16c776521223",
                             TownId = 1,
-                            TwoFactorEnabled = false,
-                            UserName = "PeshoPeshov"
+                            TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "e97bab0a-4e68-404a-b1d9-57bc8865ab83",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fe1d0f4c-d8b2-4513-9271-c4c98af8e27d",
+                            ConcurrencyStamp = "2b0d9030-8b73-45fd-a1fd-6cbc660661d0",
                             Email = "admin1@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
                             IsDeleted = false,
                             LastName = "Adminov",
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEMNawPTJ8cIKjfj+UbNIixEDP/LV7uH0F08xq8L2LfbC59T/ufku3xdVLSPuVW2jjA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEI3iXNBY/Bs8MZAJE7VyJK/AeqdJ/++8zwp/xo/PRlZp/prZxkilCKBJglDhSnJqrg==",
                             PhoneNumber = "0881234567",
                             PhoneNumberConfirmed = false,
                             SchoolId = 1,
-                            SecurityStamp = "07e2139c-8b63-4f9b-9b6d-78a9cbacaae4",
+                            SecurityStamp = "9fccdfe0-61d9-4c79-985c-9daac1e31cdf",
                             TownId = 1,
-                            TwoFactorEnabled = false,
-                            UserName = "AdminAdminov"
+                            TwoFactorEnabled = false
                         });
                 });
 

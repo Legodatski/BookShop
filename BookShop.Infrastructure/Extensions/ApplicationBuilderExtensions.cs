@@ -31,8 +31,12 @@ namespace BookShop.Infrastructure.Extensions
                     await roleManager.CreateAsync(userRole);
                 }
 
-                User admin = await userManager.FindByEmailAsync("admin@gmail.com");
-                await userManager.AddToRoleAsync(admin, "Admin");
+                User admin = await userManager.FindByEmailAsync("admin1@gmail.com");
+
+                if (admin != null)
+                {
+                    await userManager.AddToRoleAsync(admin, "Admin");
+                }
             })
             .GetAwaiter()
             .GetResult();
