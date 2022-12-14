@@ -10,6 +10,11 @@ namespace BookShop.Infrastructure.Extensions
         {
             string strValue = value as string;
 
+            if (strValue == null)
+            {
+                return true;
+            }
+
             foreach (var c in strValue)
             {
                 if (!char.IsNumber(c))
@@ -18,7 +23,7 @@ namespace BookShop.Infrastructure.Extensions
                 }
             }
 
-            if (strValue == null || strValue.Length == Lenght)
+            if (strValue.Length == Lenght)
             {
                 return true;
             }

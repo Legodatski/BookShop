@@ -48,6 +48,8 @@ namespace BookShop.Infrastructure.Extensions
                         IsDeleted = false,
                         UserName = "AdminAdminov"
                     }, "admin123");
+
+                    admin = await userManager.FindByEmailAsync("admin1@gmail.com");
                 }
 
                 if (guest == null)
@@ -63,6 +65,8 @@ namespace BookShop.Infrastructure.Extensions
                         IsDeleted = false,
                         UserName = "PeshoPeshov"
                     }, "guest123");
+
+                    guest = await userManager.FindByEmailAsync("guest@gmail.com");
                 }
 
                 await userManager.AddToRoleAsync(admin, "Admin");

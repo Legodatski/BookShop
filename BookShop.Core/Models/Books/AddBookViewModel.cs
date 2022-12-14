@@ -39,6 +39,9 @@ namespace BookShop.Core.Models.Books
         public int SubjectId { get; set; }
 
         [Required]
+        public int Year { get; set; }
+
+        [Required]
         public IEnumerable<SubjectType> AllSubjects { get; set; }
     }
 }

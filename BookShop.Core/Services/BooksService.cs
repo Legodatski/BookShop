@@ -32,6 +32,7 @@ namespace BookShop.Core.Services
                 datePublished = DateTime.Today,
                 OwnerId = userId,
                 Owner = owner,
+                Year = model.Year,
                 IsDeleted = false
             };
 

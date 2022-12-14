@@ -24,7 +24,7 @@ namespace BookShop.Core.Models.Users
         public string LastName { get; set; }
 
         [StringLenghtExact(Lenght = GlobalConstants.PhoneLenght)]
-        public string PhoneNumber { get; set; }
+        public string? PhoneNumber { get; set; }
 
         [Required]
         [EmailAddress]

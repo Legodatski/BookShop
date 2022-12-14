@@ -4,6 +4,7 @@ using BookShop.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookShop.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221214200932_bookExperiment")]
+    partial class bookExperiment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -77,38 +79,6 @@ namespace BookShop.Infrastructure.Migrations
                     b.HasIndex("PublisherId");
 
                     b.ToTable("Books");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 10,
-                            BookTypeId = 5,
-                            Description = "Learn programming while having fun!",
-                            Grade = 1,
-                            ImageUrl = "https://m.media-amazon.com/images/I/51WE1rxr-0L._AC_SY780_.jpg",
-                            IsDeleted = false,
-                            OwnerId = "a754571d-5a65-433b-ae02-fc356f354448",
-                            Price = 12.50m,
-                            PublisherId = 1,
-                            Title = "Coding adventures",
-                            Year = 2020,
-                            datePublished = new DateTime(2021, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = 11,
-                            BookTypeId = 3,
-                            Description = "Learn the geogrpahy of the whole world.",
-                            Grade = 7,
-                            ImageUrl = "https://m.media-amazon.com/images/I/51HiKFBSbFL._AC_SY780_.jpg",
-                            IsDeleted = false,
-                            OwnerId = "a754571d-5a65-433b-ae02-fc356f354448",
-                            Price = 10.80m,
-                            PublisherId = 2,
-                            Title = "Geography",
-                            Year = 2022,
-                            datePublished = new DateTime(2022, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        });
                 });
 
             modelBuilder.Entity("BookShop.Infrastructure.Entities.Publisher", b =>
