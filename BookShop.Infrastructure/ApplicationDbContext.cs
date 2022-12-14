@@ -13,7 +13,7 @@ namespace BookShop.Infrastructure
         {
         }
 
-        protected override void OnModelCreating(ModelBuilder builder)
+        protected override async void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
@@ -48,17 +48,12 @@ namespace BookShop.Infrastructure
                   .HasData(publisher);
             }
 
-            foreach (var user in SeedUsers())
-            {
-                builder.Entity<User>()
-                  .HasData(user);
-            }
-
             foreach (var book in SeedBooks())
             {
                 builder.Entity<Book>()
                     .HasData(book);
             }
+
         }
 
         public DbSet<Book> Books { get; set; }
@@ -191,42 +186,6 @@ namespace BookShop.Infrastructure
             return publishers;
         }
 
-        private List<User> SeedUsers()
-        {
-            List<User> users = new List<User>();
-
-            string hashedGuestPassword = new PasswordHasher<object>().HashPassword(null, "guest123");
-            string hashedAdminPassword = new PasswordHasher<object>().HashPassword(null, "admin123");
-
-            users.Add(new User()
-            {
-                Id = "b68f5083-eb62-49f5-b487-b35c0d5a625c",
-                Email = "guest@gmail.com",
-                PasswordHash = hashedGuestPassword,
-                FirstName = "Pesho",
-                LastName = "Peshov",
-                PhoneNumber = "0881234567",
-                UserName = "PeshoPeshov",
-                SchoolId = 1,
-                TownId = 1
-            });
-
-            users.Add(new User()
-            {
-                Id = "e97bab0a-4e68-404a-b1d9-57bc8865ab83",
-                Email = "admin1@gmail.com",
-                PasswordHash = hashedAdminPassword,
-                FirstName = "Admin",
-                LastName = "Adminov",
-                UserName = "AdminAdminov",
-                PhoneNumber = "0881234567",
-                SchoolId = 1,
-                TownId = 1
-            });
-
-            return users;
-        }
-
         private List<Book> SeedBooks()
         {
             List<Book> books= new List<Book>();
@@ -239,7 +198,7 @@ namespace BookShop.Infrastructure
                 datePublished = Convert.ToDateTime("05/05/2021"),
                 Description = "Learn programming while having fun!",
                 Grade = 1,
-                OwnerId = "b68f5083-eb62-49f5-b487-b35c0d5a625c",
+                OwnerId = "a754571d-5a65-433b-ae02-fc356f354448",
                 ImageUrl = "https://m.media-amazon.com/images/I/51WE1rxr-0L._AC_SY780_.jpg",
                 Year = 2020,
                 PublisherId = 1,
@@ -255,7 +214,7 @@ namespace BookShop.Infrastructure
                 datePublished = Convert.ToDateTime("04/10/2022"),
                 Description = "Learn the geogrpahy of the whole world.",
                 Grade = 7,
-                OwnerId = "b68f5083-eb62-49f5-b487-b35c0d5a625c",
+                OwnerId = "a754571d-5a65-433b-ae02-fc356f354448",
                 ImageUrl = "https://m.media-amazon.com/images/I/51HiKFBSbFL._AC_SY780_.jpg",
                 Year = 2022,
                 PublisherId = 2,

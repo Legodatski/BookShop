@@ -4,6 +4,7 @@ using BookShop.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookShop.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221214190934_seedbooks2")]
+    partial class seedbooks2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -76,7 +78,7 @@ namespace BookShop.Infrastructure.Migrations
 
                     b.HasIndex("PublisherId");
 
-                    b.ToTable("Books", (string)null);
+                    b.ToTable("Books");
 
                     b.HasData(
                         new
@@ -129,7 +131,7 @@ namespace BookShop.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Publishers", (string)null);
+                    b.ToTable("Publishers");
 
                     b.HasData(
                         new
@@ -178,7 +180,7 @@ namespace BookShop.Infrastructure.Migrations
 
                     b.HasIndex("TownId");
 
-                    b.ToTable("Schools", (string)null);
+                    b.ToTable("Schools");
 
                     b.HasData(
                         new
@@ -237,7 +239,7 @@ namespace BookShop.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SubjectTypes", (string)null);
+                    b.ToTable("SubjectTypes");
 
                     b.HasData(
                         new
@@ -290,7 +292,7 @@ namespace BookShop.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Towns", (string)null);
+                    b.ToTable("Towns");
 
                     b.HasData(
                         new

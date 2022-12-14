@@ -32,11 +32,41 @@ namespace BookShop.Infrastructure.Extensions
                 }
 
                 User admin = await userManager.FindByEmailAsync("admin1@gmail.com");
+                User guest = await userManager.FindByEmailAsync("guest@gmail.com");
 
-                if (admin != null)
+
+                if (admin == null)
                 {
-                    await userManager.AddToRoleAsync(admin, "Admin");
+                    await userManager.CreateAsync(new User()
+                    {
+                        Id = "35bbae7d-b2a0-472a-8137-e8df5f4ac614",
+                        FirstName = "Admin",
+                        LastName = "Adminov",
+                        SchoolId = null,
+                        TownId = 1,
+                        Email = "admin1@gmail.com",
+                        IsDeleted = false,
+                        UserName = "AdminAdminov"
+                    }, "admin123");
                 }
+
+                if (guest == null)
+                {
+                    await userManager.CreateAsync(new User()
+                    {
+                        Id = "a754571d-5a65-433b-ae02-fc356f354448",
+                        FirstName = "Pesho",
+                        LastName = "Pesho",
+                        SchoolId = 2,
+                        TownId = 1,
+                        Email = "guest@gmail.com",
+                        IsDeleted = false,
+                        UserName = "PeshoPeshov"
+                    }, "guest123");
+                }
+
+                await userManager.AddToRoleAsync(admin, "Admin");
+                await userManager.AddToRoleAsync(guest, "User");
             })
             .GetAwaiter()
             .GetResult();

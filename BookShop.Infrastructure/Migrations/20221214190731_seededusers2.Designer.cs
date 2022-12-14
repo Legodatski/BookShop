@@ -4,6 +4,7 @@ using BookShop.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookShop.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221214190731_seededusers2")]
+    partial class seededusers2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -76,7 +78,7 @@ namespace BookShop.Infrastructure.Migrations
 
                     b.HasIndex("PublisherId");
 
-                    b.ToTable("Books", (string)null);
+                    b.ToTable("Books");
 
                     b.HasData(
                         new
@@ -87,7 +89,7 @@ namespace BookShop.Infrastructure.Migrations
                             Grade = 1,
                             ImageUrl = "https://m.media-amazon.com/images/I/51WE1rxr-0L._AC_SY780_.jpg",
                             IsDeleted = false,
-                            OwnerId = "a754571d-5a65-433b-ae02-fc356f354448",
+                            OwnerId = "b68f5083-eb62-49f5-b487-b35c0d5a625c",
                             Price = 12.50m,
                             PublisherId = 1,
                             Title = "Coding adventures",
@@ -102,7 +104,7 @@ namespace BookShop.Infrastructure.Migrations
                             Grade = 7,
                             ImageUrl = "https://m.media-amazon.com/images/I/51HiKFBSbFL._AC_SY780_.jpg",
                             IsDeleted = false,
-                            OwnerId = "a754571d-5a65-433b-ae02-fc356f354448",
+                            OwnerId = "b68f5083-eb62-49f5-b487-b35c0d5a625c",
                             Price = 10.80m,
                             PublisherId = 2,
                             Title = "Geography",
@@ -129,7 +131,7 @@ namespace BookShop.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Publishers", (string)null);
+                    b.ToTable("Publishers");
 
                     b.HasData(
                         new
@@ -178,7 +180,7 @@ namespace BookShop.Infrastructure.Migrations
 
                     b.HasIndex("TownId");
 
-                    b.ToTable("Schools", (string)null);
+                    b.ToTable("Schools");
 
                     b.HasData(
                         new
@@ -237,7 +239,7 @@ namespace BookShop.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SubjectTypes", (string)null);
+                    b.ToTable("SubjectTypes");
 
                     b.HasData(
                         new
@@ -290,7 +292,7 @@ namespace BookShop.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Towns", (string)null);
+                    b.ToTable("Towns");
 
                     b.HasData(
                         new
