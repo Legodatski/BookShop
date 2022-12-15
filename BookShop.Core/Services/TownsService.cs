@@ -37,7 +37,17 @@ namespace BookShop.Core.Services
             => context.Schools.Distinct().Where(x => x.IsDeleted == false);
 
         public async Task<Town> GetTownById(int? id)
-            => await context.Towns.FindAsync(id);
+        {
+            var Town = await context.Towns.FindAsync(id);
+
+            if (Town == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            return Town;
+        }
+
         public async Task<School> FindSchoolById(int? id)
             => await context.Schools.FindAsync(id);
 

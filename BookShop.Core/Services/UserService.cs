@@ -34,6 +34,9 @@ namespace BookShop.Core.Services
         {
             var user = await context.Users.FindAsync(id);
 
+            if (user == null)
+                throw new ArgumentNullException("Invalid user");
+
             user.FirstName = model.FirstName;
             user.LastName = model.LastName;
             user.Email = model.Email;
@@ -50,6 +53,13 @@ namespace BookShop.Core.Services
             => context.Users.Any(user => user.Id == userId);
 
         public async Task<User> FindById(string userId)
-            => await context.Users.FindAsync(userId);
+        {
+            var user = await context.Users.FindAsync(userId);
+
+            if (user == null)
+                throw new ArgumentNullException("Invalid user id");
+
+            return user;
+        }
     }
 }

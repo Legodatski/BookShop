@@ -12,12 +12,15 @@ namespace BookShop.Core.Contracts
         IEnumerable<School> GetAllSchools();
 
         Task AddSchool(string name, SchoolTypes type, int townId);
+
         Task<School> FindSchoolById(int? id);
 
         bool ExistsSchoolByName(string name);
 
         bool ExistsTownByName(string name);
+
         bool ExistsSchoolById(int id);
+
         bool ExistsTownById(int id);
 
         Task AddTown(string name);
