@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BookShop.Areas.Administration.Controllers
 {
+    [Area("Administration")]
     [Authorize(Roles = "Admin")]
     public class StatisticsController : Controller
     {

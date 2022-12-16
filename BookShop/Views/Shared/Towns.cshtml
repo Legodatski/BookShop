@@ -1,7 +1,8 @@
-﻿@model PublishersViewModel
+﻿@using BookShop.Areas.Administration.Models
+@model TownsViewModel
 
 @{
-    ViewBag.Title = "Add a publisher";
+    ViewBag.Title = "Add a town";
 }
 
 <h1 class="text-center">@ViewData["Title"]</h1>
@@ -25,16 +26,16 @@
 </div>
 
 <p></p>
-<h2 class="text-center">All publishers</h2>
+<h2 class="text-center">All Towns</h2>
 <hr />
 
 <div class="row">
     <div class="col-md-4 offset-md-4">
-        @foreach (var p in Model.Publishers)
+        @foreach (var t in Model.Towns)
         {
             <p>
-                @p.Name <a class="ml-2 btn btn-danger" asp-area="Administration" asp-controller="Admin" asp-action="DeletePublisher"
-                      asp-route-id="@p.Id">Delete</a>
+                @t.Name <a class="ml-2 btn btn-danger" asp-area="Administration" asp-controller="Admin" asp-action="DeleteTown"
+                       asp-route-id="@t.Id">Delete</a>
             </p>
         }
     </div>

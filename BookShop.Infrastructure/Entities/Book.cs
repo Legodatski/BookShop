@@ -14,12 +14,7 @@ namespace BookShop.Infrastructure.Entities
         [MinLength(GlobalConstants.BookTitleMinLenght)]
         public string Title { get; set; } = null!;
 
-        public string Description { get; set; }
-
-        [Required]
-        [Range(GlobalConstants.BookYearMin, GlobalConstants.BookYearMax)]
-        public int Year { get; init; }
-
+        public string? Description { get; set; }
 
         [Required]
         [Range(GlobalConstants.BookGradeMin, GlobalConstants.BookGradeMax)]

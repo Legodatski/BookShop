@@ -11,6 +11,7 @@ using System.Security.Claims;
 
 namespace BookShop.Areas.Administration.Controllers
 {
+    [Area("Administration")]
     public class AdminController : Controller
     {
         private readonly IAdminService adminService;

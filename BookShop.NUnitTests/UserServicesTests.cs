@@ -27,7 +27,6 @@ namespace BookShop.NUnitTests
             context.SaveChanges();
 
             userService = new UserService(context);
-
         }
 
         [Test]

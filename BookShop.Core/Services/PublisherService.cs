@@ -18,8 +18,14 @@ namespace BookShop.Core.Services
             => context.Publishers.Distinct().Where(x => x.IsDeleted == false);
 
         public async Task<Publisher> GetPublisher(int id)
-            => await context.Publishers.FirstOrDefaultAsync(p => p.Id == id);
+        {
+            if (!context.Publishers.Any(x => x.Id == id))
+            {
+                throw new ArgumentException("Invalid Publisher");
+            }
 
+            return await context.Publishers.FirstOrDefaultAsync(p => p.Id == id);
+        }
 
         public async Task AddPublisher(string name)
         {

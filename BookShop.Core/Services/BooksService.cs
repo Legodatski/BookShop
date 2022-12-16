@@ -32,7 +32,6 @@ namespace BookShop.Core.Services
                 datePublished = DateTime.Today,
                 OwnerId = userId,
                 Owner = owner,
-                Year = model.Year,
                 IsDeleted = false
             };
 
@@ -164,10 +163,18 @@ namespace BookShop.Core.Services
             => await context.Books.FindAsync(id);
 
         public IEnumerable<Book> GetLast(int n)
-            => context
+        {
+            if (n < 1)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            return context
             .Books
-            .OrderBy(x => x.datePublished)
-            .Take(n);
+            .OrderByDescending(x => x.datePublished)
+            .Take(n)
+            .ToList();
+        }
 
         public async Task<SubjectType> GetSubjectType(int Id)
             => await context

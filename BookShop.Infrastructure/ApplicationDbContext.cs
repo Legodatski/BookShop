@@ -200,7 +200,6 @@ namespace BookShop.Infrastructure
                 Grade = 1,
                 OwnerId = "a754571d-5a65-433b-ae02-fc356f354448",
                 ImageUrl = "https://m.media-amazon.com/images/I/51WE1rxr-0L._AC_SY780_.jpg",
-                Year = 2020,
                 PublisherId = 1,
                 Price = 12.50M
             });
@@ -216,7 +215,6 @@ namespace BookShop.Infrastructure
                 Grade = 7,
                 OwnerId = "a754571d-5a65-433b-ae02-fc356f354448",
                 ImageUrl = "https://m.media-amazon.com/images/I/51HiKFBSbFL._AC_SY780_.jpg",
-                Year = 2022,
                 PublisherId = 2,
                 Price = 10.80M
             });

@@ -1,5 +1,6 @@
 ﻿using BookShop.Infrastructure.Enums;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography.X509Certificates;
 
 namespace BookShop.NUnitTests
 {
@@ -22,9 +23,9 @@ namespace BookShop.NUnitTests
 
             schools = new List<School>()
             {
-                new School(){Id = 1, Name = "SchoolA", SchoolType = SchoolTypes.HighSchool, TownId = 1, IsDeleted = false},
-                new School(){Id = 2, Name = "SchoolB", SchoolType = SchoolTypes.PrimarySchool, TownId = 2, IsDeleted = false},
-                new School(){Id = 3, Name = "SchoolC", SchoolType = SchoolTypes.MiddleSchool, TownId = 3, IsDeleted = false},
+                new School(){Id = 10, Name = "SchoolA", SchoolType = SchoolTypes.PrimarySchool, TownId = 1},
+                new School(){Id = 20, Name = "SchoolB", SchoolType = SchoolTypes.MiddleSchool, TownId = 2},
+                new School(){Id = 30, Name = "SchoolC", SchoolType = SchoolTypes.HighSchool, TownId = 3}
             };
 
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
@@ -32,7 +33,8 @@ namespace BookShop.NUnitTests
                 .Options;
 
             context = new ApplicationDbContext(options);
-            context.AddRange(towns);
+            context.Towns.AddRange(towns);
+            context.Schools.AddRange(schools);
             context.SaveChanges();
 
             townsService = new TownsService(context);
@@ -101,5 +103,20 @@ namespace BookShop.NUnitTests
         }
 
         [Test]
+        public async Task Test_AddSchool_CorrectInput()
+        {
+            string schoolName = "SchoolD";
+            SchoolTypes type = SchoolTypes.MiddleSchool;
+
+            await townsService.AddSchool(schoolName, type, 1);
+
+            Assert.IsTrue(context.Schools.Any(x=> x.Name == schoolName));
+        }
+
+        [Test]
+        public async Task Test_AddSchool_InvalidInput()
+        {
+            Assert.ThrowsAsync<ArgumentException>(() => townsService.AddSchool("a", SchoolTypes.HighSchool, 20));
+        }
     }
 }

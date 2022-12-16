@@ -2,6 +2,7 @@
 using BookShop.Infrastructure;
 using BookShop.Infrastructure.Entities;
 using BookShop.Infrastructure.Enums;
+using Microsoft.AspNetCore.Mvc.Formatters;
 
 namespace BookShop.Core.Services
 {
@@ -16,6 +17,11 @@ namespace BookShop.Core.Services
 
         public async Task AddSchool(string name, SchoolTypes type, int townId)
         {
+            if (!context.Towns.Any(x => x.Id == townId))
+            {
+                throw new ArgumentException("Invalid town");
+            }
+
             await context.Schools.AddAsync(new School()
             {
                 Name = name,
@@ -24,7 +30,7 @@ namespace BookShop.Core.Services
                 IsDeleted = false,
             });
 
-
+            await context.SaveChangesAsync();
         }
 
         public IEnumerable<Town> GetAll()
