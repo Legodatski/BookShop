@@ -1,4 +1,4 @@
-﻿namespace BookShop.Areas.Administration.Contracts
+﻿namespace BookShop.Core.Contracts.Admin
 {
     public interface IStatisticsService
     {

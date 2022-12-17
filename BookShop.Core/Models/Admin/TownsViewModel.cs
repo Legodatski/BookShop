@@ -1,8 +1,8 @@
-﻿using BookShop.Constants;
+﻿using BookShop.Infrastructure.Constants;
 using BookShop.Infrastructure.Entities;
 using System.ComponentModel.DataAnnotations;
 
-namespace BookShop.Areas.Administration.Models
+namespace BookShop.Core.Models.Admin
 {
     public class TownsViewModel
     {

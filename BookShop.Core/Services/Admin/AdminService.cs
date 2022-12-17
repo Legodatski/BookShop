@@ -1,10 +1,11 @@
-﻿using BookShop.Areas.Administration.Contracts;
-using BookShop.Areas.Administration.Models;
+﻿
+using BookShop.Core.Contracts.Admin;
+using BookShop.Core.Models.Admin;
 using BookShop.Infrastructure;
 using BookShop.Infrastructure.Entities;
 using Microsoft.AspNetCore.Identity;
 
-namespace BookShop.Areas.Administration.Services
+namespace BookShop.Core.Services.Admin
 {
     public class AdminService : IAdminService
     {

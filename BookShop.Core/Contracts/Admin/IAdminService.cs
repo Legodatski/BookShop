@@ -1,6 +1,6 @@
-﻿using BookShop.Areas.Administration.Models;
+﻿using BookShop.Core.Models.Admin;
 
-namespace BookShop.Areas.Administration.Contracts
+namespace BookShop.Core.Contracts.Admin
 {
     public interface IAdminService
     {

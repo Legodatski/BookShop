@@ -1,4 +1,4 @@
-﻿namespace BookShop.Areas.Administration.Models
+﻿namespace BookShop.Core.Models.Admin
 {
     public class StatisticsViewModel
     {

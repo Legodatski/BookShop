@@ -22,10 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Administration\Data\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\BookShop.Core\BookShop.Core.csproj" />
     <ProjectReference Include="..\BookShop.Infrastructure\BookShop.Infrastructure.csproj" />
   </ItemGroup>

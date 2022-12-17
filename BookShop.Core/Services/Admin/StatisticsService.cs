@@ -1,7 +1,7 @@
-﻿using BookShop.Areas.Administration.Contracts;
+﻿using BookShop.Core.Contracts.Admin;
 using BookShop.Infrastructure;
 
-namespace BookShop.Areas.Administration.Services
+namespace BookShop.Core.Services.Admin
 {
     public class StatisticsService : IStatisticsService
     {

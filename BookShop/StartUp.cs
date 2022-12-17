@@ -1,8 +1,8 @@
-using BookShop.Areas.Administration.Contracts;
-using BookShop.Areas.Administration.Services;
 using BookShop.Constants;
 using BookShop.Core.Contracts;
+using BookShop.Core.Contracts.Admin;
 using BookShop.Core.Services;
+using BookShop.Core.Services.Admin;
 using BookShop.Infrastructure;
 using BookShop.Infrastructure.Entities;
 using BookShop.Infrastructure.Extensions;

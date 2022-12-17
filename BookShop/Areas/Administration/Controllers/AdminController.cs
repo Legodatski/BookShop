@@ -1,6 +1,6 @@
-﻿using BookShop.Areas.Administration.Contracts;
-using BookShop.Areas.Administration.Models;
-using BookShop.Core.Contracts;
+﻿using BookShop.Core.Contracts;
+using BookShop.Core.Contracts.Admin;
+using BookShop.Core.Models.Admin;
 using BookShop.Core.Models.Users;
 using BookShop.Infrastructure.Entities;
 using BookShop.Infrastructure.Enums;

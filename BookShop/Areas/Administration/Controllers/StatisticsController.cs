@@ -1,5 +1,5 @@
-﻿using BookShop.Areas.Administration.Contracts;
-using BookShop.Areas.Administration.Models;
+﻿using BookShop.Core.Contracts.Admin;
+using BookShop.Core.Models.Admin;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
