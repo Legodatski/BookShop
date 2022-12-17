@@ -20,6 +20,11 @@ namespace BookShop.Core.Services.Admin
         {
             string adminRoleKey = "971ba58d-3ed5-4950-95b6-5e96a734db6f";
 
+            if (!context.Roles.Any(r => r.Id == adminRoleKey))
+            {
+                throw new ArgumentException("The database doesn't contain this role");
+            }
+
             await context.UserRoles.AddAsync(new IdentityUserRole<string>()
             {
                 RoleId = adminRoleKey,

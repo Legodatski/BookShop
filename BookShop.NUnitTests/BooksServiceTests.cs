@@ -133,5 +133,14 @@ namespace BookShop.NUnitTests
             Assert.True(actual.Id == excepted.Id);
 
         }
+
+        [Test]
+        public void Test_CurrentUserBooks()
+        {
+            var actualBooks = booksService.CurrentUserBooks("1");
+            var expected = context.Books.FirstOrDefault(b => b.OwnerId == "1");
+
+            Assert.True(expected.Id == actualBooks.First().Id);
+        }
     }
 }
