@@ -3,6 +3,7 @@ using BookShop.Core.Models.Books;
 using BookShop.Infrastructure.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Security.Claims;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
@@ -101,13 +102,19 @@ namespace BookShop.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-            var model = new AddBookViewModel();
+            Book book = await booksService.GetBook(id);
 
-            model.Id = id;
-
-            model.AllPublishers = publisherService.GetAllPublishers();
-
-            model.AllSubjects = booksService.GetAllSubjectTypes();
+            var model = new AddBookViewModel()
+            {
+                Id = id,
+                Title = book.Title,
+                Description = book.Description,
+                AllPublishers = publisherService.GetAllPublishers(),
+                AllSubjects = booksService.GetAllSubjectTypes(),
+                Grade = book.Grade,
+                ImageUrl = book.ImageUrl,
+                Price = book.Price
+            };
 
             return View("Edit", model);
         }
@@ -115,6 +122,15 @@ namespace BookShop.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(AddBookViewModel model)
         {
+            model.AllPublishers = publisherService.GetAllPublishers();
+            model.AllSubjects = booksService.GetAllSubjectTypes();
+
+            if (!ModelState.IsValid)
+            {
+                IEnumerable<ModelError> allErrors = ModelState.Values.SelectMany(v => v.Errors);
+                return View(model);
+            }
+
             await booksService.Edit(model);
 
             return RedirectToAction("MyBooks");

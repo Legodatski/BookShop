@@ -27,11 +27,8 @@
         public const int PublisherNameMinLenght = 5;
 
         //Book
-        public const int BookTitleMaxLenght = 20;
+        public const int BookTitleMaxLenght = 50;
         public const int BookTitleMinLenght = 3;
-
-        public const int BookYearMax = 2023;
-        public const int BookYearMin = 1999;
 
         public const int BookGradeMax = 13;
         public const int BookGradeMin = 1;

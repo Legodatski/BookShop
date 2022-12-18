@@ -1,4 +1,5 @@
 ﻿using BookShop.Core.Contracts.Admin;
+using BookShop.Core.Models.Admin;
 using BookShop.Core.Services.Admin;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -16,7 +17,7 @@ namespace BookShop.NUnitTests
         private IStatisticsService statisticsService;
         private IAdminService adminService;
 
-        [OneTimeSetUp]
+        [SetUp]
         public void InitializeDb()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
@@ -24,6 +25,8 @@ namespace BookShop.NUnitTests
                 .Options;
 
             context = new ApplicationDbContext(options);
+
+            context.Database.EnsureDeleted();
 
             List<User> users = new List<User>()
             {
@@ -55,11 +58,23 @@ namespace BookShop.NUnitTests
         }
 
         [Test]
-        public async Task Test_AddUserToRole()
+        public async Task Test_AddUserToRole_CorrectInput()
         {
             await adminService.AddRoleToUser("1");
 
             Assert.True(context.UserRoles.Any(ru => ru.UserId == "1" && ru.RoleId == "971ba58d-3ed5-4950-95b6-5e96a734db6f"));
+        }
+
+        [Test]
+        public async Task Test_AddUserToRole_InvalidInput()
+        {
+            Assert.ThrowsAsync<ArgumentException>(() => adminService.AddRoleToUser("80"));
+        }
+
+        [Test]
+        public async Task Test_AddSchool_InvalidTown()
+        {
+            Assert.ThrowsAsync<ArgumentException>(() => adminService.AddSchool(new SchoolsViewModel() { Name = "a", TownId = 200 }));
         }
     }
 }

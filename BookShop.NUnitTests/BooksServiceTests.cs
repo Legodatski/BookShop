@@ -13,7 +13,7 @@ namespace BookShop.NUnitTests
         private IBooksService booksService;
         private List<Book> books;
 
-        [OneTimeSetUp]
+        [SetUp]
         public void InitializeDb()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
@@ -21,6 +21,8 @@ namespace BookShop.NUnitTests
                 .Options;
 
             context = new ApplicationDbContext(options);
+
+            context.Database.EnsureDeleted();
 
             List<User> users = new List<User>()
             {
@@ -69,7 +71,8 @@ namespace BookShop.NUnitTests
         public void Test_GetLast_CorrectInput()
         {
             var excepted =  new Book()
-            {   Id=1, 
+            {   
+                Id=1, 
                 BookTypeId=1, 
                 Grade=1, 
                 OwnerId="1", 

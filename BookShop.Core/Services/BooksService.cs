@@ -3,6 +3,7 @@ using BookShop.Core.Models.Books;
 using BookShop.Infrastructure;
 using BookShop.Infrastructure.Entities;
 using BookShop.Infrastructure.Enums;
+using Ganss.Xss;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookShop.Core.Services
@@ -10,11 +11,13 @@ namespace BookShop.Core.Services
     public class BooksService : IBooksService
     {
         private readonly ApplicationDbContext context;
+        private HtmlSanitizer htmlSanitizer;
 
         public BooksService(
             ApplicationDbContext context)
         {
             this.context = context;
+            htmlSanitizer = new HtmlSanitizer();
         }
 
         public async Task Add(AddBookViewModel model, string userId)
@@ -23,12 +26,13 @@ namespace BookShop.Core.Services
 
             Book book = new Book()
             {
-                Title = model.Title,
-                Description = model.Description,
+                Title = htmlSanitizer.Sanitize(model.Title),
+                Description = htmlSanitizer.Sanitize(model.Description),
                 Price = model.Price,
                 BookTypeId = model.SubjectId,
-                PublisherId = model.SubjectId,
+                PublisherId = model.PublisherId,
                 Grade = model.Grade,
+                ImageUrl = model.ImageUrl,
                 datePublished = DateTime.Today,
                 OwnerId = userId,
                 Owner = owner,
@@ -46,7 +50,7 @@ namespace BookShop.Core.Services
             int currentPage = 1,
             int booksPerPage = 5)
         {
-            var bookQuery = context.Books.AsQueryable();
+            var bookQuery = context.Books.Where(b => b.IsDeleted == false).AsQueryable();
 
             if (subject != null)
             {
@@ -133,8 +137,8 @@ namespace BookShop.Core.Services
         {
             Book? book = context.Books.Find(model.Id);
 
-            book.Title = model.Title;
-            book.Description = model.Description;
+            book.Title = htmlSanitizer.Sanitize(model.Title);
+            book.Description = htmlSanitizer.Sanitize(model.Description);
             book.Price = model.Price;
             book.Grade = model.Grade;
             book.ImageUrl = model.ImageUrl;
@@ -171,6 +175,7 @@ namespace BookShop.Core.Services
 
             return context
             .Books
+            .Where(b => b.IsDeleted == false)
             .OrderByDescending(x => x.datePublished)
             .Take(n)
             .ToList();

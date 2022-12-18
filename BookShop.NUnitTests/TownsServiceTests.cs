@@ -11,7 +11,7 @@ namespace BookShop.NUnitTests
         private List<Town> towns;
         private List<School> schools;
 
-        [OneTimeSetUp]
+        [SetUp]
         public void InitializeDb()
         {
             towns = new List<Town>()
@@ -33,6 +33,9 @@ namespace BookShop.NUnitTests
                 .Options;
 
             context = new ApplicationDbContext(options);
+
+            context.Database.EnsureDeleted();
+
             context.Towns.AddRange(towns);
             context.Schools.AddRange(schools);
             context.SaveChanges();

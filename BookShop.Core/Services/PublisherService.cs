@@ -1,6 +1,7 @@
 ﻿using BookShop.Core.Contracts;
 using BookShop.Infrastructure;
 using BookShop.Infrastructure.Entities;
+using Ganss.Xss;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookShop.Core.Services
@@ -8,10 +9,12 @@ namespace BookShop.Core.Services
     public class PublisherService : IPublisherService
     {
         private readonly ApplicationDbContext context;
+        private HtmlSanitizer htmlSanitizer;
 
         public PublisherService(ApplicationDbContext context)
         {
             this.context = context;
+            htmlSanitizer = new HtmlSanitizer();
         }
 
         public IEnumerable<Publisher> GetAllPublishers()
@@ -31,7 +34,7 @@ namespace BookShop.Core.Services
         {
             Publisher publisher = new Publisher()
             {
-                Name = name
+                Name = htmlSanitizer.Sanitize(name)
             };
 
             await context.Publishers.AddAsync(publisher);

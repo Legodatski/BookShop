@@ -9,6 +9,7 @@ namespace BookShop.Core.Models.Books
         public AddBookViewModel()
         {
             AllSubjects = new HashSet<SubjectType>();
+            AllPublishers = new HashSet<Publisher>();
         }
 
         public int? Id { get; set; }
@@ -20,13 +21,12 @@ namespace BookShop.Core.Models.Books
 
         public string? Description { get; set; }
 
-        [Required]
-        public string ImageUrl { get; set; } = null!;
+        public string? ImageUrl { get; set; }
 
         [Required]
         public int PublisherId { get; set; }
 
-        public IEnumerable<Publisher> AllPublishers { get; set; } = null!;
+        public IEnumerable<Publisher> AllPublishers { get; set; }
 
         [Required]
         public decimal Price  { get; set; }

@@ -3,6 +3,7 @@ using BookShop.Core.Contracts;
 using BookShop.Core.Models.Books;
 using BookShop.Core.Models.Users;
 using BookShop.Infrastructure.Entities;
+using Ganss.Xss;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -21,6 +22,8 @@ namespace BookShop.Controllers
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
 
+        private HtmlSanitizer htmlSanitizer;
+
         public UsersController(
             ITownsService townsService, 
             UserManager<User> userManager, 
@@ -33,6 +36,8 @@ namespace BookShop.Controllers
             this.townsService = townsService;
             this.userManager = userManager;
             this.signInManager = signInManager;
+
+            htmlSanitizer = new HtmlSanitizer();
         }
 
         [AllowAnonymous]
@@ -62,11 +67,11 @@ namespace BookShop.Controllers
             User user = new User()
             {
                 //ne moje username da ima " "{space} 
-                UserName = model.FirstName + model.LastName,
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                Email = model.Email,
-                PhoneNumber = model.PhoneNumber,
+                UserName = htmlSanitizer.Sanitize(model.FirstName) + htmlSanitizer.Sanitize(model.LastName),
+                FirstName = htmlSanitizer.Sanitize(model.FirstName),
+                LastName = htmlSanitizer.Sanitize(model.LastName),
+                Email = htmlSanitizer.Sanitize(model.Email),
+                PhoneNumber = htmlSanitizer.Sanitize(model.PhoneNumber),
                 SchoolId = model.SchoolId,
                 TownId = model.TownId
             };
@@ -100,7 +105,7 @@ namespace BookShop.Controllers
                 return View(model);
             }
 
-            var user =  await userManager.FindByEmailAsync(model.Email);
+            var user =  await userManager.FindByEmailAsync(htmlSanitizer.Sanitize(model.Email));
 
             if (user != null)
             {
@@ -149,6 +154,12 @@ namespace BookShop.Controllers
             School school = await townsService.FindSchoolById(user.SchoolId);
 
             string schoolName = "No given information";
+            string phone = "No given information";
+
+            if (user.PhoneNumber != null)
+            {
+                phone = user.PhoneNumber;
+            }
 
             if (school != null)
             {
@@ -160,7 +171,7 @@ namespace BookShop.Controllers
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Email = user.Email,
-                PhoneNumber = user.PhoneNumber,
+                PhoneNumber = phone,
                 Schools = townsService.GetAllSchools(),
                 TownName = town.Name,
                 SchoolName = schoolName,

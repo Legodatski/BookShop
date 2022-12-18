@@ -7,10 +7,10 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <li class="nav-item">
-            <a class="nav-link text-dark" asp-controller="Users" asp-action="Edit">Edit your account</a>
+            <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Edit">Edit your account</a>
     </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-controller="Users" asp-action="Logout">Logout</a>
+            <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Logout">Logout</a>
     </li>
 }
 else

@@ -15,7 +15,7 @@ namespace BookShop.NUnitTests
         private IPublisherService publisherService;
         private List<Publisher> publishers;
 
-        [OneTimeSetUp]
+        [SetUp]
         public void InitializeDb()
         {
             publishers = new List<Publisher>()
@@ -30,6 +30,9 @@ namespace BookShop.NUnitTests
                 .Options;
 
             context = new ApplicationDbContext(options);
+
+            context.Database.EnsureDeleted();
+
             context.AddRange(publishers);
             context.SaveChanges();
 

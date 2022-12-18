@@ -2,6 +2,7 @@
 using BookShop.Infrastructure;
 using BookShop.Infrastructure.Entities;
 using BookShop.Infrastructure.Enums;
+using Ganss.Xss;
 using Microsoft.AspNetCore.Mvc.Formatters;
 
 namespace BookShop.Core.Services
@@ -9,10 +10,12 @@ namespace BookShop.Core.Services
     public class TownsService : ITownsService
     {
         private readonly ApplicationDbContext context;
+        private HtmlSanitizer htmlSanitizer;
 
         public TownsService(ApplicationDbContext context)
         {
             this.context = context;
+            htmlSanitizer = new HtmlSanitizer();
         }
 
         public async Task AddSchool(string name, SchoolTypes type, int townId)
@@ -24,7 +27,7 @@ namespace BookShop.Core.Services
 
             await context.Schools.AddAsync(new School()
             {
-                Name = name,
+                Name = htmlSanitizer.Sanitize(name),
                 SchoolType = type,
                 TownId = townId,
                 IsDeleted = false,
@@ -65,7 +68,7 @@ namespace BookShop.Core.Services
 
         public async Task AddTown(string name)
         {
-            await context.Towns.AddAsync(new Town() { Name = name, IsDeleted = false });
+            await context.Towns.AddAsync(new Town() { Name = htmlSanitizer.Sanitize(name), IsDeleted = false });
 
             await context.SaveChangesAsync();
         }

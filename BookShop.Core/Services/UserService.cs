@@ -2,6 +2,7 @@
 using BookShop.Core.Models.Users;
 using BookShop.Infrastructure;
 using BookShop.Infrastructure.Entities;
+using Ganss.Xss;
 using Microsoft.AspNetCore.Identity;
 
 namespace BookShop.Core.Services
@@ -9,10 +10,12 @@ namespace BookShop.Core.Services
     public class UserService : IUserService
     {
         private readonly ApplicationDbContext context;
+        private HtmlSanitizer htmlSanitizer;
 
         public UserService(ApplicationDbContext context)
         {
             this.context = context;
+            htmlSanitizer = new HtmlSanitizer();
         }
 
         public void CongifureRoles()
@@ -37,10 +40,10 @@ namespace BookShop.Core.Services
             if (user == null)
                 throw new ArgumentNullException("Invalid user");
 
-            user.FirstName = model.FirstName;
-            user.LastName = model.LastName;
-            user.Email = model.Email;
-            user.PhoneNumber = model.PhoneNumber;
+            user.FirstName = htmlSanitizer.Sanitize(model.FirstName);
+            user.LastName = htmlSanitizer.Sanitize(model.LastName);
+            user.Email = htmlSanitizer.Sanitize(model.Email);
+            user.PhoneNumber = htmlSanitizer.Sanitize(model.PhoneNumber);
             user.SchoolId = model.SchoolId;
             user.TownId = model.TownId;
             user.SchoolId = model.SchoolId;
