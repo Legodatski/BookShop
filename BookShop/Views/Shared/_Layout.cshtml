@@ -20,23 +20,23 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Начало</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Books" asp-action="All">All books</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Books" asp-action="All">Всички книги</a>
                         </li>
                         @if (User.Identity?.IsAuthenticated ?? false)
                         {
                             if (User.IsInRole("Admin"))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="Administration" asp-controller="Admin" asp-action="Publishers">Publishers</a>
+                                    <a class="nav-link text-dark" asp-area="Administration" asp-controller="Admin" asp-action="Publishers">Издателства</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="Administration" asp-controller="Admin" asp-action="Schools">Schools</a>
+                                    <a class="nav-link text-dark" asp-area="Administration" asp-controller="Admin" asp-action="Schools">Училища</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="Administration" asp-controller="Admin" asp-action="Towns">Towns</a>
+                                    <a class="nav-link text-dark" asp-area="Administration" asp-controller="Admin" asp-action="Towns">Градове</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="Administration" asp-controller="Statistics" asp-action="Statistics">Show Statistics</a>
@@ -45,15 +45,15 @@
                             else
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Books" asp-action="Add">Add</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Books" asp-action="Add">Добави книга</a>
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Books" asp-action="MyBooks">My books</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Books" asp-action="MyBooks">Мойте книги</a>
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="Administration" asp-controller="Admin" asp-action="BecomeAdmin">Become an Admin</a>
+                                    <a class="nav-link text-dark" asp-area="Administration" asp-controller="Admin" asp-action="BecomeAdmin">Стани админ</a>
                                 </li>
                             }
                         }

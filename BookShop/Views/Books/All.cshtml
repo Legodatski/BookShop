@@ -6,9 +6,9 @@
     <div class="row">
         <div class="form-group col-md-3 d-flex justify-content-between">
             <div class="form-group">
-                <label asp-for="Subject"></label>
+                <label asp-for="Subject">Предмет</label>
                 <select asp-for="Subject" class="form-control">
-                    <option value="">All</option>
+                    <option value="">Всички</option>
                     @foreach (var subject in Model.AllSubjects)
                     {
                         <option value="@subject.Name">@subject.Name</option>
@@ -23,17 +23,17 @@
             <div class="form-group">
                 <label asp-for="Sorting"></label>
                 <select asp-for="Sorting" class="form-control">
-                    <option value="0">Newest</option>
-                    <option value="1">Lowest grade first</option>
-                    <option value="2">Alphabetically</option>
-                    <option value="3">Lowest price first</option>
-                    <option value="4">Alphabetically by publisher name</option>
-                    <option value="5">Alphabetically by city name</option>
+                    <option value="0">Най-нови</option>
+                    <option value="1">По клас възходящо</option>
+                    <option value="2">По име възходящо</option>
+                    <option value="3">По цена възходящо</option>
+                    <option value="4">По име на издателството възходящо</option>
+                    <option value="5">По име на града възходящо</option>
                 </select>
             </div>
         </div>
         <div class="col-md-3">
-            <div class="form-group mt-4 p-2"> <input type="submit" value="Search" class="btn btn-primary" /> </div>
+            <div class="form-group mt-4 p-2"> <input type="submit" value="Търси" class="btn btn-primary" /></div>
         </div>
     </div>
 
@@ -62,7 +62,7 @@
     }
     <div class="col-md-6 d-grid gap-2 d-md-flex justify-content-md-end">
         <a class="btn btn-primary @(shouldButtonBeDisabled ? "disabled" : string.Empty)"
-           asp-controller="Houses" asp-action="All" asp-route-currentPage="@(Model.CurrentPage + 1)"
+           asp-controller="Books" asp-action="All" asp-route-currentPage="@(Model.CurrentPage + 1)"
            asp-route-category="@Model.Subject" asp-route-searchTerm="@Model.SearchTerm"
            asp-route-sorting="@((int)Model.Sorting)">
             >>
@@ -73,7 +73,7 @@
 
 @if (Model.Books.Count() == 0)
 {
-    <div>There are no studentbooks available for you to buy at the moment.</div>
+    <div>Няма подходящи книги за теб.</div>
 }
 else
 {

@@ -1,7 +1,7 @@
 ﻿@model SchoolsViewModel
 
 @{
-    ViewBag.Title = "Add a school";
+    ViewBag.Title = "Добави училище";
 }
 
 <h1 class="text-center">@ViewData["Title"]</h1>
@@ -51,7 +51,7 @@
         {
             <p>
                 @s.Name <a class="ml-2 btn btn-danger" asp-area="Administration" asp-controller="Admin" asp-action="DeleteSchool"
-                       asp-route-id="@s.Id">Delete</a>
+                       asp-route-id="@s.Id">Изтрий</a>
             </p>
         }
     </div>

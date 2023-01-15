@@ -20,7 +20,9 @@ namespace BookShop.Core.Services.Admin
 
         public int UsersCount()
         {
-            int adminsCount = context.UserRoles.GroupBy(x => x.UserId).Count();
+            string adminId = "971ba58d-3ed5-4950-95b6-5e96a734db6f";
+
+            int adminsCount = context.UserRoles.Where(u => u.RoleId == adminId).GroupBy(u => u.UserId).Count();
 
             int totalUserCount = context.Users.Count();
 

@@ -1,7 +1,7 @@
 ﻿@model BecomeAdminFormModel
 
 @{
-    ViewBag.Title = "Become an Admin";
+    ViewBag.Title = "Стани админ";
 }
 
 <h1 class="text-center">@ViewData["Title"]</h1>
@@ -12,12 +12,12 @@
                 <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="text-center mb-3">
-                    <label asp-for="@Model.PhoneNumber" class="form-label"></label>
+                    <label asp-for="@Model.PhoneNumber" class="form-label">Въведи телефония си номер</label>
                     <input asp-for="@Model.PhoneNumber" class="form-control" aria-required="true" />
                     <span asp-validation-for="@Model.PhoneNumber" class="text-danger"></span>
                 </div>
                 <div class="text-center">
-                    <button id="login-submit" type="submit" class="btn btn-primary">Add</button>
+                    <button id="login-submit" type="submit" class="btn btn-primary">Изпрати</button>
                 </div>
             </form>
         </section>

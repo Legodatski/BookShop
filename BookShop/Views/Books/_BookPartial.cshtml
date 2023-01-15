@@ -13,7 +13,7 @@
                 Price:
                 @if (Model.Price == 0)
                 {
-                    <b>free</b>
+                    <b>безплатно</b>
                 }
                 else
                 {
@@ -22,17 +22,17 @@
 
             </p>
             <p>@Model.Description</p>
-            <p>Subject: <b>@Model.Subject</b></p>
-            <p>Grade: <b>@Model.Grade</b></p>
-            <p>Publisher: <b>@Model.Publisher</b></p>
+            <p>Предмет: <b>@Model.Subject</b></p>
+            <p>Клас: <b>@Model.Grade</b></p>
+            <p>Издателство: <b>@Model.Publisher</b></p>
             <div class="form-inline">
                 @if (this.User.Identity.IsAuthenticated &&
                 User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value == Model.OwnerId)
                 {
                     <a class="btn btn-warning" asp-controller="Books" asp-action="Edit"
-                   asp-route-id="@Model.Id">Edit</a>
+                   asp-route-id="@Model.Id">Редактирай</a>
                     <a class="ml-2 btn btn-danger" asp-controller="Books" asp-action="Delete"
-                   asp-route-id="@Model.Id">Delete</a>
+                   asp-route-id="@Model.Id">Изтрий</a>
                 }
             </div>
             <p></p>
@@ -46,14 +46,14 @@
                             <h5 class="card-title">Owner:</h5>
                             <p class="card-text">Name: @Model.Owner.FirstName @Model.Owner.LastName</p>
                             <a class="ml-2 btn" asp-area="" asp-controller="Users" asp-action="Details"
-                       asp-route-id="@Model.OwnerId">More information</a>
+                       asp-route-id="@Model.OwnerId">Още информация</a>
                         </div>
                     </div>
                 }
             }
             else
             {
-                <p>Login to view owner's information.</p>
+                <p>Влез в акаунт, за да видиш информацията за собственика.</p>
             }
 
         </div>

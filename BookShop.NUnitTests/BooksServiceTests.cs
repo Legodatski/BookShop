@@ -70,15 +70,15 @@ namespace BookShop.NUnitTests
         [Test]
         public void Test_GetLast_CorrectInput()
         {
-            var excepted =  new Book()
-            {   
-                Id=1, 
-                BookTypeId=1, 
-                Grade=1, 
-                OwnerId="1", 
-                ImageUrl="URL",
-                PublisherId = 1, 
-                Title = "BookA", 
+            var excepted = new Book()
+            {
+                Id = 1,
+                BookTypeId = 1,
+                Grade = 1,
+                OwnerId = "1",
+                ImageUrl = "URL",
+                PublisherId = 1,
+                Title = "BookA",
                 datePublished = DateTime.Parse("2002-12-20")
             };
 
@@ -109,7 +109,7 @@ namespace BookShop.NUnitTests
                 datePublished = DateTime.Parse("2002-12-20")
             };
 
-            var query = await  booksService.All(null, null, BooksSorting.Grade, 1, 5);
+            var query = await booksService.All(null, null, BooksSorting.Grade, 1, 5);
             var actual = query.Books.First();
 
             Assert.True(actual.Id == excepted.Id);
