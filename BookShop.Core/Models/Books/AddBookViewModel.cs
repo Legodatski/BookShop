@@ -29,6 +29,7 @@ namespace BookShop.Core.Models.Books
         public IEnumerable<Publisher> AllPublishers { get; set; }
 
         [Required]
+        [Range(0, int.MaxValue)]
         public decimal Price  { get; set; }
 
         [Required]
