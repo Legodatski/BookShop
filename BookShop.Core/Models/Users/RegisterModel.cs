@@ -12,41 +12,41 @@ namespace BookShop.Core.Models.Users
             Schools = new HashSet<School>();
         }
 
-        [Required]
+        [Required(ErrorMessage = GlobalConstants.RequiredErrorMsg)]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = GlobalConstants.RequiredErrorMsg)]
         [Display(Name = "First Name")]
         [MinLength(GlobalConstants.FirstNameMinLenght)]
         [MaxLength(GlobalConstants.FirstNameMaxLenght)]
         public string FirstName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = GlobalConstants.RequiredErrorMsg)]
         [Display(Name = "Last Name")]
         [MinLength(GlobalConstants.LastNameMinLenght)]
         [MaxLength(GlobalConstants.LastNameMaxLenght)]
         public string LastName { get; set; }
 
 
-        [Required]
+        [Required(ErrorMessage = GlobalConstants.RequiredErrorMsg)]
         [DataType(DataType.Password)]
         [MinLength(GlobalConstants.PasswordMinLenght)]
         [MaxLength(GlobalConstants.PasswordMaxLenght)]
         public string Password { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = GlobalConstants.RequiredErrorMsg)]
         [DataType(DataType.Password)]
         [Compare(nameof(Password))]
         [Display(Name = "Confirm Password")]
         public string ConfirmPassword { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = GlobalConstants.RequiredErrorMsg)]
         [Display(Name = "Town")]
         public int TownId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = GlobalConstants.RequiredErrorMsg)]
         [Display(Name = "School")]
         public int SchoolId { get; set; }
 

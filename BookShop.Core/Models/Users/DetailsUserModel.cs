@@ -15,27 +15,27 @@ namespace BookShop.Core.Models.Users
 
         public string Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = GlobalConstants.RequiredErrorMsg)]
         [MaxLength(GlobalConstants.FirstNameMaxLenght)]
         [MinLength(GlobalConstants.FirstNameMinLenght)]
         public string FirstName { get; init; } = null!;
 
-        [Required]
+        [Required(ErrorMessage = GlobalConstants.RequiredErrorMsg)]
         [MaxLength(GlobalConstants.LastNameMaxLenght)]
         [MinLength(GlobalConstants.LastNameMinLenght)]
         public string LastName { get; init; } = null!;
 
-        [Required]
+        [Required(ErrorMessage = GlobalConstants.RequiredErrorMsg)]
         public virtual ICollection<BookViewModel> Books { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = GlobalConstants.RequiredErrorMsg)]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
         public string School { get; init; } = "Not given information";
         public string Phone { get; init; } = "Not given information";
 
-        [Required]
+        [Required(ErrorMessage = GlobalConstants.RequiredErrorMsg)]
         public string Town { get; init; } = null!;
     }
 }

@@ -14,7 +14,7 @@ namespace BookShop.Core.Models.Books
 
         public int? Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = GlobalConstants.RequiredErrorMsg)]
         [MaxLength(GlobalConstants.BookTitleMaxLenght)]
         [MinLength(GlobalConstants.BookTitleMinLenght)]
         public string Title { get; set; } = null!;
@@ -23,26 +23,26 @@ namespace BookShop.Core.Models.Books
 
         public string? ImageUrl { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = GlobalConstants.RequiredErrorMsg)]
         public int PublisherId { get; set; }
 
         public IEnumerable<Publisher> AllPublishers { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = GlobalConstants.RequiredErrorMsg)]
         [Range(0, int.MaxValue)]
         public decimal Price  { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = GlobalConstants.RequiredErrorMsg)]
         [Range(1,12)]
         public int Grade { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = GlobalConstants.RequiredErrorMsg)]
         public int SubjectId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = GlobalConstants.RequiredErrorMsg)]
         public int Year { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = GlobalConstants.RequiredErrorMsg)]
         public IEnumerable<SubjectType> AllSubjects { get; set; }
     }
 }

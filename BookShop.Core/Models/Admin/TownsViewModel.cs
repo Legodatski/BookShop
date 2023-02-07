@@ -11,7 +11,7 @@ namespace BookShop.Core.Models.Admin
             Towns = new HashSet<Town>();
         }
 
-        [Required]
+        [Required(ErrorMessage = GlobalConstants.RequiredErrorMsg)]
         [MaxLength(GlobalConstants.TownNameMaxLenght)]
         [MinLength(GlobalConstants.TownNameMinLenght)]
         public string Name { get; set; }

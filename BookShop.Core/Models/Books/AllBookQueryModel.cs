@@ -18,7 +18,7 @@ namespace BookShop.Core.Models.Books
 
         public int CurrentPage { get; set; } = 1;
 
-        [Display(Name = "Search By Text")]
+        [Display(Name = "Търси по текст")]
         public string? SearchTerm { get; set; }
 
         public BooksSorting Sorting { get; set; } = 0;

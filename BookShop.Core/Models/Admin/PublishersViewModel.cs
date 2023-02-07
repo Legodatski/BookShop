@@ -11,7 +11,7 @@ namespace BookShop.Core.Models.Admin
             Publishers = new HashSet<Publisher>();
         }
 
-        [Required]
+        [Required(ErrorMessage = GlobalConstants.RequiredErrorMsg)]
         [MaxLength(GlobalConstants.PublisherNameMaxLenght)]
         [MinLength(GlobalConstants.PublisherNameMinLenght)]
         public string Name { get; set; }  

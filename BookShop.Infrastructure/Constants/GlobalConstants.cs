@@ -35,5 +35,8 @@
 
         public const double BookPriceMax = double.MaxValue;
         public const double BookPriceMin = 0;
+
+        //errors
+        public const string RequiredErrorMsg = "Задължително попълване на полето.";
     }
 }

@@ -13,12 +13,12 @@ namespace BookShop.Core.Models.Users
             Towns = new HashSet<Town>();
         }
 
-        [Required]
+        [Required(ErrorMessage = GlobalConstants.RequiredErrorMsg)]
         [MaxLength(GlobalConstants.FirstNameMaxLenght)]
         [MinLength(GlobalConstants.FirstNameMinLenght)]
         public string FirstName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = GlobalConstants.RequiredErrorMsg)]
         [MaxLength(GlobalConstants.LastNameMaxLenght)]
         [MinLength(GlobalConstants.LastNameMinLenght)]
         public string LastName { get; set; }
@@ -26,16 +26,16 @@ namespace BookShop.Core.Models.Users
         [StringLenghtExact(Lenght = GlobalConstants.PhoneLenght)]
         public string? PhoneNumber { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = GlobalConstants.RequiredErrorMsg)]
         [EmailAddress]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = GlobalConstants.RequiredErrorMsg)]
         public int SchoolId { get; set; }
 
         public IEnumerable<School> Schools { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = GlobalConstants.RequiredErrorMsg)]
         public int TownId { get; set; }
 
         public IEnumerable<Town> Towns { get; set; }
