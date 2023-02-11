@@ -4,66 +4,85 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - BookShop</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/Themes/Journal.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/BookShop.styles.css" asp-append-version="true" />
+    <script src="https://kit.fontawesome.com/6eff3480aa.js" crossorigin="anonymous"></script>
+
+
+    <style>
+        .searchBar {
+            border: 1px solid grey;
+            height: 30px;
+            width: 869px;
+            margin: auto;
+            position: relative;
+            display: table;
+        }
+
+        .minBar {
+            padding: 0;
+            display: flex;
+            justify-content: space-between;
+            color: white;
+            list-style-type: none;
+            height: 45px;
+            background: linear-gradient(to right, #f37d82, #f6ae9a);
+        }
+
+        nav.navbar li a {
+            color: black;
+        }
+
+    </style>
+
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">BookShop</a>
+        <nav class="navbar navbar-expand-lg" style="height:60px">
+            <div class="container-md">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/logo transparent.png" width="50" height="40" />
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Начало</a>
-                        </li>
+                    <ul class="navbar-nav flex-grow-5">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Books" asp-action="All">Всички книги</a>
                         </li>
-                        @if (User.Identity?.IsAuthenticated ?? false)
-                        {
-                            if (User.IsInRole("Admin"))
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="Administration" asp-controller="Admin" asp-action="Publishers">Издателства</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="Administration" asp-controller="Admin" asp-action="Schools">Училища</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="Administration" asp-controller="Admin" asp-action="Towns">Градове</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="Administration" asp-controller="Statistics" asp-action="Statistics">Покажи статистики</a>
-                                </li>
-                            }
-                            else
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Books" asp-action="Add">Добави книга</a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Books" asp-action="MyBooks">Мойте книги</a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="Administration" asp-controller="Admin" asp-action="BecomeAdmin">Стани админ</a>
-                                </li>
-                            }
-                        }
-
                     </ul>
+                    <input type="search" id="form1" class="searchBar" placeholder="Търси" aria-label="Search" />
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                        <i class="fa-solid fa-magnifying-glass" style="color:#f8ae9c"></i>
+                    </a>
                     <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
     </header>
+    <nav class="minBar navbar-expand-lg">
+        <div class="container-md">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="true" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown open">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="true" style="color:black">
+                            Предмети
+                        </a>
+                        <ul class="dropdown-menu"aria-labelledby="navbarDarkDropdownMenuLink">
+                            <li><a class="dropdown-item" href="#" style="color:black">Математика</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
